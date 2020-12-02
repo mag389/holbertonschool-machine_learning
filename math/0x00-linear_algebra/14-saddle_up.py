@@ -4,4 +4,4 @@
 
 def np_matmul(mat1, mat2):
     """returns the product of two matrices"""
-    return mat1.dot(mat2)
+    return mat1.matmul(mat2)
