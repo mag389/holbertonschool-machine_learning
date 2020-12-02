@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """take a multidmensional slice of a matrix """
-import numpy as np
 
 
 def np_slice(matrix, axes={}):
