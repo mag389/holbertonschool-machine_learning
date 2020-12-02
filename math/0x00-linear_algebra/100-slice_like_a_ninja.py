@@ -7,4 +7,4 @@ def np_slice(matrix, axes={}):
     slicer = [slice(None) for x in range(len(matrix.shape))]
     for key, value in axes.items():
         slicer[key] = slice(*value)
-    return matrix.copy()[slicer]
+    return matrix.copy()[tuple(slicer)]
