@@ -9,7 +9,7 @@ def add_matrices2D(mat1, mat2):
         return None
     if matrix_shape(mat1) != matrix_shape(mat2):
         return None
-    newmat = [[0 for x in range(len(mat1))] for y in range(len(mat1[0]))]
+    newmat = [[0 for x in range(len(mat1[0]))] for y in range(len(mat1))]
     for i in range(len(mat1)):
         for j in range(len(mat1[i])):
             newmat[i][j] = mat1[i][j] + mat2[i][j]
