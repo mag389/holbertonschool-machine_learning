@@ -19,7 +19,7 @@ def cat_matrices(mat1, mat2, axis=0):
             newmat[i + len(mat1)] = mat2[i]
         return newmat
     if axis >= 1:
-        if len(matrix_shape(mat1)) < axis:
+        if len(matrix_shape(mat1)) <= axis or len(matrix_shape(mat2)) <= axis:
             return None
         newmat = [0 for x in range(len(mat1))]
         for i in range(len(mat1)):
