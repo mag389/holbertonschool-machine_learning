@@ -65,7 +65,7 @@ ax.set_xlabel("Grades", fontsize=8)
 ax.set_ylabel("Number of Students", fontsize=8)
 ax.set_title("Project A", fontsize=8)
 ax.set_xlim(0, 100)
-ax.set_xticks(range(0, 100, 10))
+ax.set_xticks(range(0, 101, 10))
 ax.set_ylim(0, 30)
 ax.hist(student_grades, range=(0, 100), bins=10, edgecolor='black')
 
