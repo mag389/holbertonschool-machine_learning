@@ -1,0 +1,16 @@
+really useful 3d scatterplot (for 101)
+    https://matplotlib.org/3.1.1/gallery/mplot3d/scatter3d.html
+for getting the data there 
+    https://stackoverflow.com/questions/16704059/easiest-way-to-copy-a-single-file-from-host-to-vagrant-guest
+
+for labelling the colorbar
+    https://matplotlib.org/3.1.1/gallery/images_contours_and_fields/contourf_demo.html#sphx-glr-gallery-images-contours-and-fields-contourf-demo-py
+
+custom gridspec layout stuff
+    https://matplotlib.org/tutorials/intermediate/gridspec.html
+
+MOST useful link covers helpful tip for visual stuff and has useful links
+to follow
+    https://stackoverflow.com/questions/13228254/subplots-are-overlapping-axis-labels
+
+
