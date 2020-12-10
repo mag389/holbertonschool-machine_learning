@@ -9,7 +9,7 @@ def summation_i_squared(n):
     if not isinstance(n, int):
         # and not isinstance(n, float):
         return None
-    if n <= 0:
+    if n < 1:
         return None
     if n == 1:
         return(1)
