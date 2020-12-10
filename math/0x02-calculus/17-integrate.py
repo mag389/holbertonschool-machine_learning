@@ -22,7 +22,7 @@ def poly_integral(poly, C=0):
     retval[0] = C
     if int(C) == C:
         retval[0] == int(C)
-    for i in range(len(retval)):
+    for i in range(len(retval) - 1):
         if retval[len(retval) - i - 1] == 0:
             retval.pop(len(retval) - i - 1)
         else:
