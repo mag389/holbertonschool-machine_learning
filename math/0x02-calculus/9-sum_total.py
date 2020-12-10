@@ -6,7 +6,8 @@ def summation_i_squared(n):
     """ return sum from 1 to n of i^2"""
     if not n:
         return None
-    if not isinstance(n, int) and not isinstance(n, float):
+    if not isinstance(n, int):
+        # and not isinstance(n, float):
         return None
     if n <= 0:
         return None
