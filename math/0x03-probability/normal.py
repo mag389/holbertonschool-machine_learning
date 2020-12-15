@@ -25,3 +25,11 @@ class Normal:
             stddev = variance ** .5
             self.mean = mean
             self.stddev = stddev
+
+    def z_score(self, x):
+        """ calculates z score from x values"""
+        return (x - self.mean) / self.stddev
+
+    def x_value(self, z):
+        """calculate x value from z"""
+        return (z * self.stddev) + self.mean
