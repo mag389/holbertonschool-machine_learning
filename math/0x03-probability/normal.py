@@ -9,7 +9,7 @@ class Normal:
         """constructor for normal distribution"""
         if data is None:
             self.mean = float(mean)
-            if stddev < 0:
+            if stddev <= 0:
                 raise ValueError("stddev must be a positive value")
             self.stddev = float(stddev)
         else:
