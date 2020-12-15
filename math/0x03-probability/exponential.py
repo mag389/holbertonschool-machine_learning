@@ -22,7 +22,7 @@ class Exponential:
 
     def pdf(self, x):
         """ calculates value of pdf for given time"""
-        if x <= 0:
+        if x < 0:
             return 0
         e = 2.7182818285
         return self.lambtha * e ** (-1 * self.lambtha * x)
