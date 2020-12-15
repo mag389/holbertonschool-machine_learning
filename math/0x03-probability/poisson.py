@@ -39,7 +39,7 @@ class Poisson:
             k = int(k)
         if k < 0:
             return 0
-        print(self.pmf(k))
+        # print(self.pmf(k))
         e = 2.7182818285
         const = (e ** (-1 * self.lambtha))
         return self.pmf(k) + self.cdf(k - 1)
