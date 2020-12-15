@@ -29,7 +29,7 @@ class Exponential:
 
     def cdf(self, x):
         """ calculates value for cdf of time period x """
-        if x <= 0:
+        if x < 0:
             return 0
         e = 2.7182818285
         return 1 - (e ** (-1 * self.lambtha * x))
