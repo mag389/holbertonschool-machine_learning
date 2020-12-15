@@ -33,3 +33,12 @@ class Normal:
     def x_value(self, z):
         """calculate x value from z"""
         return (z * self.stddev) + self.mean
+
+    def pdf(self, x):
+        """calculates pdf for x value"""
+        pi = 3.1415926536
+        e = 2.7182818285
+        coeff = 1 / (self.stddev * (2 * pi) ** .5)
+        expo = -.5 * ((x - self.mean) / self.stddev) ** 2
+        pdfval = coeff * e ** (expo)
+        return pdfval
