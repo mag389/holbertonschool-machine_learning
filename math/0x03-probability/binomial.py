@@ -14,6 +14,7 @@ class Binomial:
             self.p = float(p)
             if n <= 0:
                 raise ValueError("n must be a positive value")
+            self.n = int(n)
             if p < 0 or p > 1:
                 raise ValueError("p must be greater than 0 and less than 1")
         else:
@@ -27,8 +28,6 @@ class Binomial:
                 variance += (number - mean) ** 2
             variance /= (len(data))
             stddev = variance ** .5
-            self.mean = mean
-            self.stddev = stddev
             q = variance / mean
             p = 1 - q
             n = int(.5 + mean / p)
