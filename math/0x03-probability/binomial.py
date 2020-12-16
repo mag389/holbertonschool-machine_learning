@@ -34,14 +34,36 @@ class Binomial:
             self.p = mean / n
             self.n = n
 
-    def pdf(self, x):
-        """calculates pdf for x value"""
-        pi = 3.1415926536
-        e = 2.7182818285
-        coeff = 1 / (self.stddev * (2 * pi) ** .5)
-        expo = -.5 * ((x - self.mean) / self.stddev) ** 2
-        pdfval = coeff * e ** (expo)
-        return pdfval
+    def pmf(self, k):
+        """calculates pmf for k successes"""
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0 or k > self.n:
+            return 0
+        n = self.n
+        p = self.p
+        nfact = 1
+        for i in range(k, n + 1):
+            nfact *= i
+        kfact = 1
+        for i in range(1, n + 1):
+            kfact *= i * p
+        nkfact = 1
+        for i in range(1, n - k + 1):
+            nkfact *= i * (1 - p)
+        # print(nfact, kfact, nkfact, sep="\n")
+        # print("the combin is:", nfact / (kfact * nkfact))
+        # print(p ** k, .6 ** 30)
+        retval = 1
+        for i in range(1, n + 1):
+            retval *= i
+            if i <= k:
+                retval /= i
+                retval *= self.p
+            if i <= n - k:
+                retval /= i
+                retval *= (1 - self.p)
+        return retval
 
     @staticmethod
     def erf(x):
