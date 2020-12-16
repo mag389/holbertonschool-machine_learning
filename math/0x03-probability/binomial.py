@@ -30,7 +30,7 @@ class Binomial:
             stddev = variance ** .5
             q = variance / mean
             p = 1 - q
-            n = int(.5 + mean / p)
+            n = round(mean / p)
             self.p = mean / n
             self.n = n
 
