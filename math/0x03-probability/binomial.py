@@ -65,21 +65,9 @@ class Binomial:
                 retval *= (1 - self.p)
         return retval
 
-    @staticmethod
-    def erf(x):
-        """return the erf for x """
-        pi = 3.1415926536
-        coeff = 2 / (pi ** .5)
-        series = x - x ** 3 / 3 + x ** 5 / 10 - x ** 7 / 42 + x ** 9 / 216
-        return float(coeff * series)
-
-    def cdf(self, x):
-        """the cdf for the normal distribution object """
-        pi = 3.1415926536
-        e = 2.7182818285
-        erfval = (x - self.mean) / (self.stddev * 2 ** .5)
-        y = erfval
-        series = (1 + (y - y ** 3 / 3 + y ** 5 / 10 - y ** 7 / 42
-                       + y ** 9 / 216) * 2 / (pi ** .5)) / 2
-        cdfval = (.5 + series)
-        return series
+    def cdf(self, k):
+        """the cdf for the binomial distribution for k variable """
+        retval = 0
+        for i in range(0, k + 1):
+            retval += self.pmf(i)
+        return retval
