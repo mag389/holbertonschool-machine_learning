@@ -51,9 +51,16 @@ class Binomial:
         nkfact = 1
         for i in range(1, n - k + 1):
             nkfact *= i * (1 - p)
+        # the above mthod causes int overflow and gives wrong answer
         # print(nfact, kfact, nkfact, sep="\n")
+        # print("nfact is", nfact)
+        # print("nfact should be", Binomial.fact(self.n))
         # print("the combin is:", nfact / (kfact * nkfact))
         # print(p ** k, .6 ** 30)
+        nfact = Binomial.fact(self.n)
+        kfact = Binomial.fact(k)
+        nkfact = Binomial.fact(self.n - k)
+        return nfact / kfact / nkfact * self.p ** k * (1 - p) ** (n - k)
         retval = 1
         for i in range(1, n + 1):
             retval *= i
@@ -67,7 +74,18 @@ class Binomial:
 
     def cdf(self, k):
         """the cdf for the binomial distribution for k variable """
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0 or k > self.n:
+            return 0
         retval = 0
         for i in range(0, k + 1):
             retval += self.pmf(i)
         return retval
+
+    @staticmethod
+    def fact(x):
+        """ factorial of x """
+        if x <= 1:
+            return 1
+        return x * Binomial.fact(x - 1)
