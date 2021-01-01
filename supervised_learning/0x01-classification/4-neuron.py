@@ -72,4 +72,4 @@ class Neuron:
         """
         self.forward_prop(X)
         cost = self.cost(Y, self.A)
-        return np.round(self.A), cost
+        return np.round(self.A).astype(np.int), cost
