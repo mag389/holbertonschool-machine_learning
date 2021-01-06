@@ -79,7 +79,7 @@ class DeepNeuralNetwork:
                 A_temp = 1 / (1 + np.exp((-1) * Y1))
             else:
                 # else softmax function
-                A_temp = np.exp(Y1) / np.sum(np.exp(Y1, axis=1, keepdims=True))
+                A_temp = np.exp(Y1) / np.sum(np.exp(Y1), axis=1, keepdims=True)
             self.__cache["A" + str(i)] = A_temp
         return self.cache["A" + str(self.L)], self.cache
 
@@ -95,8 +95,8 @@ class DeepNeuralNetwork:
         # J = (-1 / m) * (np.matmul(Y, np.log(A).T) +
         #                np.matmul((1-Y), np.log(1.0000001 - A).T))
         # insteaad of old log diffrence method we now use cross entropy
-        J = (-1 / m) * np.matmul(Y, log(A).T)
-        return j[0][0]
+        J = (-1 / m) * np.matmul(Y, np.log(A).T)
+        return J[0][0]
 
     def evaluate(self, X, Y):
         """ evaluates the neural networks predictions
@@ -167,7 +167,7 @@ class DeepNeuralNetwork:
             self.forward_prop(X)
             # A, cache = self.forward_prop(X)
             if (verbose or graph) and (i % step is 0 or i is 0):
-                cost = self.cost(Y, self.cache[self.L])
+                cost = self.cost(Y, self.cache["A" + str(self.L)])
                 if verbose:
                     print("cost after {} iterations: {}".format(i, cost))
                 if graph:
