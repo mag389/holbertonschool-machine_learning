@@ -98,7 +98,7 @@ class DeepNeuralNetwork:
         #                np.matmul((1-Y), np.log(1.0000001 - A).T))
         # insteaad of old log diffrence method we now use cross entropy
         J = (-1 / m) * np.matmul(Y, log(A).T)
-        return J[0][0]
+        return np.sum(J)
 
     def evaluate(self, X, Y):
         """ evaluates the neural networks predictions
