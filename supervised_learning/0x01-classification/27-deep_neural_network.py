@@ -68,14 +68,12 @@ class DeepNeuralNetwork:
         self.__cache["A0"] = X.copy()
         for i in range(1, self.L + 1):
             cur_cache = self.cache["A" + str(i - 1)]
-            z_tmp = np.matmul(self.weights["W" + str(i)], self.__cache[
+            y_tmp = np.matmul(self.weights["W" + str(i)], self.__cache[
                 "A" + str(i - 1)]) + self.weights["b" + str(i)]
-            # print("right before y1")
             # W = self.weights["W" + str(i)]
             # Y0 = (np.matmul(W, cur_cache))
             # Y1 = (Y0 + self.weights["b" + str(i)])
-            Y1 = z_tmp
-            # print("gets past y1 at least once")
+            Y1 = y_tmp
             if i < self.L:
                 # the previous line for between hidden layers
                 A_temp = 1 / (1 + np.exp((-1) * Y1))
@@ -98,7 +96,7 @@ class DeepNeuralNetwork:
         #                np.matmul((1-Y), np.log(1.0000001 - A).T))
         # insteaad of old log diffrence method we now use cross entropy
         J = (-1 / m) * np.matmul(Y, log(A).T)
-        return np.sum(J)
+        return j[0][0]
 
     def evaluate(self, X, Y):
         """ evaluates the neural networks predictions
