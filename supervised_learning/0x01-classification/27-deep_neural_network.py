@@ -68,10 +68,13 @@ class DeepNeuralNetwork:
         self.__cache["A0"] = X.copy()
         for i in range(1, self.L + 1):
             cur_cache = self.cache["A" + str(i - 1)]
+            z_tmp = np.matmul(self.weights["W" + str(i)], self.__cache[
+                "A" + str(i - 1)]) + self.weights["b" + str(i)]
             print("right before y1")
-            W = self.weights["W" + str(i)]
-            Y0 = (np.matmul(W, cur_cache))
-            Y1 = (Y0 + self.weights["b" + str(i)])
+            # W = self.weights["W" + str(i)]
+            # Y0 = (np.matmul(W, cur_cache))
+            # Y1 = (Y0 + self.weights["b" + str(i)])
+            Y1 = z_tmp
             print("gets past y1 at least once")
             if i < self.L:
                 # the previous line for between hidden layers
