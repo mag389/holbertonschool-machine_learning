@@ -141,7 +141,7 @@ class DeepNeuralNetwork:
             # tanh dz = 1 - tanh^2
             elif self.activation == 'tanh':
                 dzl = np.matmul(self.weights["W" + str(i)].T, dzh) * (
-                      1 - np.square(np.tanh(cache["A" + str(i - 1)])))
+                      1 - np.square((cache["A" + str(i - 1)])))
             self.__weights["W" + str(i)] -= alpha * dwh
             self.__weights["b" + str(i)] -= alpha * dbh
             dzh = dzl
