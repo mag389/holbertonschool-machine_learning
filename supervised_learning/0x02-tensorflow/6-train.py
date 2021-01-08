@@ -56,10 +56,10 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
             av = sess.run(accuracy, feed_dict=feed_dict_valid)
             if i % 100 == 0:
                 print("after {} iterations:".format(i))
-                print("	Training Cost: {}".format(lt))
-                print("	Training Accuracy: {}".format(at))
-                print("	Validation Cost: {}".format(lv))
-                print("	Validation Accuracy: {}".format(av))
+                print("\tTraining Cost: {}".format(lt))
+                print("\tTraining Accuracy: {}".format(at))
+                print("\tValidation Cost: {}".format(lv))
+                print("\tValidation Accuracy: {}".format(av))
             y_pred = forward_prop(x, layer_sizes, activations)
             sess.run(train_op, feed_dict=feed_dict_train)
 
@@ -69,10 +69,10 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
         av = sess.run(accuracy, feed_dict=feed_dict_valid)
 
         print("after {} iterations:".format(iterations))
-        print("     Training Cost: {}".format(lt))
-        print("     Training Accuracy: {}".format(at))
-        print("     Validation Cost: {}".format(lv))
-        print("     Validation Accuracy: {}".format(av))
+        print("\tTraining Cost: {}".format(lt))
+        print("\tTraining Accuracy: {}".format(at))
+        print("\tValidation Cost: {}".format(lv))
+        print("\tValidation Accuracy: {}".format(av))
 
         saved = saver.save(sess, save_path)
     return saved
