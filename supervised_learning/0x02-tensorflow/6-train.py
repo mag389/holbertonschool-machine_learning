@@ -43,17 +43,16 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
 
     # sess = tf.Session()
     init = tf.global_variables_initializer()
-    # sess.run()#needs init of some sort?
     feed_dict_train = {x: X_train, y: Y_train}
     feed_dict_valid = {x: X_valid, y: Y_valid}
 
     with tf.Session() as sess:
         sess.run(init)
-        for i in range(iterations):
+        for i in range(iterations): 
             lt = sess.run(loss, feed_dict={x: X_train, y: Y_train})
-            at = sess.run(accuracy, feed_dict=feed_dict_train)
-            lv = sess.run(loss, feed_dict=feed_dict_valid)
-            av = sess.run(accuracy, feed_dict=feed_dict_valid)
+            at = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
+            lv = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
+            av = sess.run(accuracy, feed_dict={x: X_valid, y: Y_valid})
             if i % 100 == 0:
                 print("after {} iterations:".format(i))
                 print("\tTraining Cost: {}".format(lt))
@@ -64,9 +63,9 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
             sess.run(train_op, feed_dict=feed_dict_train)
 
         lt = sess.run(loss, feed_dict={x: X_train, y: Y_train})
-        at = sess.run(accuracy, feed_dict=feed_dict_train)
-        lv = sess.run(loss, feed_dict=feed_dict_valid)
-        av = sess.run(accuracy, feed_dict=feed_dict_valid)
+        at = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
+        lv = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
+        av = sess.run(accuracy, feed_dict={x: X_valid, y: Y_valid})
 
         print("after {} iterations:".format(iterations))
         print("\tTraining Cost: {}".format(lt))
