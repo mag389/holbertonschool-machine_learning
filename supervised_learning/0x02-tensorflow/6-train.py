@@ -60,7 +60,7 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
                 print("\tTraining Accuracy: {}".format(at))
                 print("\tValidation Cost: {}".format(lv))
                 print("\tValidation Accuracy: {}".format(av))
-            y_pred = forward_prop(x, layer_sizes, activations)
+            # y_pred = forward_prop(x, layer_sizes, activations)
             sess.run(train_op, feed_dict=feed_dict_train)
 
         lt = sess.run(loss, feed_dict={x: X_train, y: Y_train})
