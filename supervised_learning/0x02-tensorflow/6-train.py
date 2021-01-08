@@ -39,38 +39,40 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
     tf.add_to_collection("accuracy", accuracy)
     tf.add_to_collection("train_op", train_op)
 
-    sess = tf.Session()
-    sess.run(tf.global_variables_initializer())
     saver = tf.train.Saver()
+
+    # sess = tf.Session()
+    init = tf.global_variables_initializer()
     # sess.run()#needs init of some sort?
     feed_dict_train = {x: X_train, y: Y_train}
     feed_dict_valid = {x: X_valid, y: Y_valid}
 
-    for i in range(iterations):
+    with tf.Session() as sess:
+        sess.run(init)
+        for i in range(iterations):
+            lt = sess.run(loss, feed_dict={x: X_train, y: Y_train})
+            at = sess.run(accuracy, feed_dict=feed_dict_train)
+            lv = sess.run(loss, feed_dict=feed_dict_valid)
+            av = sess.run(accuracy, feed_dict=feed_dict_valid)
+            if i % 100 == 0:
+                print("after {} iterations:".format(i))
+                print("	Training Cost: {}".format(lt))
+                print("	Training Accuracy: {}".format(at))
+                print("	Validation Cost: {}".format(lv))
+                print("	Validation Accuracy: {}".format(av))
+            y_pred = forward_prop(x, layer_sizes, activations)
+            sess.run(train_op, feed_dict=feed_dict_train)
+
         lt = sess.run(loss, feed_dict={x: X_train, y: Y_train})
         at = sess.run(accuracy, feed_dict=feed_dict_train)
         lv = sess.run(loss, feed_dict=feed_dict_valid)
         av = sess.run(accuracy, feed_dict=feed_dict_valid)
-        if i % 100 == 0:
-            print("after {} iterations:".format(i))
-            print("	Training Cost: {}".format(lt))
-            print("	Training Accuracy: {}".format(at))
-            print("	Validation Cost: {}".format(lv))
-            print("	Validation Accuracy: {}".format(av))
-        y_pred = forward_prop(x, layer_sizes, activations)
-        sess.run(train_op, feed_dict=feed_dict_train)
 
-    lt = sess.run(loss, feed_dict={x: X_train, y: Y_train})
-    at = sess.run(accuracy, feed_dict=feed_dict_train)
-    lv = sess.run(loss, feed_dict=feed_dict_valid)
-    av = sess.run(accuracy, feed_dict=feed_dict_valid)
+        print("after {} iterations:".format(iterations))
+        print("     Training Cost: {}".format(lt))
+        print("     Training Accuracy: {}".format(at))
+        print("     Validation Cost: {}".format(lv))
+        print("     Validation Accuracy: {}".format(av))
 
-    print("after {} iterations:".format(iterations))
-    print("     Training Cost: {}".format(lt))
-    print("     Training Accuracy: {}".format(at))
-    print("     Validation Cost: {}".format(lv))
-    print("     Validation Accuracy: {}".format(av))
-
-    saved = saver.save(sess, save_path)
-    sess.close()
+        saved = saver.save(sess, save_path)
     return saved
