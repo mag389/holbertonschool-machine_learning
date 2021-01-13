@@ -49,7 +49,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
 
             if i == epochs:
                 continue
-            X_train, Y_train = shuffle_data(X_train, Y_train)
+            shuf_x, shuf_y = shuffle_data(X_train, Y_train)
 
             # then loop through the batch, training on each mini batch
             for j in range(0, int(X_train.shape[0] / batch_size + 1)):
@@ -57,8 +57,8 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
                 upper = lower + batch_size
                 if j == int(X_train.shape[0] / batch_size + 1):
                     upper == lower + X_train.shape[0] % batch_size
-                mini_batch = {x: X_train[lower: upper],
-                              y: Y_train[lower: upper]}
+                mini_batch = {x: shuf_x[lower: upper],
+                              y: shuf_y[lower: upper]}
                 sess.run(train_op, mini_batch)
                 if j != 0 and j % 100 == 0:
                     ltm = sess.run(loss, feed_dict=mini_batch)
