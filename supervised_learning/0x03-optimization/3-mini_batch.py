@@ -60,7 +60,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
                 mini_batch = {x: shuf_x[lower: upper],
                               y: shuf_y[lower: upper]}
                 sess.run(train_op, mini_batch)
-                if j != 0 and j % 100 == 0:
+                if j != 0 and (j + 1) % 100 == 0:
                     ltm = sess.run(loss, feed_dict=mini_batch)
                     atm = sess.run(accuracy, feed_dict=mini_batch)
                     print("\tStep {}:".format(j))
