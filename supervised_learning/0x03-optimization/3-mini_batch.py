@@ -64,7 +64,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
                 if j != 0 and j % 100 == 0:
                     ltm = sess.run(loss, feed_dict=mini_batch)
                     atm = sess.run(accuracy, feed_dict=mini_batch)
-                    print("\tStep {}".format(j))
+                    print("\tStep {}:".format(j))
                     print("\t\tCost: {}".format(ltm))
                     print("\t\tAccuracy: {}".format(atm))
         saved = saver.save(sess, save_path)
