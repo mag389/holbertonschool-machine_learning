@@ -2,7 +2,7 @@
 """ builds trains and saves neural netowkr model in tensorflow
     uses adam optimization, minibatch grad desc, learning rate decay
     andbatch normalization
- """
+"""
 import tensorflow as tf
 
 
