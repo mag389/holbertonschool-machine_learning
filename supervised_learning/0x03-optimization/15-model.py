@@ -4,7 +4,14 @@
     andbatch normalization
  """
 import tensorflow as tf
-shuffle_data = __import__('2-shuffle_data').shuffle_data
+
+
+def shuffle_data(X, Y):
+    """ shuffle two matrices in the same way """
+    state = np.random.get_state()
+    X = np.random.permutation(X)
+    np.random.set_state(state)
+    return X, np.random.permutation(Y)
 
 
 def calculate_accuracy(y, y_pred):
