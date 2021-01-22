@@ -14,7 +14,8 @@ def l2_reg_cost(cost, lambtha, weights, L, m):
     coeff = lambtha / 2 / m
     weightsum = 0
     for key, value in weights.items():
-        # weightsum += np.sqrt(np.sum(value * value))
-        weightsum += np.linalg.norm(value, "fro")
+        if "W" in key:
+            weightsum += np.sqrt(np.sum(value * value))
+        # weightsum += np.linalg.norm(value, "fro")
         # aka frobenius norm i.e. += np.linalg.norm(value, "fro")
     return cost + coeff * (weightsum)
