@@ -18,17 +18,16 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     cache = {"A0": X}
     for i in range(L):
         z = (np.matmul(weights["W" + str(i + 1)], cache["A" + str(i)])
-            + weights["b" + str(i + 1)])
+             + weights["b" + str(i + 1)])
         # create drop layer
         drop = np.random.binomial(1, keep_prob, size=z.shape)
-        #apply softmax
+        # apply softmax
         if i == L - 1:
             t = np.exp(z)
             cache["A" + str(i + 1)] = t / np.sum(t, axis=0, keepdims=True)
         else:
             cache["A" + str(i + 1)] = np.tanh(z)
             cache["D" + str(i + 1)] = drop
-            cache["A" + str(i + 1)] = cache["A" + str(i + 1)] * cache["D"
-                  + str(i + 1)] / keep_prob
+            cache["A" + str(i + 1)] = (cache["A" + str(i + 1)] *
+                                       cache["D" + str(i + 1)] / keep_prob)
         return cache
-    
