@@ -1,0 +1,28 @@
+
+0: https://keras.io/api/layers/regularizers/
+
+1: https://machinelearningmastery.com/keras-functional-api-deep-learning/
+2: https://www.programcreek.com/python/example/104282/keras.optimizers.Adam
+   https://www.tensorflow.org/api_docs/python/tf/keras/Model
+   https://keras.io/api/metrics/
+3: https://www.tensorflow.org/api_docs/python/tf/keras/utils/to_categorical
+4: https://keras.io/api/models/model_training_apis/
+     make model, then compile, then train with fit, then use predict
+   https://www.tensorflow.org/guide/keras/train_and_evaluate
+5: 
+6: https://machinelearningmastery.com/how-to-stop-training-deep-neural-networks-at-the-right-time-using-early-stopping/
+7: https://keras.io/api/callbacks/learning_rate_scheduler/
+   https://medium.com/analytics-vidhya/learning-rate-decay-and-methods-in-deep-learning-2cee564f910b
+   
+
+older: https://pgaleone.eu/deep-learning/regularization/2017/01/10/anaysis-of-dropout/
+https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/
+https://www.jeremyjordan.me/batch-normalization/
+https://medium.com/the-theory-of-everything/understanding-activation-functions-in-neural-networks-9491262884e0
+https://stackoverflow.com/questions/37107223/how-to-add-regularizations-in-tensorflow
+	the answer with 28 votes
+https://medium.com/@omkar.nallagoni/activation-functions-with-derivative-and-python-code-sigmoid-vs-tanh-vs-relu-44d23915c1f4
+https://towardsdatascience.com/batch-normalization-theory-and-how-to-use-it-with-tensorflow-1892ca0173ad
+https://brenocon.com/blog/2013/10/tanh-is-a-rescaled-logistic-sigmoid-function/#:~:text=Its%20outputs%20range%20from%200,range%20from%20%2D1%20to%201.
+	super good site for understanding tanh
+
