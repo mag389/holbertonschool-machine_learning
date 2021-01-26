@@ -28,7 +28,8 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
                                  activation=activations[i],
                   # kernel_initializer=kernel_i,
                                  kernel_regularizer=K.regularizers.l2(lambtha),
-                                 name="layer" + str(i + 1))
+                                 # name="layer" + str(i + 1)
+                                 )
                   )
     # model((nx,))
     # many examples use this style initialization
