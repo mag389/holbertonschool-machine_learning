@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ train the new keras model """
 import tensorflow.keras as K
-# import numpy as np
 
 
 def train_model(network, data, labels, batch_size,
@@ -16,7 +15,6 @@ def train_model(network, data, labels, batch_size,
         shuffle:bool of whether to shuffle every epoch
         Returns: History object generated
     """
-    print("in the method at least")
     if verbose is True:
         verbose = 1
     else:
