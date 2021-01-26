@@ -18,7 +18,8 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
                              activation=activations[0],
                              input_shape=(nx,),
                              kernel_regularizer=K.regularizers.l2(lambtha),
-                             name="layer0")
+                             # name="layer0"
+                             )
               )
     # having input shape means we don't need a kernel initializer
     for i in range(1, len(layers)):
