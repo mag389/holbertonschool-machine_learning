@@ -13,4 +13,4 @@ def save_weights(network, filename, save_format='h5'):
 def load_weights(network, filename):
     """ loads weights from a file to a netowrk"""
     network.load_weights(filename)
-    return Noe
+    return None
