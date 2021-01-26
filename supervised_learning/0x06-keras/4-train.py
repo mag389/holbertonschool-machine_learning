@@ -17,7 +17,7 @@ def train_model(network, data, labels, batch_size,
         Returns: History object generated
     """
     print("in the method at least")
-    if verbose == True:
+    if verbose is True:
         verbose = 1
     else:
         verbose = 0
