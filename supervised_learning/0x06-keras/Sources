@@ -13,8 +13,14 @@
 6: https://machinelearningmastery.com/how-to-stop-training-deep-neural-networks-at-the-right-time-using-early-stopping/
 7: https://keras.io/api/callbacks/learning_rate_scheduler/
    https://medium.com/analytics-vidhya/learning-rate-decay-and-methods-in-deep-learning-2cee564f910b
-   
-
+8: https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/ModelCheckpoint
+9: https://www.tensorflow.org/guide/keras/save_and_serialize#saving_loading_only_the_models_weights_values
+   https://keras.io/api/models/model_saving_apis/
+10: see 9
+11: see 9
+12: https://keras.io/api/models/model_training_apis/
+13: https://keras.io/api/models/model_training_apis/ (same as above) 
+n
 older: https://pgaleone.eu/deep-learning/regularization/2017/01/10/anaysis-of-dropout/
 https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/
 https://www.jeremyjordan.me/batch-normalization/
