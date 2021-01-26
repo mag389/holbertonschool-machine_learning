@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ train the new keras model """
 import tensorflow.keras as K
-import numpy as np
+# import numpy as np
 
 
 def train_model(network, data, labels, batch_size,
