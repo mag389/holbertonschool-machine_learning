@@ -23,7 +23,7 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
               )
     # having input shape means we don't need a kernel initializer
     for i in range(1, len(layers)):
-        model.add(K.layers.Dropout(keep_prob))
+        model.add(K.layers.Dropout(1 - keep_prob))
         model.add(K.layers.Dense(layers[i],
                                  activation=activations[i],
                   # kernel_initializer=kernel_i,
