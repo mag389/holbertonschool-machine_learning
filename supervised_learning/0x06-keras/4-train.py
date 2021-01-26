@@ -15,10 +15,6 @@ def train_model(network, data, labels, batch_size,
         shuffle:bool of whether to shuffle every epoch
         Returns: History object generated
     """
-    if verbose is True:
-        verb = 1
-    else:
-        verb = 0
     history = network.fit(x=data,
                           y=labels,
                           batch_size=batch_size,
