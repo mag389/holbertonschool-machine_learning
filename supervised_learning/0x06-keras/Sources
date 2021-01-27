@@ -9,10 +9,12 @@
 4: https://keras.io/api/models/model_training_apis/
      make model, then compile, then train with fit, then use predict
    https://www.tensorflow.org/guide/keras/train_and_evaluate
-5: 
+   https://www.tensorflow.org/guide/keras/customizing_what_happens_in_fit/
+5:  
 6: https://machinelearningmastery.com/how-to-stop-training-deep-neural-networks-at-the-right-time-using-early-stopping/
 7: https://keras.io/api/callbacks/learning_rate_scheduler/
    https://medium.com/analytics-vidhya/learning-rate-decay-and-methods-in-deep-learning-2cee564f910b
+   https://keras.io/api/layers/regularizers/
 8: https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/ModelCheckpoint
 9: https://www.tensorflow.org/guide/keras/save_and_serialize#saving_loading_only_the_models_weights_values
    https://keras.io/api/models/model_saving_apis/

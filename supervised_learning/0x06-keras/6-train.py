@@ -16,10 +16,9 @@ def train_model(network, data, labels, batch_size,
         shuffle:bool of whether to shuffle every epoch
         Returns: History object generated
     """
+    es = []
     if early_stopping and validation_data:
         es = K.callbacks.EarlyStopping(monitor='val_loss', patience=patience)
-    else:
-        es = None
     history = network.fit(x=data,
                           y=labels,
                           batch_size=batch_size,
