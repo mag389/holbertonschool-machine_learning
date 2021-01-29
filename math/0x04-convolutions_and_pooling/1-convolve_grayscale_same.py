@@ -23,7 +23,8 @@ def convolve_grayscale_same(images, kernel):
     # print(conved.shape)
     # print(kernel.shape, images.shape)
     # print(kernel[None, :, :].shape)
-    padimg = np.pad(images, ((0, 0), (ph, ph), (pw, pw)), 'constant')
+    padimg = np.pad(images, ((0, 0), (ph, ph), (pw, pw)), 'constant',
+                    constant_values=0)
     for i in range(0, h):
         for j in range(0, w - kw + 1):
             subs = padimg[:, i:i + kh, j:j + kw]
