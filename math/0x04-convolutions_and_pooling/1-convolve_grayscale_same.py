@@ -18,17 +18,18 @@ def convolve_grayscale_same(images, kernel):
     kw = kernel.shape[1]
     # conved = np.zeros((imgshape[0], h - kh + 1, w - kw + 1))
     conved = np.zeros(imgshape)
-    ipad = int((kh) / 2)
-    jpad = int((kw) / 2)
+    ph = int((kh - 1) / 2)
+    pw = int((kw - 1) / 2)
     # print(conved.shape)
     # print(kernel.shape, images.shape)
     # print(kernel[None, :, :].shape)
-    for i in range(0, h - kh + 1):
+    padimg = np.pad(images, ((0, 0), (ph, ph), (pw, pw)), 'constant')
+    for i in range(0, h):
         for j in range(0, w - kw + 1):
-            subs = images[:, i:i + kh, j:j + kw]
-            ip = i + ipad
-            jp = j + jpad
-            conved[:, ip, jp] = np.sum((kernel[None, :, :] * subs),
-                                       axis=(1, 2))
+            subs = padimg[:, i:i + kh, j:j + kw]
+            # ip = i + ph
+            # jp = j + pw
+            conved[:, i, j] = np.sum((kernel[None, :, :] * subs),
+                                     axis=(1, 2))
 
     return conved
