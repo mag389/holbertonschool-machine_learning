@@ -23,7 +23,9 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
         ph, pw = 0, 0
         conved = np.zeros((m, h - kh + 1, w - kw + 1))
     else:
-        ph, pw = int((kh) / 2), int((kw) / 2)
+        ph = int((((h - 1) * sh) + kh - h) / 2 + 1)
+        pw = int((((w - 1) * sw) + kw - w) / 2 + 1)
+        # ph, pw = int((kh) / 2), int((kw) / 2)
     conh = int((h + 2 * ph - kh) / sh + 1)
     conw = int((w + 2 * pw - kw) / sw + 1)
     conved = np.zeros((m, conh, conw))
@@ -36,4 +38,9 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
             subs = padimg[:, i * sh:i * sh + kh, j * sw:j * sw + kw, :]
             conved[:, i, j] = np.sum((kernel[None, :, :, :] * subs),
                                      axis=(1, 2, 3))
+    print(conved.shape)
+    print(conved.shape[0])
+    print(conved[0][0].shape)
+    print(conved[0][0])
+    print(images[0][0])
     return conved
