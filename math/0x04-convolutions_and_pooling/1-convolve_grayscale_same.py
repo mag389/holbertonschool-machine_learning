@@ -9,7 +9,7 @@ def convolve_grayscale_same(images, kernel):
             m: number of images, h: height in pixels, w: width in pixels
         kernel: np.ndarray (kh, kw) kernel for convolution
             kh: height of kernel, kw: width of kernel
-    Returns: np.ndarray of convolved image
+        Returns: np.ndarray of convolved image
     """
     imgshape = images.shape
     h = images.shape[1]
