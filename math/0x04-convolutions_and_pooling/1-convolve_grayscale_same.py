@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ performs convolution on grayscale images with potential pad"""
 import numpy as np
-# from math import ceil, floor
 
 
 def convolve_grayscale_same(images, kernel):
