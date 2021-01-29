@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ performs convolution on grayscale images with potential pad"""
 import numpy as np
-from math import ceil, floor
 
 
 def convolve_grayscale_padding(images, kernel, padding):
@@ -20,19 +19,21 @@ def convolve_grayscale_padding(images, kernel, padding):
     kw = kernel.shape[1]
     ph = padding[0]
     pw = padding[1]
-    conved = np.zeros((imgshape[0], h - kh + 1 + 2 * ph, w - kw + 1 + 2 * pw))
-    # conved = np.zeros((imgshape[0], h + ph, w + pw))
-    ipad = ph
-    jpad = pw
-    # print(conved.shape)
-    # print(kernel.shape, images.shape)
-    # print(kernel[None, :, :].shape)
-    for i in range(0, h - kh):
-        for j in range(0, w - kw):
-            subs = images[:, i:i + kh, j:j + kw]
-            ip = i + ipad
-            jp = j + jpad
-            conved[:, ip, jp] = np.sum((kernel[None, :, :] * subs),
-                                       axis=(1, 2))
-
+    conh = h - kh + 1 + 2 * ph
+    conw = w - kw + 1 + 2 * pw
+    conved = np.zeros((imgshape[0], conh, conw))
+    # p is for pad:top, bottom left right
+    # pt = int(conh
+    # pb =
+    # pl =
+    # pr =
+    padimg = np.pad(images,
+                    ((0, 0), (ph, ph), (pw, pw)),
+                    'constant',
+                    constant_values=0)
+    for i in range(0, conh):
+        for j in range(0, conw):
+            subs = padimg[:, i:i + kh, j:j + kw]
+            conved[:, i, j] = np.sum((kernel[None, :, :] * subs),
+                                     axis=(1, 2))
     return conved
