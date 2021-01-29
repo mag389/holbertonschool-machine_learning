@@ -36,6 +36,6 @@ def convolve(images, kernel, padding='same', stride=(1, 1)):
         for j in range(0, conw):
             for k in range(0, nc):
                 subs = padimg[:, i * sh:i * sh + kh, j * sw:j * sw + kw, :]
-                conved[:, i, j, k] = np.sum((kernel[None, :, :, k] * subs),
+                conved[:, i, j, k] = np.sum((kernel[None, :, :, :, k] * subs),
                                             axis=(1, 2, 3))
     return conved
