@@ -35,9 +35,9 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     conw = int((w_p + 2 * pw - kw) / sw + 1)
     conved = np.zeros((m, conh, conw, c_new))
     padimg = np.pad(A_prev,
-                     ((0, 0), (ph, ph), (pw, pw), (0, 0)),
-                     'constant',
-                     constant_values=0)
+                    ((0, 0), (ph, ph), (pw, pw), (0, 0)),
+                    'constant',
+                    constant_values=0)
     for i in range(0, conh):
         for j in range(0, conw):
             # print("{}{}".format(i, j))
