@@ -29,8 +29,8 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
         ph, pw = 0, 0
         # conved = np.zeros((m, h_p - kh + 1, w_p - kw + 1))
     else:
-        ph = int((((h_p - 1) * sh) + kh - h_p) / 2 + 1)
-        pw = int((((w_p - 1) * sw) + kw - w_p) / 2 + 1)
+        ph = int((((h_p - 1) * sh) + kh - h_p) / 2)
+        pw = int((((w_p - 1) * sw) + kw - w_p) / 2)
 
     conh = int((h_p + 2 * ph - kh) / sh + 1)
     conw = int((w_p + 2 * pw - kw) / sw + 1)
