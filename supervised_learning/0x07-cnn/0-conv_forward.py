@@ -27,13 +27,15 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     sh, sw = stride[0], stride[1]
     if padding == 'valid':
         ph, pw = 0, 0
-        conved = np.zeros((m, h_p - kh + 1, w_p - kw + 1))
+        # conved = np.zeros((m, h_p - kh + 1, w_p - kw + 1))
     else:
         ph = int((((h_p - 1) * sh) + kh - h_p) / 2 + 1)
         pw = int((((w_p - 1) * sw) + kw - w_p) / 2 + 1)
+
     conh = int((h_p + 2 * ph - kh) / sh + 1)
     conw = int((w_p + 2 * pw - kw) / sw + 1)
     conved = np.zeros((m, conh, conw, c_new))
+
     padimg = np.pad(A_prev,
                     ((0, 0), (ph, ph), (pw, pw), (0, 0)),
                     'constant',
@@ -45,6 +47,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
                 subs = padimg[:, i * sh:i * sh + kh, j * sw:j * sw + kw, :]
                 conved[:, i, j, k] = np.sum((W[None, :, :, :, k] * subs),
                                             axis=(1, 2, 3))
-                conved[:, i, j, k] = activation(conved[:, i, j, k] +
-                                                b[0, 0, 0, k])
-    return conved
+                # conved[:, i, j, k] = activation(conved[:, i, j, k] +
+                #                                 b[0, 0, 0, k])
+    # return conved
+    return activation(conved + b)
