@@ -39,7 +39,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     conved = np.zeros((m, conh, conw, cn))
     # conved is dA_prev which is da convolved with kernels (W)
     padimg = np.pad(A_prev,
-                    ((0, 0), (ph, ph), (pw, pw), (0, 0)),
+                    ((0, 0), (ph,), (pw,), (0, 0)),
                     'constant',
                     constant_values=0)
     dx = np.zeros(padimg.shape)
