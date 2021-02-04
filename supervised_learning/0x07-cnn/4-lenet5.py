@@ -22,12 +22,16 @@ def lenet5(x, y):
     kinit = tf.contrib.layers.variance_scaling_initializer()
     acti = tf.nn.relu
 
-    l1 = tf.layers.Conv2D(filters=6, kernel_size=(5, 5),
-                          padding='same',
-                          activation=acti,
-                          kernel_initializer=kinit)(x)
+    # l1 = tf.layers.Conv2D(filters=6, kernel_size=(5, 5),
+    #                      padding='same',
+    #                      activation=acti,
+    #                      kernel_initializer=kinit)(x)
+    layer_1 = tf.layers.Conv2D(filters=6, kernel_size=5,
+                               padding='same',
+                               activation=acti,
+                               kernel_initializer=kinit)(x)
 
-    pool2 = tf.layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(l1)
+    pool2 = tf.layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(layer_1)
 
     l3 = tf.layers.Conv2D(filters=16, kernel_size=(5, 5),
                           padding='valid',
@@ -35,7 +39,7 @@ def lenet5(x, y):
                           kernel_initializer=kinit)(pool2)
 
     pool4 = tf.layers.MaxPooling2D(pool_size=(3, 3),
-                                strides=(2, 2))(l3)
+                                   strides=(2, 2))(l3)
 
     flat = tf.layers.Flatten()(pool4)
 
@@ -56,6 +60,6 @@ def lenet5(x, y):
 
     equality = tf.equal(tf.argmax(y, axis=1),
                         tf.argmax(l7, axis=1))
-    acc = tf.reduce_mean(tf.cast(diff, tf.float32))
+    acc = tf.reduce_mean(tf.cast(equality, tf.float32))
 
     return y_pred, train, loss, acc
