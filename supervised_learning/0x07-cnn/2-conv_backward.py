@@ -29,10 +29,13 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     if padding == 'valid':
         ph, pw = 0, 0
     else:
-        ph = int(np.ceil((sh * (h_p - 1) - h_p + kh) / 2))
-        pw = int(np.ceil((sw * (w_p - 1) - w_p + kw) / 2))
+        # ph = int(np.ceil((sh * (h_p - 1) - h_p + kh) / 2))
+        # pw = int(np.ceil((sw * (w_p - 1) - w_p + kw) / 2))
+        # this second mthod was mine originally that didn't work
         # ph = int((((h_p - 1) * sh) + kh - h_p) / 2)
         # pw = int((((w_p - 1) * sw) + kw - w_p) / 2)
+        ph = int(np.ceil(((sh * h_p) - sh + kh - h_p) / 2))
+        pw = int(np.ceil(((sw * w_p) - sw + kw - w_p) / 2))
 
     conh = int((h_p + 2 * ph - kh) / sh + 1)
     conw = int((w_p + 2 * pw - kw) / sw + 1)
