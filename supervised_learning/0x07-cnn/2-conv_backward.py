@@ -40,27 +40,26 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     conh = int((h_p + 2 * ph - kh) / sh + 1)
     conw = int((w_p + 2 * pw - kw) / sw + 1)
     conved = np.zeros((m, conh, conw, cn))
-    # conved is dA_prev which is da convolved with kernels (W)
     padimg = np.pad(A_prev,
                     ((0, 0), (ph, ph), (pw, pw), (0, 0)),
                     'constant',
                     constant_values=0)
     dx = np.zeros(padimg.shape)
     dW = np.zeros(W.shape)
-    db = np.zeros(b.shape)
+    # db = np.zeros(b.shape)
 
     for i in range(m):
         for j in range(hn):
             for k in range(wn):
                 for l in range(cn):
                     dx[i, j * sh:j * sh + kh, k * sw:k * sw + kw,
-                       :] += W[:, :, :, l] * dZ[i, j, k, l]
+                       :] += dZ[i, j, k, l] * W[:, :, :, l]
                     dW[:, :, :, l] += padimg[i,
                                              j * sh:j * sh + kh,
                                              k * sw:k * sw + kw,
                                              :] * dZ[i, j, k, l]
                     # db[:, :, :, l] += dZ[i, j, k, l]
     if padding == 'same':
-        dx = dx[:, pw:-ph, pw:-pw, :]
+        dx = dx[:, ph:dx.shape[1] - ph, pw:dx.shape[2] - pw, :]
     db = np.sum(dZ, axis=(0, 1, 2), keepdims=True)
     return dx, dW, db
