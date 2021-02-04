@@ -28,16 +28,18 @@ def lenet5(x, y):
                           kernel_initializer=init)(l2)
     l4 = tf.layers.MaxPooling2D((3, 3), (2, 2))(l3)
     flat = tf.layers.Flatten()(l4)
-    l5 = tf.layers.Dense(120, tf.nn.relu,
+    l5 = tf.layers.Dense(120, activation=tf.nn.relu,
                          kernel_initializer=init)(flat)
-    l6 = tf.layers.Dense(84, tf.nn.relu,
+    l6 = tf.layers.Dense(84, activation=tf.nn.relu,
                          kernel_initializer=init)(l5)
     l7 = tf.layers.Dense(10,
                          kernel_initializer=init)(l6)
-    pred = tf.nn.softmax(l7)
-    train = tf.train.AdamOptimizer(y, l7)
+
+    y_pred = tf.nn.softmax(l7)
     loss = tf.losses.softmax_cross_entropy(y, l7)
+    train = tf.train.AdamOptimizer().minimize(loss)
+
     diff = tf.equal(tf.argmax(y, 1), tf.argmax(l7, 1))
     acc = tf.reduce_mean(tf.cast(diff, tf.float32))
 
-    return pred, train, loss, acc
+    return y_pred, train, loss, acc
