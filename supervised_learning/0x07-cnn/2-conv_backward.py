@@ -54,7 +54,8 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                                              j * sh:j * sh + kh,
                                              k * sw:k * sw + kw,
                                              :] * dZ[i, j, k, l]
+                    db[:, :, :, l] += dZ[i, j, k, l]
     if padding == 'same':
         dx = dx[:, pw:-ph, pw:-pw, :]
-    db = np.sum(dZ, axis=(0, 1, 2), keepdims=True)
+    # db = np.sum(dZ, axis=(0, 1, 2), keepdims=True)
     return dx, dW, db
