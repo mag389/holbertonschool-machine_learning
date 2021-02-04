@@ -19,30 +19,33 @@ def lenet5(x, y):
         Returns: activated output tensor, adam training op, loss tensor
           and accurcy tensor
     """
-    init = tf.contrib.layers.variance_scaling_initializer()
+    kinit = tf.contrib.layers.variance_scaling_initializer()
 
     l1 = tf.layers.Conv2D(filters=6, kernel_size=(5, 5),
-                          padding='same', activation=tf.nn.relu,
-                          kernel_initializer=init)(x)
+                          padding='same',
+                          activation=tf.nn.relu,
+                          kernel_initializer=kinit)(x)
 
     l2 = tf.layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(l1)
 
     l3 = tf.layers.Conv2D(filters=16, kernel_size=(5, 5),
-                          padding='valid', activation=tf.nn.relu,
-                          kernel_initializer=init)(l2)
+                          padding='valid',
+                          activation=tf.nn.relu,
+                          kernel_initializer=kinit)(l2)
 
-    l4 = tf.layers.MaxPooling2D(pool_size=(3, 3), strides=(2, 2))(l3)
+    l4 = tf.layers.MaxPooling2D(pool_size=(3, 3),
+                                strides=(2, 2))(l3)
 
     flat = tf.layers.Flatten()(l4)
 
     l5 = tf.layers.Dense(units=120, activation=tf.nn.relu,
-                         kernel_initializer=init)(flat)
+                         kernel_initializer=kinit)(flat)
 
     l6 = tf.layers.Dense(units=84, activation=tf.nn.relu,
-                         kernel_initializer=init)(l5)
+                         kernel_initializer=kinit)(l5)
 
     l7 = tf.layers.Dense(units=10,
-                         kernel_initializer=init)(l6)
+                         kernel_initializer=kinit)(l6)
 
     y_pred = tf.nn.softmax(l7)
 
