@@ -20,10 +20,9 @@ def lenet5(x, y):
           and accurcy tensor
     """
     init = tf.contrib.layers.variance_scaling_initializer()
-    
 
     l1 = tf.layers.Conv2D(6, (5, 5), padding='same', activation=tf.nn.relu,
-                          kernel_initializer=init)(x)                 
+                          kernel_initializer=init)(x)
     l2 = tf.layers.MaxPooling2D((2, 2), (2, 2))(l1)
     l3 = tf.layers.Conv2D(16, (5, 5), padding='valid', activation=tf.nn.relu,
                           kernel_initializer=init)(l2)
