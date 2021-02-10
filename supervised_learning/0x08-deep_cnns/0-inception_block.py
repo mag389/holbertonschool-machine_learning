@@ -37,4 +37,3 @@ def inception_block(A_prev, filters):
                             activation='relu')(pool)
 
     return K.layers.Concatenate()([oneconv, threeC, fiveC, poolC])
-
