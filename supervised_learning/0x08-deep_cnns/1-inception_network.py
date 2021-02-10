@@ -1,4 +1,4 @@
-#!/usr/bin/evn python3
+#!/usr/bin/env python3
 """ creates inception networks """
 import tensorflow.keras as K
 inception_block = __import__('0-inception_block').inception_block
