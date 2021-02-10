@@ -34,6 +34,7 @@ def inception_network():
     i9 = inception_block(i8, [384, 192, 384, 48, 128, 128])
     avgpool = K.layers.AveragePooling2D(pool_size=(7, 7), strides=(1, 1),
                                         padding='valid')(i9)
+    # pool should be valid not same based on output sizes
     dropl = K.layers.Dropout(rate=0.4)(avgpool)
     linear = K.layers.Dense(1000, activation='softmax')(dropl)
     model = K.Model(inputs=data_in, outputs=linear)
