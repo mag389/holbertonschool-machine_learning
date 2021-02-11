@@ -27,12 +27,12 @@ def densenet121(growth_rate=32, compression=1.0):
         pool_size=(3, 3), strides=(2, 2),
         padding='same')(convs)
 
-    # dense block 1: 56 filters, 6 layers, growth rate=growth rate for all
+    # dense block 1: 64 filters, 6 layers, growth rate=growth rate for all
     x, y = dense_block(pools, pools.shape[-1].value, growth_rate, 6)
     # transition block 1: new filters value, and compression, compression
     x, y = transition_layer(x, y, compression)
 
-    # dense block 2: 28 filters, 12 layers
+    # dense block 2: 32 filters, 12 layers
     x, y = dense_block(x, y, growth_rate, 12)
     # transition block 2:
     x, y = transition_layer(x, y, compression)
@@ -49,6 +49,5 @@ def densenet121(growth_rate=32, compression=1.0):
     avgs = K.layers.AveragePooling2D(pool_size=(7, 7), strides=(1, 1),
                                      padding='valid')(x)
     # 1000 unit FC classification layer
-    output = K.layers.Dense(1000, activation='softmax',
-                            kernel_initializer=init)(avgs)
+    output = K.layers.Dense(1000, activation='softmax')(avgs)
     return K.Model(inputs=data_in, outputs=output)
