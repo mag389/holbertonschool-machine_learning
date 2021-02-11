@@ -14,12 +14,12 @@ def densenet121(growth_rate=32, compression=1.0):
     """
     init = K.initializers.he_normal()
     data_in = K.Input((224, 224, 3))
-    # precede covolutin with BN and ReLU
+    # precede covolution with BN and ReLU
     norms = K.layers.BatchNormalization()(data_in)
     actis = K.layers.Activation('relu')(norms)
 
     # conv2d 7x7 stride=2
-    convs = K.layers.Conv2D(64, kernel_size=7, strides=2,
+    convs = K.layers.Conv2D(64, kernel_size=(7, 7), strides=(2, 2),
                             kernel_initializer=init, padding='same')(actis)
 
     # 3x3 max pool, strie=2
