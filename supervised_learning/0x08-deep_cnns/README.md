@@ -14,3 +14,5 @@ https://maelfabien.github.io/deeplearning/inception/#in-keras
 # additional diagrams:
 for this project i made duplicate main file each with a model plotting included
 That is what produced the various model png image files
+to get this to run corrcetly i needed to install graphviz with
+'sudo apt-get install graphviz'
