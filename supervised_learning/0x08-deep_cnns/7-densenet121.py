@@ -23,8 +23,9 @@ def densenet121(growth_rate=32, compression=1.0):
                             kernel_initializer=init, padding='same')(actis)
 
     # 3x3 max pool, strie=2
-    pools = K.layers.MaxPool2D(pool_size=(3, 3), strides=(2, 2),
-                               padding='same')(convs)
+    pools = K.layers.MaxPooling2D(
+        pool_size=(3, 3), strides=(2, 2),
+        padding='same')(convs)
 
     # dense block 1: 56 filters, 6 layers, growth rate=growth rate for all
     x, y = dense_block(pools, pools.shape[-1].value, growth_rate, 6)
