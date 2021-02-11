@@ -46,8 +46,9 @@ def densenet121(growth_rate=32, compression=1.0):
     x, y = dense_block(x, y, growth_rate, 16)
 
     # 7x7 avg pool
-    avgs = K.layers.AveragePooling2D(pool_size=(7, 7), strides=(1, 1),
-                                     padding='valid')(x)
+    avgs = K.layers.AveragePooling2D(pool_size=(7, 7), strides=(7, 7),
+                                     padding='same')(x)
     # 1000 unit FC classification layer
-    output = K.layers.Dense(1000, activation='softmax')(avgs)
+    output = K.layers.Dense(1000, activation='softmax',
+                            kernel_initializer=init)(avgs)
     return K.Model(inputs=data_in, outputs=output)
