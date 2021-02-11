@@ -15,7 +15,8 @@ def resnet50():
     init = K.initializers.he_normal()
     data_in = K.Input((224, 224, 3))
     conv1 = K.layers.Conv2D(64, kernel_size=(7, 7), strides=(2, 2),
-                            padding='same')(data_in)
+                            padding='same'
+                            kernel_initializer=init)(data_in)
     bn1 = K.layers.BatchNormalization()(conv1)
     relu1 = K.layers.ReLU()(bn1)
     mpool1 = K.layers.MaxPool2D(pool_size=(3, 3), strides=(2, 2),
