@@ -1,0 +1,3 @@
+th a sinlge epoch of 256 batch size I was able to achieve an accuracy of 68% and a loss of .94
+	this is in file 256cifar1.h5 Training was slow at about .5 hours per epoch
+	This however proved to be better accuracy than my test run of 64 batch size epoch
