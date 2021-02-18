@@ -24,7 +24,7 @@ if __name__ == "__main__":
     (x, y), (xv, yv) = K.datasets.cifar10.load_data()
     x_train, y_train = preprocess_data(x, y)
     x_test, y_test = preprocess_data(xv, yv)
-    print(x_train.shape)
+    # print(x_train.shape)
 
     classes = 10
     model = dense121(
@@ -51,6 +51,8 @@ if __name__ == "__main__":
     calls = []
     calls.append(K.callbacks.ModelCheckpoint("cifar10.h5",
                  save_best_only=True))
+    es = K.callbacks.EarlyStopping(monitor='val_loss', patience=5)
+    calls.append(es)
 
     # compile the model
     new_model.compile(
@@ -58,8 +60,10 @@ if __name__ == "__main__":
         loss='categorical_crossentropy',
         metrics=['acc'])
     # train
-    new_model.fit(x_train, y_train, batch_size=256, epochs=1,
-                  verbose=True,
+    new_model.fit(x_train, y_train,
+                  validation_data=(x_test, y_test),
+                  batch_size=256, epochs=5,
+                  verbose=1,
                   callbacks=calls,
                   shuffle=False)
     new_model.save("cifar10.h5")
