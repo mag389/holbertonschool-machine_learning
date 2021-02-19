@@ -10,7 +10,6 @@ def preprocess_data(X, Y):
         Y: np.ndarray (m,) cifar10 labels for X
         Returns X_p, Y_p: preprocessed X, Y
     """
-    ImageDataGenerator = K.preprocessing.image.ImageDataGenerator
     y_r = K.utils.to_categorical(Y, 10)
     x_r = K.applications.densenet.preprocess_input(X)
     # data must be preprocessed differently for different CNN's
@@ -26,6 +25,19 @@ if __name__ == "__main__":
     x_test, y_test = preprocess_data(xv, yv)
     # print(x_train.shape)
 
+    # data augmentation
+    datagener = False
+    if datagener is True:
+        datagen = K.preprocessing.image.ImageDataGenerator(
+            # rescale made results significantly worse
+            # rescale=1./255,
+            zoom_range=0.3, rotation_range=50,
+            width_shift_range=0.2, height_shift_range=0.2, shear_range=0.2,
+            horizontal_flip=True, fill_mode='nearest'
+        )
+        datagen.fit(x_train)
+
+    # create the model to transfer from
     classes = 10
     model = dense121(
         weights="imagenet",
@@ -37,34 +49,90 @@ if __name__ == "__main__":
     # K.utils.plot_model(model, to_file="model.png")
 
     # freeze model
-    model.trainable = False
+    # model.trainable = False
 
     # add new layers
-    newl = K.layers.Dense(256, activation='relu')(model.output)
+    newl = K.layers.Dense(512, activation='relu')(model.output)
+    newl = K.layers.Dropout(0.3)(newl)
+    newl = K.layers.Dense(128, activation='relu')(newl)
     newl = K.layers.Dropout(0.3)(newl)
     newl = K.layers.Dense(10, activation='softmax')(newl)
+
     new_model = K.Model(inputs=model.inputs, outputs=newl)
+    frz_model = K.Model(inputs=model.inputs, outputs=newl)
 
-    new_model.summary()
+    # new_model.summary()
 
-    # runs slowly so adding checkpoints
+    # lacks accuracy so adding checkpoints
     calls = []
     calls.append(K.callbacks.ModelCheckpoint("cifar10.h5",
                  save_best_only=True))
-    es = K.callbacks.EarlyStopping(monitor='val_loss', patience=5)
+    es = K.callbacks.EarlyStopping(monitor='val_loss', patience=6)
     calls.append(es)
+    learn = K.callbacks.ReduceLROnPlateau(verbose=1, patience=5)
+    calls.append(learn)
 
     # compile the model
     new_model.compile(
         optimizer='adam',
         loss='categorical_crossentropy',
         metrics=['acc'])
+    model.trainable = False
+    frz_model.compile(
+        optimizer='adam',
+        loss='categorical_crossentropy',
+        metrics=['acc'])
+
     # train
-    new_model.fit(x_train, y_train,
-                  validation_data=(x_test, y_test),
-                  batch_size=256, epochs=5,
-                  verbose=1,
-                  callbacks=calls,
-                  shuffle=False)
+    if datagener is True:
+        new_model.fit(datagen.flow(x_train, y_train, batch_size=256),
+                      # x_train, y_train,
+                      validation_data=(x_test, y_test),
+                      # use batch size when not using datagen
+                      # batch_size=256,
+                      # steps_per_epoch=1,
+                      epochs=30,
+                      verbose=1,
+                      callbacks=calls)
+    else:
+        frz_model.fit(x_train, y_train,
+                      validation_data=(x_test, y_test),
+                      batch_size=256,
+                      epochs=3,
+                      verbose=1,
+                      callbacks=calls,
+                      # shuffle is unused in datagen
+                      shuffle=False)
+        new_model.fit(x_train, y_train,
+                      validation_data=(x_test, y_test),
+                      batch_size=256,
+                      epochs=1,
+                      verbose=1,
+                      callbacks=calls,
+                      # shuffle is unused in datagen
+                      shuffle=False)
+        frz_model.fit(x_train, y_train,
+                      validation_data=(x_test, y_test),
+                      batch_size=256,
+                      epochs=3,
+                      verbose=1,
+                      callbacks=calls,
+                      # shuffle is unused in datagen
+                      shuffle=False)
+        new_model.fit(x_train, y_train,
+                      validation_data=(x_test, y_test),
+                      batch_size=256,
+                      epochs=1,
+                      verbose=1,
+                      callbacks=calls,
+                      # shuffle is unused in datagen
+                      shuffle=False)
+        frz_model.fit(x_train, y_train,
+                      validation_data=(x_test, y_test),
+                      batch_size=256,
+                      epochs=8,
+                      verbose=1,
+                      callbacks=calls,
+                      # shuffle is unused in datagen
+                      shuffle=False)
     new_model.save("cifar10.h5")
-    # model.save('cifar10.h5')
