@@ -52,14 +52,29 @@ if __name__ == "__main__":
     # model.trainable = False
 
     # add new layers
+    input = K.Input(shape=(32, 32, 3))
+    lambtha = K.layers.Lambda(lambda X: K.backend.resize_images(X, 7, 7,
+                              data_format="channels_last")#,
+                              # interpolation='bilinear')
+                              )(input)
+    model = dense121(
+        weights="imagenet",
+        include_top=False,
+        pooling='max',
+        input_shape=(224, 224, 3),
+        input_tensor=lambtha
+    )
     newl = K.layers.Dense(512, activation='relu')(model.output)
     newl = K.layers.Dropout(0.3)(newl)
     newl = K.layers.Dense(128, activation='relu')(newl)
     newl = K.layers.Dropout(0.3)(newl)
     newl = K.layers.Dense(10, activation='softmax')(newl)
 
-    new_model = K.Model(inputs=model.inputs, outputs=newl)
-    frz_model = K.Model(inputs=model.inputs, outputs=newl)
+    # new_model = K.Model(inputs=model.inputs, outputs=newl)
+    # frz_model = K.Model(inputs=model.inputs, outputs=newl)
+    frozen = False
+    new_model = K.Model(inputs=input, outputs=newl)
+    frz_model = K.Model(inputs=input, outputs=newl)
 
     # new_model.summary()
 
@@ -67,9 +82,9 @@ if __name__ == "__main__":
     calls = []
     calls.append(K.callbacks.ModelCheckpoint("cifar10.h5",
                  save_best_only=True))
-    es = K.callbacks.EarlyStopping(monitor='val_loss', patience=6)
+    es = K.callbacks.EarlyStopping(monitor='val_loss', patience=7)
     calls.append(es)
-    learn = K.callbacks.ReduceLROnPlateau(verbose=1, patience=5)
+    learn = K.callbacks.ReduceLROnPlateau(verbose=1, patience=3)
     calls.append(learn)
 
     # compile the model
@@ -94,7 +109,7 @@ if __name__ == "__main__":
                       epochs=30,
                       verbose=1,
                       callbacks=calls)
-    else:
+    elif frozen is True:
         frz_model.fit(x_train, y_train,
                       validation_data=(x_test, y_test),
                       batch_size=256,
@@ -134,5 +149,13 @@ if __name__ == "__main__":
                       verbose=1,
                       callbacks=calls,
                       # shuffle is unused in datagen
+                      shuffle=False)
+    else:
+        frz_model.fit(x_train, y_train,
+                      validation_data=(x_test, y_test),
+                      batch_size=256,
+                      epochs=10,
+                      verbose=1,
+                      callbacks=calls,
                       shuffle=False)
     new_model.save("cifar10.h5")
