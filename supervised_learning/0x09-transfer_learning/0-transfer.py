@@ -54,8 +54,8 @@ if __name__ == "__main__":
     # add new layers
     input = K.Input(shape=(32, 32, 3))
     lambtha = K.layers.Lambda(lambda X: K.backend.resize_images(X, 7, 7,
-                              data_format="channels_last")#,
-                              # interpolation='bilinear')
+                              data_format="channels_last"),
+                              interpolation='bilinear')
                               )(input)
     model = dense121(
         weights="imagenet",
