@@ -25,4 +25,4 @@ class Yolo():
                 self.class_names.append(line.strip())
         self.class_t = class_t
         self.nms_t = nms_t
-        self.anchors= anchors
+        self.anchors = anchors
