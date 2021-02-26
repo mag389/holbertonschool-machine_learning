@@ -183,7 +183,7 @@ class Yolo():
         predicted_box_classes = []
         predicted_box_scores = []
         for label in range(len(self.class_names)):
-            # for each class 
+            # for each class
             boxes = []
             class_tmp = []
             score_tmp = []
