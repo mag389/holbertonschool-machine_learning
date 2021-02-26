@@ -56,11 +56,11 @@ class Yolo():
             box = np.zeros((g_h, g_w, a_b, 4))
 
             # calculate the sigmoid box conf
-            box_conf = 1 / (1 + np.exp(-1 * output[:, :, :, 4]))
+            box_conf = 1 / (1 + np.exp(-1 * outputs[i][:, :, :, 4:5]))
             box_confidence.append(box_conf)
 
             # calculate sigmoid box class probabilities
-            class_prob = 1 / (1 + np.exp(-1 * output[:, :, :, 5:]))
+            class_prob = 1 / (1 + np.exp(-1 * outputs[i][:, :, :, 5:]))
             box_class_probs.append(class_prob)
             for row in range(g_h):
                 for col in range(g_w):
