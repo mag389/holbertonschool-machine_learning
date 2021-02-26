@@ -183,10 +183,14 @@ class Yolo():
         predicted_box_classes = []
         predicted_box_scores = []
         for i in range(len(self.class_names)):
-            idx = np.where(box_classes == i)
-            boxes = filtered_boxes[idx]
-            classes = box_classes[idx]
-            scores = box_scores[idx]
+            boxes = []
+            classes = []
+            scores = []
+            for l in range(len(box_classes)):
+                if box_classes[l] == i:
+                    boxes.append(filtered_boxes[l])
+                    classes.append(box_classes[l])
+                    scores.append(box_scores[l])
 
             classes = np.array(classes)
             while len(classes) > 0 and np.amax(classes) > -1:
