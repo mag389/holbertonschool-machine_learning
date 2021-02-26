@@ -183,54 +183,40 @@ class Yolo():
         predicted_box_classes = []
         predicted_box_scores = []
         for label in range(len(self.class_names)):
-            # Build lists of boxes belonging to just this class label
-            bound_tmp = []
+            # for each class 
+            boxes = []
             class_tmp = []
             score_tmp = []
             for i in range(len(box_classes)):
                 if box_classes[i] == label:
-                    bound_tmp.append(filtered_boxes[i])
+                    boxes.append(filtered_boxes[i])
                     class_tmp.append(box_classes[i])
                     score_tmp.append(box_scores[i])
 
             class_tmp = np.array(class_tmp)
             while len(class_tmp) > 0 and np.amax(class_tmp) > -1:
-                # Get index of highest score
                 index = np.argmax(score_tmp)
-
-                # Add box, class, and score to prediction lists
-                box_predictions.append(bound_tmp[index])
+                box_predictions.append(boxes[index])
                 predicted_box_classes.append(class_tmp[index])
                 predicted_box_scores.append(score_tmp[index])
-
-                # Set index's class & score to -1 to remove from pending boxes
                 score_tmp[index] = -1
                 class_tmp[index] = -1
-
-                # Get bounds and area of predicted box
-                px1, py1, px2, py2 = bound_tmp[index]
+                px1, py1, px2, py2 = boxes[index]
                 p_area = (px2 - px1) * (py2 - py1)
 
-                # Compare to other boxes
-                for box in range(len(bound_tmp)):
-                    # If box hasn't been removed
+                for box in range(len(boxes)):
                     if class_tmp[box] != -1:
-                        # Get box's bounds and calculate overlap bounds
-                        bx1, by1, bx2, by2 = bound_tmp[box]
+                        bx1, by1, bx2, by2 = boxes[box]
                         ox1 = px1 if px1 > bx1 else bx1
                         oy1 = py1 if py1 > by1 else by1
                         ox2 = px2 if px2 < bx2 else bx2
                         oy2 = py2 if py2 < by2 else by2
-
-                        # Ignore if overlap isn't valid
                         if ox2 - ox1 <= 0 or oy2 - oy1 <= 0:
                             continue
-
                         # Calculate overlap area and IoU
                         o_area = (ox2 - ox1) * (oy2 - oy1)
                         iou = o_area / p_area
 
-                        # Remove box if IoU is over threshold
                         if iou > self.nms_t:
                             class_tmp[box] = -1
                             score_tmp[box] = -1
