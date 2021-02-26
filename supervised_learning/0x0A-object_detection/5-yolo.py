@@ -272,4 +272,6 @@ class Yolo():
                                  interpolation=cv2.INTER_CUBIC)
             scale_img = new_img / 255
             pimages.append(scale_img)
-        return (np.array(pimages), np.array(image_shapes))
+            pimages = np.array(pimages)
+            image_shapes = np.array(image_shapes)
+        return (pimages, image_shapes)
