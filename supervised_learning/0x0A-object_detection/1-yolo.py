@@ -49,7 +49,7 @@ class Yolo():
         i_h = image_size[0]
         i_w = image_size[1]
         for i in range(len(outputs)):
-            output = putputs[i]
+            output = outputs[i]
             g_h, g_w, a_b, c = output.shape
             classes = c - 5
 
@@ -61,10 +61,15 @@ class Yolo():
 
             # calculate sigmoid box class probabilities
             class_prob = 1 / (1 + np.exp(-1 * output[:, :, :, 5:]))
-            box_class_probs.append(class_probs)
+            box_class_probs.append(class_prob)
             for row in range(g_h):
                 for col in range(g_w):
-                    tx, ty, tw, th = output[row][col][:][:4]
+                    # tx, ty, tw, th = output[row][col][:, :4]
+                    tx = output[row, col, :, 0]
+                    ty = output[row, col, :, 1]
+                    tw = output[row, col, :, 2]
+                    th = output[row, col, :, 3]
+
                     pw = self.anchors[i, :, 0]
                     ph = self.anchors[i, :, 1]
 
@@ -75,15 +80,17 @@ class Yolo():
 
                     # normalize to be able to fit
                     bx /= g_w
-                    by /= h_h
+                    by /= g_h
                     bw /= int(self.model.input.shape[1])
                     bh /= int(self.model.input.shape[2])
                     # fit to our data
                     x1 = (bx - bw / 2) * i_w
                     x2 = (bx + bw / 2) * i_w
                     y1 = (by - bh / 2) * i_h
-                    y2 = (by + bh / 2) * i+h
-                    box[row][col][:] = np.array([x1, y1, x2, y2])
+                    y2 = (by + bh / 2) * i_h
+                    print(y2.shape)
+                    print(box.shape)
+                    box[row, col, :, :] = np.array([x1, y1, x2, y2]).T
                     boxes.append(box)
             """
             # calculate new boundary boxes
