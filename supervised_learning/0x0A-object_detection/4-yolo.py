@@ -228,6 +228,7 @@ class Yolo():
         predicted_box_scores = np.array(predicted_box_scores)
         return (box_predictions, predicted_box_classes, predicted_box_scores)
 
+    @staticmethod
     def load_images(folder_path):
         """ loads images from file
             folder_path: string of path to folder with images
@@ -236,7 +237,6 @@ class Yolo():
                 image_paths: list of paths to individual images
         """
         images = []
-        image_paths = []
         # first make image paths list
         # cv2 can take in wildcard args if using glob
         image_paths = glob.glob(folder_path + "/*")
