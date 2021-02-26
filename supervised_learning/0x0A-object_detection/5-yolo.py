@@ -260,15 +260,15 @@ class Yolo():
         pimages = []
         input_shapes = []
 
-        input_h = self.model.input.shape[2]
-        input_w = self.model.input.shape[1]
+        input_h = int(self.model.input.shape[2])
+        input_w = int(self.model.input.shape[1])
 
         for image in images:
             image_height, image_width = image.shape[:2]
             image_shapes.append([image_height, image_width])
 
             new_img = cv2.resize(image,
-                                 (input_h, input_w),
+                                 (input_w, input_h),
                                  interpolation=cv2.INTER_CUBIC)
             new_img = new_img / 255
             pimages.append(new_img)
