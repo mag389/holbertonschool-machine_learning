@@ -205,6 +205,10 @@ class Yolo():
                 bx1, by1, bx2, by2 = box1
                 barea = (bx1 - bx2) * (by1 - by2)
                 for j in range(len(boxes)):
+                    if scores[j] == -1:
+                        continue
+                    if scorecpy[j] == -1 or classes[j] == -1:
+                        continue
                     box2 = boxes[j]
                     cx1, cy1, cx2, cy2 = box2
                     carea = (cx1 - cx2) * (cy1 - cy2)
@@ -229,10 +233,10 @@ class Yolo():
                             scorecpy[k] = -1
                             classes[k] = -1
                             # break
-                        # else:
-                            # scorecpy[j] = -1
-                            # scores[j] = -1
-                            # classes[j] = -1
+                        else:
+                            scorecpy[j] = -1
+                            scores[j] = -1
+                            classes[j] = -1
                 if not discard:
                     box_predictions.append(boxes[k])
                     predicted_box_classes.append(classtmp)
