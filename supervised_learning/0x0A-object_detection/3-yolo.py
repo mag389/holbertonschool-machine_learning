@@ -188,6 +188,40 @@ class Yolo():
             classes = box_classes[idx]
             scores = box_scores[idx]
 
+            classes = np.array(classes)
+            while len(classes) > 0 and np.amax(classes) > -1:
+                k = np.argmax(scores)
+                box_predictions.append(boxes[k])
+                predicted_box_classes.append(classes[k])
+                predicted_box_scores.append(scores[k])
+
+                scores[k] = -1
+                classes[k] = -1
+
+                px1, py1, px2, py2 = boxes[k]
+                parea = (px2 - px1) * (py2 - py1)
+
+                for j in range(len(boxes)):
+                    if classes[j] != -1:
+                        bx1, by1, bx2, by2 = boxes[j]
+                        ox1 = np.maximum(px1, bx1)
+                        oy1 = np.maximum(py1, by1)
+                        ox2 = np.minimum(px2, bx2)
+                        oy2 = np.minimum(py2, by2)
+
+                        if ox2 - ox1 <= 0 or oy2 - oy1 <= 0:
+                            continue
+                        oarea = (ox2 - ox1) * (oy2 - oy1)
+                        iou = oarea / parea
+
+                        if iou > self.nms_t:
+                            classes[j] = -1
+                            scores[j] = -1
+        box_predictions = np.array(box_predictions)
+        predicted_box_classes = np.array(predicted_box_classes)
+        prediccted_box_scores = np.array(predicted_box_scores)
+        return (box_predictions, predicted_box_classes, predicted_box_scores)
+        """
             # with boxes of single class perform nms
             iou = self.nms_t
             scorecpy = np.copy(scores)
@@ -224,8 +258,6 @@ class Yolo():
                     overlap = (ox1 - ox2) * (oy1 - oy2)
                     union = barea + carea - overlap
                     frac = overlap / union
-                    if scores[k] == 0.6397598:
-                        print(overlap, union, frac, scores[j])
                     if frac > iou:
                         if scores[j] > scoretmp:
                             discard = True
@@ -245,3 +277,4 @@ class Yolo():
             p_box_c = np.array(predicted_box_classes)
             p_box_s = np.array(predicted_box_scores)
         return (box_p, p_box_c, p_box_s)
+       """
