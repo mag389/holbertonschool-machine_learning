@@ -16,3 +16,4 @@ if __name__ == '__main__':
     print('Boxes:', boxes)
     print('Box confidences:', box_confidences)
     print('Box class probabilities:', box_class_probs)
+    print(boxes[0].shape)
