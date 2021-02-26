@@ -223,7 +223,7 @@ class Yolo():
                     #     continue
                     overlap = (ox1 - ox2) * (oy1 - oy2)
                     union = barea + carea - overlap
-                    frac = overlap / carea
+                    frac = overlap / union
                     if scores[k] == 0.6397598:
                         print(overlap, union, frac, scores[j])
                     if frac > iou:
