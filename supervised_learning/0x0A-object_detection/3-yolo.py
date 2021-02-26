@@ -182,48 +182,62 @@ class Yolo():
         box_predictions = []
         predicted_box_classes = []
         predicted_box_scores = []
-        for i in range(len(self.class_names)):
-            boxes = []
-            classes = []
-            scores = []
-            for l in range(len(box_classes)):
-                if box_classes[l] == i:
-                    boxes.append(filtered_boxes[l])
-                    classes.append(box_classes[l])
-                    scores.append(box_scores[l])
+        for label in range(len(self.class_names)):
+            # Build lists of boxes belonging to just this class label
+            bound_tmp = []
+            class_tmp = []
+            score_tmp = []
+            for i in range(len(box_classes)):
+                if box_classes[i] == label:
+                    bound_tmp.append(filtered_boxes[i])
+                    class_tmp.append(box_classes[i])
+                    score_tmp.append(box_scores[i])
 
-            classes = np.array(classes)
-            while len(classes) > 0 and np.amax(classes) > -1:
-                k = np.argmax(scores)
-                box_predictions.append(boxes[k])
-                predicted_box_classes.append(classes[k])
-                predicted_box_scores.append(scores[k])
+            class_tmp = np.array(class_tmp)
+            while len(class_tmp) > 0 and np.amax(class_tmp) > -1:
+                # Get index of highest score
+                index = np.argmax(score_tmp)
 
-                scores[k] = -1
-                classes[k] = -1
+                # Add box, class, and score to prediction lists
+                box_predictions.append(bound_tmp[index])
+                predicted_box_classes.append(class_tmp[index])
+                predicted_box_scores.append(score_tmp[index])
 
-                px1, py1, px2, py2 = boxes[k]
-                parea = (px2 - px1) * (py2 - py1)
+                # Set index's class & score to -1 to remove from pending boxes
+                score_tmp[index] = -1
+                class_tmp[index] = -1
 
-                for j in range(len(boxes)):
-                    if classes[j] != -1:
-                        bx1, by1, bx2, by2 = boxes[j]
-                        ox1 = np.maximum(px1, bx1)
-                        oy1 = np.maximum(py1, by1)
-                        ox2 = np.minimum(px2, bx2)
-                        oy2 = np.minimum(py2, by2)
+                # Get bounds and area of predicted box
+                px1, py1, px2, py2 = bound_tmp[index]
+                p_area = (px2 - px1) * (py2 - py1)
 
+                # Compare to other boxes
+                for box in range(len(bound_tmp)):
+                    # If box hasn't been removed
+                    if class_tmp[box] != -1:
+                        # Get box's bounds and calculate overlap bounds
+                        bx1, by1, bx2, by2 = bound_tmp[box]
+                        ox1 = px1 if px1 > bx1 else bx1
+                        oy1 = py1 if py1 > by1 else by1
+                        ox2 = px2 if px2 < bx2 else bx2
+                        oy2 = py2 if py2 < by2 else by2
+
+                        # Ignore if overlap isn't valid
                         if ox2 - ox1 <= 0 or oy2 - oy1 <= 0:
                             continue
-                        oarea = (ox2 - ox1) * (oy2 - oy1)
-                        iou = oarea / parea
 
+                        # Calculate overlap area and IoU
+                        o_area = (ox2 - ox1) * (oy2 - oy1)
+                        iou = o_area / p_area
+
+                        # Remove box if IoU is over threshold
                         if iou > self.nms_t:
-                            classes[j] = -1
-                            scores[j] = -1
+                            class_tmp[box] = -1
+                            score_tmp[box] = -1
+
         box_predictions = np.array(box_predictions)
         predicted_box_classes = np.array(predicted_box_classes)
-        prediccted_box_scores = np.array(predicted_box_scores)
+        predicted_box_scores = np.array(predicted_box_scores)
         return (box_predictions, predicted_box_classes, predicted_box_scores)
         """
             # with boxes of single class perform nms
