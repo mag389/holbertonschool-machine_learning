@@ -192,7 +192,7 @@ class Yolo():
             iou = self.nms_t
             scorecpy = np.copy(scores)
             # for k in range(len(boxes)):
-            while np.amax(classes) != -1:
+            while np.amax(scorecpy) != -1:
                 k = np.argmax(scorecpy)
                 scorecpy[k] = -1
                 scoretmp = scores[k]
@@ -205,21 +205,34 @@ class Yolo():
                 bx1, by1, bx2, by2 = box1
                 barea = (bx1 - bx2) * (by1 - by2)
                 for j in range(len(boxes)):
-                    if k == j:
-                        continue
                     box2 = boxes[j]
                     cx1, cy1, cx2, cy2 = box2
                     carea = (cx1 - cx2) * (cy1 - cy2)
+                    if cx1 > bx2 or cx2 < bx1 or cy1 > by2 or cy2 < by1:
+                        continue
                     ox1 = np.maximum(bx1, cx1)
                     ox2 = np.minimum(bx2, cx2)
                     oy1 = np.maximum(by1, cy1)
                     oy2 = np.minimum(by2, cy2)
+                    # safe check but no change
+                    # if ox2 - ox1 <= 0 or oy2 - oy1 <= 0:
+                    #     continue
                     overlap = (ox1 - ox2) * (oy1 - oy2)
                     union = barea + carea - overlap
-                    frac = overlap / union
+                    frac = overlap / carea
+                    if scores[k] == 0.6397598:
+                        print(overlap, union, frac, scores[j])
                     if frac > iou:
                         if scores[j] > scoretmp:
                             discard = True
+                            # scores[k] = -1
+                            scorecpy[k] = -1
+                            classes[k] = -1
+                            # break
+                        # else:
+                            # scorecpy[j] = -1
+                            # scores[j] = -1
+                            # classes[j] = -1
                 if not discard:
                     box_predictions.append(boxes[k])
                     predicted_box_classes.append(classtmp)
