@@ -239,7 +239,7 @@ class Yolo():
         image_paths = []
         # first make image paths list
         # cv2 can take in wildcard args if using glob
-        image_paths = glob.glob(folder_path + '/*.jpg')
+        image_paths = glob.glob(folder_path + "/*")
         for path in image_paths:
             images.append(cv2.imread(path))
         return (images, image_paths)
