@@ -88,10 +88,10 @@ class Yolo():
                     x2 = (bx + bw / 2) * i_w
                     y1 = (by - bh / 2) * i_h
                     y2 = (by + bh / 2) * i_h
-                    print(y2.shape)
-                    print(box.shape)
+                    # print(y2.shape)
+                    # print(box.shape)
                     box[row, col, :, :] = np.array([x1, y1, x2, y2]).T
-                    boxes.append(box)
+            boxes.append(box)
             """
             # calculate new boundary boxes
             # bx = sigmoid(t_x) + c_x
