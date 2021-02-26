@@ -257,21 +257,22 @@ class Yolo():
                 3: color channels:
               image_shapes: np.ndarray (ni, 2) of iriginal height/width of img
         """
+        input_h = int(self.model.input.shape[2])
+        input_w = int(self.model.input.shape[1])
         pimages = []
-        input_shapes = []
-
-        input_h = int(self.model.input.shape[1])
-        input_w = int(self.model.input.shape[2])
+        image_shapes = []
 
         for image in images:
-            image_height, image_width = image.shape[:2]
-            image_shapes.append([image_height, image_width])
+            original_height, original_width = image.shape[:2]
+            image_shapes.append([original_height, original_width])
 
-            new_img = cv2.resize(image,
-                                 (input_h, input_w),
-                                 interpolation=cv2.INTER_CUBIC)
-            scale_img = new_img / 255
-            pimages.append(scale_img)
+            resized = cv2.resize(
+                image,
+                (input_w, input_h),
+                interpolation=cv2.INTER_CUBIC
+            )
+            normalized = resized / 255
+            pimages.append(normalized)
 
         pimages = np.array(pimages)
         image_shapes = np.array(image_shapes)
