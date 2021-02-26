@@ -190,7 +190,16 @@ class Yolo():
 
             # with boxes of single class perform nms
             iou = self.nms_t
-            for k in range(len(boxes)):
+            scorecpy = np.copy(scores)
+            # for k in range(len(boxes)):
+            while np.amax(classes) != -1:
+                k = np.argmax(scorecpy)
+                scorecpy[k] = -1
+                scoretmp = scores[k]
+                # scores[k] = -1
+                classtmp = classes[k]
+                # print(classtmp)
+                classes[k] = -1
                 discard = False
                 box1 = boxes[k]
                 bx1, by1, bx2, by2 = box1
@@ -209,12 +218,12 @@ class Yolo():
                     union = barea + carea - overlap
                     frac = overlap / union
                     if frac > iou:
-                        if scores[j] > scores[k]:
+                        if scores[j] > scoretmp:
                             discard = True
                 if not discard:
                     box_predictions.append(boxes[k])
-                    predicted_box_classes.append(classes[k])
-                    predicted_box_scores.append(scores[k])
+                    predicted_box_classes.append(classtmp)
+                    predicted_box_scores.append(scoretmp)
             box_p = np.array(box_predictions)
             p_box_c = np.array(predicted_box_classes)
             p_box_s = np.array(predicted_box_scores)
