@@ -209,6 +209,7 @@ class Yolo():
                 for box in range(len(boxes)):
                     if class_tmp[box] != -1:
                         bx1, by1, bx2, by2 = boxes[box]
+                        b_area = (bx2 - bx1) * (by2 - by1)
                         ox1 = px1 if px1 > bx1 else bx1
                         oy1 = py1 if py1 > by1 else by1
                         ox2 = px2 if px2 < bx2 else bx2
@@ -217,7 +218,8 @@ class Yolo():
                             continue
                         # Calculate overlap area and IoU
                         o_area = (ox2 - ox1) * (oy2 - oy1)
-                        iou = o_area / p_area
+                        u_area = p_area + b_area - o_area
+                        iou = o_area / u_area
 
                         if iou > self.nms_t:
                             class_tmp[box] = -1
