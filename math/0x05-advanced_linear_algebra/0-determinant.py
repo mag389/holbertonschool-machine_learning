@@ -8,8 +8,8 @@ def determinant(matrix):
         return 1
     if type(matrix) is not list or len(matrix) < 1:
         raise TypeError("matrix must be a list of lists")
-    if matrix == []:
-        raise TypeError("matrix must be a list of lists")
+    # if matrix == []:
+    #     raise TypeError("matrix must be a list of lists")
     size = len(matrix)
     for row in matrix:
         if type(row) is not list:
