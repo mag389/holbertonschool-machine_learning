@@ -24,6 +24,33 @@ def determinant(matrix):
 
 
 def deter(matrix):
+    """ uses elimination without recursion """
+    size = len(matrix)
+    coeff = 1
+    for i in range(size):
+        if matrix[i][i] == 0:
+            for j in range(i + 1, size):
+                if matrix[j][i] != 0:
+                    matrix[j], matrix[i] = matrix[i], matrix[j]
+                    coeff *= -1
+                    break
+                return 0
+    for i in range(size):
+        # print(matrix)
+        # print("-------")
+        diag = matrix[i][i]
+        if diag == 0:
+            return 0
+        coeff *= matrix[i][i]
+        matrix[i] = [matrix[i][x] / diag for x in range(size)]
+        for j in range(i + 1, size):
+            old = matrix[j][i]
+            for k in range(size):
+                matrix[j][k] = matrix[j][k] - matrix[i][k] * old
+    return coeff
+
+
+def deter1(matrix):
     """ uses gaussian elimination steps """
     size = len(matrix)
     coeff = 1
