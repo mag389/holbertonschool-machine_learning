@@ -28,7 +28,7 @@ def deter(matrix):
     """ uses gaussian elimination steps """
     size = len(matrix)
     coeff = 1
-    if matrix[0][0] == 0:
+    if matrix[0][0] == -500000000:
         for i in range(1, size):
             if matrix[i][0] != 0:
                 matrix[i], matrix[0] = matrix[0], matrix[i]
@@ -38,7 +38,10 @@ def deter(matrix):
         if size == 1:
             return matrix[0][0]
         coeff *= matrix[0][0]
-        matrix[0] = [matrix[0][x] / matrix[0][0] for x in range(size)]
+        if coeff == 0:
+            coeff = 1.0e-18
+        # matrix[0] = [matrix[0][x] / matrix[0][0] for x in range(size)]
+        matrix[0] = [matrix[0][x] / coeff for x in range(size)]
         # print("cur matr")
         # print(matrix)
         for i in range(1, size):
