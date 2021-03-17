@@ -37,14 +37,20 @@ def deter(matrix):
                     break
                 return 0
     """
+    # for i in range(size):
+    #     print(matrix[i])
     for i in range(size):
         if matrix[i][i] == 0:
+            switch = 0
             for j in range(i + 1, size):
                 if matrix[j][i] != 0:
                     matrix[j], matrix[i] = matrix[i], matrix[j]
+                    # print(matrix)
                     coeff *= -1
+                    switch = 1
                     break
-            return 0
+            if switch == 0:
+                return 0
         # print(matrix)
         # print("-------")
         diag = matrix[i][i]
