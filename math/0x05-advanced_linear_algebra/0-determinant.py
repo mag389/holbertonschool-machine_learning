@@ -11,21 +11,17 @@ def determinant(matrix):
     if matrix == []:
         raise TypeError("matrix must be a list of lists")
     size = len(matrix)
-    # print(size)
     for row in matrix:
         if type(row) is not list:
             raise TypeError("matrix must be a list of lists")
-        # print(len(row))
         if len(row) != size:
             raise TypeError("matrix must be a square matrix")
     if size == 1:
         return matrix[0][0]
+    if size == 2:
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
     num = deter(matrix)
-    # print(num)
     return round(num)
-    if num >= 0:
-        return int(num + .5)
-    return int(num - .5)
 
 
 def deter(matrix):
@@ -48,8 +44,6 @@ def deter(matrix):
         for i in range(1, size):
             old = matrix[i][0]
             for j in range(size):
-                # old = matrix[i][0]
-                # print("old is: %i", old)
                 matrix[i][j] = matrix[i][j] - matrix[0][j] * old
         # print(matrix)
         slicer = [matrix[x][1:] for x in range(1, len(matrix))]
