@@ -7,26 +7,31 @@ def determinant(matrix):
     if matrix == [[]]:
         return 1
 
+    shape_col = [len(row) for row in matrix]
+    if (isinstance(matrix, list)) and len(matrix) is not 0:
+        if not all(isinstance(row, list) for row in matrix):
+            raise TypeError("matrix must be a list of lists")
+    else:
+        raise TypeError("matrix must be a list of lists")
+    if not all(len(matrix) == col for col in shape_col):
+        raise ValueError("matrix must be a square matrix")
+    """
     if not isinstance(matrix, list) or len(matrix) <= 0:
         raise TypeError("matrix must be a list of lists")
     for row in matrix:
         if not isinstance(row, list):
             raise TypeError("matrix must be a list of lists")
-    """
+
     if type(matrix) is not list or len(matrix) < 1:
         raise TypeError("matrix must be a list of lists")
-    """
     size = len(matrix)
     for row in matrix:
         if len(row) != size:
             raise TypeError("matrix must be a square matrix")
-
-    if size == 1:
+    """
+    if len(matrix) == 1 and len(matrix[0]) == 1:
         return matrix[0][0]
-    if size == 2:
-        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
-    num = deter(matrix)
-    return num
+    return deter(matrix)
 
 
 def deter(matrix):
