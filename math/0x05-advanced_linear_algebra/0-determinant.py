@@ -27,6 +27,7 @@ def deter(matrix):
     """ uses elimination without recursion """
     size = len(matrix)
     coeff = 1
+    """
     for i in range(size):
         if matrix[i][i] == 0:
             for j in range(i + 1, size):
@@ -35,7 +36,15 @@ def deter(matrix):
                     coeff *= -1
                     break
                 return 0
+    """
     for i in range(size):
+        if matrix[i][i] == 0:
+            for j in range(i + 1, size):
+                if matrix[j][i] != 0:
+                    matrix[j], matrix[i] = matrix[i], matrix[j]
+                    coeff *= -1
+                    break
+            return 0
         # print(matrix)
         # print("-------")
         diag = matrix[i][i]
