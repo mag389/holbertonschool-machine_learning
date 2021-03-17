@@ -16,6 +16,7 @@ def determinant(matrix):
     if not all(len(matrix) == col for col in shape_col):
         raise ValueError("matrix must be a square matrix")
     """
+    this is where the error was (not sure where specifically
     if not isinstance(matrix, list) or len(matrix) <= 0:
         raise TypeError("matrix must be a list of lists")
     for row in matrix:
@@ -34,7 +35,7 @@ def determinant(matrix):
     return deter(matrix)
 
 
-def deter(matrix):
+def deterreduce(matrix):
     """ get determinant by using sub determinants
         very slow for lager matrices
     """
@@ -57,7 +58,7 @@ def deter(matrix):
     return det
 
 
-def deterreduce(matrix):
+def deter(matrix):
     """ uses elimination without recursion """
     size = len(matrix)
     coeff = 1
@@ -81,7 +82,7 @@ def deterreduce(matrix):
             old = matrix[j][i]
             for k in range(size):
                 matrix[j][k] = matrix[j][k] - matrix[i][k] * old
-    return coeff
+    return round(coeff)
 
 
 def deter1(matrix):
