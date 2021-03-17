@@ -22,6 +22,7 @@ def determinant(matrix):
         return matrix[0][0]
     num = deter(matrix)
     # print(num)
+    return round(num)
     if num >= 0:
         return int(num + .5)
     return int(num - .5)
