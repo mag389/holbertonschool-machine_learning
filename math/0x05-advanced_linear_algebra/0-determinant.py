@@ -8,6 +8,8 @@ def determinant(matrix):
         return 1
     if type(matrix) is not list or len(matrix) < 1:
         raise TypeError("matrix must be a list of lists")
+    if matrix == []:
+        raise TypeError("matrix must be a list of lists")
     size = len(matrix)
     # print(size)
     for row in matrix:
@@ -19,9 +21,10 @@ def determinant(matrix):
     if size == 1:
         return matrix[0][0]
     num = deter(matrix)
+    # print(num)
     if num >= 0:
         return int(num + .5)
-    return int(num)
+    return int(num - .5)
 
 
 def deter(matrix):
@@ -37,7 +40,7 @@ def deter(matrix):
     else:
         if size == 1:
             return matrix[0][0]
-        coeff /= 1 / matrix[0][0]
+        coeff *= matrix[0][0]
         matrix[0] = [matrix[0][x] / matrix[0][0] for x in range(size)]
         # print("cur matr")
         # print(matrix)
