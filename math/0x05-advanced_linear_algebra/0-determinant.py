@@ -21,7 +21,7 @@ def determinant(matrix):
     if size == 2:
         return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
     num = deter(matrix)
-    return int(num)
+    return round(num)
 
 
 def deter(matrix):
