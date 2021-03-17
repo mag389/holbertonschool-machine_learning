@@ -10,6 +10,9 @@ def determinant(matrix):
         raise TypeError("matrix must be a list of lists")
     # if matrix == []:
     #     raise TypeError("matrix must be a list of lists")
+    # didn't change result
+    if not all(isinstance(x, list) for x in matrix):
+        raise TypeError("matrix must be a list of lists")
     size = len(matrix)
     for row in matrix:
         if type(row) is not list:
