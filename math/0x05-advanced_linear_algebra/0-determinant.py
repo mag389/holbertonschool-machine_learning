@@ -8,9 +8,6 @@ def determinant(matrix):
         return 1
     if type(matrix) is not list or len(matrix) < 1:
         raise TypeError("matrix must be a list of lists")
-    # if matrix == []:
-    #     raise TypeError("matrix must be a list of lists")
-    # didn't change result
     size = len(matrix)
     for row in matrix:
         if type(row) is not list:
@@ -19,6 +16,7 @@ def determinant(matrix):
             raise TypeError("matrix must be a square matrix")
     if size == 1:
         return matrix[0][0]
+
     if size == 2:
         return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
     num = deter(matrix)
@@ -39,8 +37,9 @@ def deter(matrix):
         if size == 1:
             return matrix[0][0]
         coeff *= matrix[0][0]
-        if coeff == 0:
-            coeff = 1.0e-18
+        # for if i don't switch rows, but made no difference
+        # if coeff == 0:
+        #     coeff = 1.0e-18
         # matrix[0] = [matrix[0][x] / matrix[0][0] for x in range(size)]
         matrix[0] = [matrix[0][x] / coeff for x in range(size)]
         # print("cur matr")
@@ -49,7 +48,6 @@ def deter(matrix):
             old = matrix[i][0]
             for j in range(size):
                 matrix[i][j] = matrix[i][j] - matrix[0][j] * old
-        # print(matrix)
         slicer = [matrix[x][1:] for x in range(1, len(matrix))]
         # print(slicer)
         # print(coeff)
