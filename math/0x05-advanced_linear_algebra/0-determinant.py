@@ -11,8 +11,6 @@ def determinant(matrix):
     # if matrix == []:
     #     raise TypeError("matrix must be a list of lists")
     # didn't change result
-    if not all(isinstance(x, list) for x in matrix):
-        raise TypeError("matrix must be a list of lists")
     size = len(matrix)
     for row in matrix:
         if type(row) is not list:
@@ -31,7 +29,7 @@ def deter(matrix):
     """ uses gaussian elimination steps """
     size = len(matrix)
     coeff = 1
-    if matrix[0][0] == -500000000:
+    if matrix[0][0] == 0:
         for i in range(1, size):
             if matrix[i][0] != 0:
                 matrix[i], matrix[0] = matrix[0], matrix[i]
