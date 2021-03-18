@@ -4,19 +4,23 @@
 
 def minor(matrix):
     """ calcs minor matrix of matrix"""
-    if matrix == [[]]:
-        return 1
-    if type(matrix) is not list or len(matrix) < 1:
+    cols = [len(row) for row in matrix]
+    if (isinstance(matrix, list)) and len(matrix) is not 0:
+        if not all(isinstance(row, list) for row in matrix):
+            raise TypeError("matrix must be a list of lists")
+    else:
         raise TypeError("matrix must be a list of lists")
+    if not all(len(matrix) == col for col in cols):
+        raise ValueError("matrix must be a square matrix")
+
     size = len(matrix)
     for row in matrix:
         if type(row) is not list:
             raise TypeError("matrix must be a list of lists")
-        # print(len(row))
         if len(row) != size:
             raise TypeError("matrix must be a square matrix")
     if size == 1:
-        return 1
+        return [[1]]
     minors = []
     for i in range(size):
         minors.append([])
@@ -53,13 +57,13 @@ def determinant(matrix):
     if matrix == [[]]:
         return 1
 
-    shape_col = [len(row) for row in matrix]
+    cols = [len(row) for row in matrix]
     if (isinstance(matrix, list)) and len(matrix) is not 0:
         if not all(isinstance(row, list) for row in matrix):
             raise TypeError("matrix must be a list of lists")
     else:
         raise TypeError("matrix must be a list of lists")
-    if not all(len(matrix) == col for col in shape_col):
+    if not all(len(matrix) == col for col in cols):
         raise ValueError("matrix must be a square matrix")
 
     if len(matrix) == 1 and len(matrix[0]) == 1:
