@@ -14,11 +14,10 @@ def inverse(matrix):
             raise TypeError("matrix must be a list of lists")
         if len(row) != len(matrix):
             raise ValueError("matrix must be a non-empty square matrix")
-
+    adj = adjugate(matrix)
     det = determinant(matrix)
     if det == 0:
         return None
-    adj = adjugate(matrix)
     for i in range(len(matrix)):
         for j in range(len(matrix)):
             adj[i][j] /= det
