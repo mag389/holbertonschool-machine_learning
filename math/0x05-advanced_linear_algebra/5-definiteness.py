@@ -33,26 +33,13 @@ def definiteness(matrix):
             pd = False
     if pd is True:
         return("Positive definite")
-    """
-    this method was in links section but miscalssifies
-    nd = True
-    for i in range(1, size):
-        det = np.linalg.det(matrix[:i, :i])
-        if i % 2 == 1:
-            if det >= 0:
-                nd = False
-        if i % 2 == 0:
-            if det <= 0:
-                nd = False
-    if nd is True:
-        return("negative definite")
-    """
+
     nd = True
     for value in w:
         if value >= 0:
             nd = False
     if nd is True:
-        return("negative definite")
+        return("Negative definite")
 
     psd = True
     nsd = True
@@ -62,7 +49,7 @@ def definiteness(matrix):
         if value > 0:
             nsd = False
     if psd is True:
-        return("positive semi-definite")
+        return("Positive semi-definite")
     if nsd is True:
-        return("negative semi-definite")
-    return("indefinite")
+        return("Negative semi-definite")
+    return("Indefinite")
