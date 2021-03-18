@@ -14,11 +14,13 @@ def minor(matrix):
         raise ValueError("matrix must be a square matrix")
 
     size = len(matrix)
+    """
     for row in matrix:
         if type(row) is not list:
             raise TypeError("matrix must be a list of lists")
         if len(row) != size:
             raise TypeError("matrix must be a square matrix")
+    """
     if size == 1:
         return [[1]]
     minors = []
