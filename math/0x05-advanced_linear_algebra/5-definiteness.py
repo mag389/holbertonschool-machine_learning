@@ -51,9 +51,6 @@ def definiteness(matrix):
     if nd is True:
         return("negative definite")
 
-    if np.linalg.det(matrix) != 0:
-        return("indefinite")
-
     psd = True
     nsd = True
     for value in w:
@@ -66,6 +63,3 @@ def definiteness(matrix):
     if nsd is True:
         return("negative semi-definite")
     return("indefinite")
-    # print(w)
-    # print(v)
-    return("hi")
