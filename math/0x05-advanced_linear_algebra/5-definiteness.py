@@ -62,7 +62,7 @@ def definiteness(matrix):
         return("positive semi-definite")
     if nsd is True:
         return("negative semi-definite")
-    return None
+    return("indefinite")
     # print(w)
     # print(v)
     return("hi")
