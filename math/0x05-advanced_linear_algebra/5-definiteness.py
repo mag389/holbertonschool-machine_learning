@@ -12,8 +12,11 @@ def definiteness(matrix):
     """
     if type(matrix) is not np.ndarray:
         raise TypeError("matrix must be a numpy.ndarray")
+    if not np.allclose(matrix, matrix.T):
+        return None
 
     size = len(matrix)
+    
     for row in matrix:
         if len(row) != size:
             return None
