@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" create minor  matrix """
+""" create inverse matrix """
 
 
 def inverse(matrix):
@@ -7,14 +7,21 @@ def inverse(matrix):
         matrix of minors -> cofactors ->adjugate -> multiply by 1/ det
         returns new matrix inverse of old
     """
-    adj = adjugate(matrix)
+    if type(matrix) is not list or len(matrix) == 0:
+        raise TypeError("matrix must be a list of lists")
+    for row in matrix:
+        if type(row) is not list:
+            raise TypeError("matrix must be a list of lists")
+        if len(row) != len(matrix):
+            raise ValueError("matrix must be a non-empty square matrix")
+
     det = determinant(matrix)
     if det == 0:
         return None
-    det = 1 / det
+    adj = adjugate(matrix)
     for i in range(len(matrix)):
         for j in range(len(matrix)):
-            adj[i][j] *= det
+            adj[i][j] /= det
     return adj
 
 
