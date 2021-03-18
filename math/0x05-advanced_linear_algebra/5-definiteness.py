@@ -19,7 +19,7 @@ def definiteness(matrix):
     if not np.all(np.abs(matrix - matrix.T < 1e-8)):
         return None
 
-    size = len(matrix) 
+    size = len(matrix)
     for row in matrix:
         if len(row) != size:
             return None
@@ -28,16 +28,20 @@ def definiteness(matrix):
     except Exception as e:
         return None
     pd = True
+    nd = True
     for value in w:
         if value <= 0:
             pd = False
+        if value >= 0:
+            nd = False
     if pd is True:
         return("Positive definite")
-
+    """
     nd = True
     for value in w:
         if value >= 0:
             nd = False
+    """
     if nd is True:
         return("Negative definite")
 
