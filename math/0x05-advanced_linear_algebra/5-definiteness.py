@@ -12,8 +12,6 @@ def definiteness(matrix):
     """
     if type(matrix) is not np.ndarray:
         raise TypeError("matrix must be a numpy.ndarray")
-    # if len(matrix.shape) == 1:
-    #     return None
     if matrix.shape != matrix.T.shape:
         return None
     if not np.all(np.abs(matrix - matrix.T < 1e-8)):
@@ -36,12 +34,6 @@ def definiteness(matrix):
             nd = False
     if pd is True:
         return("Positive definite")
-    """
-    nd = True
-    for value in w:
-        if value >= 0:
-            nd = False
-    """
     if nd is True:
         return("Negative definite")
 
