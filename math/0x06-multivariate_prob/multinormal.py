@@ -5,6 +5,7 @@ import numpy as np
 
 class MultiNormal:
     """ represents multinormal random variable """
+
     def __init__(self, data):
         """ creates multinormal instance """
         if type(data) != np.ndarray or len(data.shape) != 2:
@@ -13,7 +14,7 @@ class MultiNormal:
         if n < 2:
             raise ValueError("data must contain multiple data points")
         self.mean = np.mean(data, axis=1, keepdims=True)
-        self.cov = np.matmul(data - self.mean, data.T - self.mean.T)
+        self.cov = np.matmul(data - self.mean, data.T - self.mean.T) / (n - 1)
 
     def pdf(self, x):
         """ calculates the pdf at a data point
