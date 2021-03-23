@@ -31,7 +31,7 @@ class MultiNormal:
         det = np.linalg.det(self.cov)
         inv = np.linalg.inv(self.cov)
         adj_mean = x - self.mean
-        pdf = 1.0 / (np.sqrt((2 * np.pi)**d * det))
+        pdf = 1.0 / (np.sqrt(((2 * np.pi) ** d) * det))
         pdf1 = np.matmul(np.matmul(adj_mean.T, inv), adj_mean)
         pdf = pdf * np.exp(-0.5 * pdf1)
         return pdf[0][0]
