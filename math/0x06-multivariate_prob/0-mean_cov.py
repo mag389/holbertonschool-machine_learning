@@ -9,7 +9,7 @@ def mean_cov(X):
           n: number of points, d: number of dimensions of each data point
         Returns: mean, cov
     """
-    if len(X.shape) != 2 or type(X) != np.ndarray:
+    if type(X) != np.ndarray or len(X.shape) != 2:
         raise TypeError("X must be a 2D numpy.ndarray")
     if X.shape[0] < 2:
         raise ValueError("X must contain multiple data points")
