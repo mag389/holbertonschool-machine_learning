@@ -22,3 +22,7 @@ if __name__ == '__main__':
         inverse(mat6)
     except Exception as e:
         print(e)
+    try:
+        inverse([[]])
+    except Exception as e:
+        print(e)
