@@ -13,9 +13,11 @@ def pca(X, ndim):
         Returns: matrix T of transformation of X
           T: (d, ndim) nd is new dimensionality
         @ is matmul
+        must do svd of X_m instead of svd of x
     """
-    u, s, vh = np.linalg.svd(X)
+    X_m = X - np.mean(X, axis=0)
+    u, s, vh = np.linalg.svd(X_m)
     # traditional notation decomp(A) = U (sigma) VT = (u * s) @ vh
     W = vh[0:ndim].T
-    X_m = X - np.mean(X, axis=0)
+    # X_m = X - np.mean(X, axis=0)
     return np.matmul(X_m, W)
