@@ -1,0 +1,35 @@
+# notes from singular value decomp information/explanation session
+this probably will only be useful to me
+A = U (sigma) V^T
+
+U is like 
+
+ACP is how to find plane (or space/line depends on dim's) in order to project
+X1..Xn
+
+we must minimize sum:||xi - yi|| ^2
+
+to find plane we need a point and two vectors
+
+X projecting onto Y (X=x1..xn, same for Y)
+
+min:sum:||xi - x*|| ^2 gradient =-> x* = 1/n * sum(xi)
+
+for each space: x* is mean
+i lost the presenter a bit here
+
+for svd: step 1: subtract mean from all rows
+step 2: find eigs of A~ (use svd func not eig func)
+matrix is A
+U and V are eigenvectors with 2 largest eigenvalues
+A~ = AT (dot) A
+A~ U = (lambda) U (and same for V
+the eigenvalues are from A~ not previous A
+
+all eigenvalues must be real/positive
+step 3: python svd function is has to be used 
+for this stuff instead of np.linalg.eig
+they are theoretically the same, but in python 
+    have diff precision
+U and V are the pricipal components
+
