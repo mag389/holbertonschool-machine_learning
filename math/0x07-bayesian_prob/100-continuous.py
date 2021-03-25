@@ -27,7 +27,7 @@ def posterior(x, n, p1, p2):
     if not isinstance(p2, float) or p2 < 0 or p2 > 1:
         raise TypeError("p2 must be a float in the range [0, 1]")
     if p2 <= p1:
-        raise ValueError("P2 must be greater than p1")
+        raise ValueError("p2 must be greater than p1")
     choose = special.comb(n, x)
     # for binomial distribution conjugate prior is beta (parameters a, b)
     # so doing bayesian flip p(p|x, n) is alos beta
@@ -35,13 +35,3 @@ def posterior(x, n, p1, p2):
     upper = special.btdtr(1 + x, 1 + n - x, p2)
     lower = special.btdtr(1 + x, 1 + n - x, p1)
     return upper - lower
-    # choose = np.math.factorial(n) / np.math.factorial(x)
-    # choose /= np.math.factorial(nk)
-    for i in range(len(P)):
-        R[i] *= (P[i]**x) * ((1-P[i])**nk)
-    inter = R * Pr
-    # R is p(B|A) pr is p(A)
-    # so p(b) = sum(p(B|A) *p(A) for all A, which is the whole list
-    marginal = np.sum(inter)
-    # bayes: p(A|B) = P(B|A) * P(A) / P(B)
-    return inter / marginal
