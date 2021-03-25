@@ -28,10 +28,12 @@ def posterior(x, n, p1, p2):
         raise TypeError("p2 must be a float in the range [0, 1]")
     if p2 <= p1:
         raise ValueError("p2 must be greater than p1")
-    choose = special.comb(n, x)
+    # choose = special.comb(n, x)
     # for binomial distribution conjugate prior is beta (parameters a, b)
     # so doing bayesian flip p(p|x, n) is alos beta
     # we can use scipy to easily cal beta values
-    upper = special.btdtr(1 + x, 1 + n - x, p2)
-    lower = special.btdtr(1 + x, 1 + n - x, p1)
+    # upper = special.btdtr(1 + x, 1 + n - x, p2)
+    # lower = special.btdtr(1 + x, 1 + n - x, p1)
+    upper = special.betainc(x + 1, 1 + n - x, p2)
+    lower = special.betainc(x + 1, 1 + n - x, p1)
     return upper - lower
