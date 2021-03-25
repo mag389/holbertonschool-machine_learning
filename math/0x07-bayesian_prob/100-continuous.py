@@ -15,7 +15,7 @@ def posterior(x, n, p1, p2):
         p2: upper bound of range
         Returns: posterior prob that p is in range [p1, p2] given x and n
     """
-    if type(n) is not int or n <= 0:
+    if type(n) is not int or n < 1:
         raise ValueError("n must be a positive integer")
     if type(x) is not int or x < 0:
         error = "x must be an integer that is greater than or equal to 0"
@@ -32,8 +32,8 @@ def posterior(x, n, p1, p2):
     # for binomial distribution conjugate prior is beta (parameters a, b)
     # so doing bayesian flip p(p|x, n) is alos beta
     # we can use scipy to easily cal beta values
-    # upper = special.btdtr(1 + x, 1 + n - x, p2)
-    # lower = special.btdtr(1 + x, 1 + n - x, p1)
-    upper = special.betainc(x + 1, 1 + n - x, p2)
-    lower = special.betainc(x + 1, 1 + n - x, p1)
+    upper = special.btdtr(1 + x, 1 + n - x, p2)
+    lower = special.btdtr(1 + x, 1 + n - x, p1)
+    # upper = special.betainc(x + 1, 1 + n - x, p2)
+    # lower = special.betainc(x + 1, 1 + n - x, p1)
     return upper - lower
