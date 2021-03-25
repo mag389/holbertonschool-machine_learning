@@ -31,7 +31,7 @@ def intersection(x, n, P, Pr):
     for num in Pr:
         if num < 0 or num > 1:
             raise ValueError("All values in Pr must be in the range [0, 1]")
-    if np.sum(Pr) != 1:
+    if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
     R = np.ones(P.shape)
     nk = n - x
