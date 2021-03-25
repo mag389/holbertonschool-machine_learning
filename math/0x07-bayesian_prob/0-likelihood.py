@@ -11,7 +11,7 @@ def likelihood(x, n, P):
         Returns: 1d np.ndarray containing likelihood of obtaining data x and n
             for each probability in p respectively
     """
-    if n <= 0:
+    if type(n) is not int or n <= 0:
         raise ValueError("n must be a positive integer")
     if type(x) is not int or x < 0:
         error = "x must be an integer that is greater than or equal to 0"
