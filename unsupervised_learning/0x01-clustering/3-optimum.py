@@ -26,7 +26,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         return None, None
     if kmax is None:
         kmax = kmin + 3
-    if not isinstance(kmax, int) or kmax < 1:
+    if not isinstance(kmax, int) or kmax < 1 or kmax <= kmin:
         return None, None
     if not isinstance(iterations, int) or iterations < 1:
         return None, None
