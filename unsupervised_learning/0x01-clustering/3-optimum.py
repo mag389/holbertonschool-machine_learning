@@ -20,15 +20,15 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
           results: list of outputs of K-means for each cluster size
           d_vars: list of difference in var from smallest cluster size for each
     """
-    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
+    if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None
     if not isinstance(kmin, int) or kmin < 1:
         return None, None
     if kmax is None:
         kmax = X.shape[0]
-    if not isinstance(kmax, int) or kmax < 1 or kmax < kmin:
+    if type(kmax) is not int or kmax < 1 or kmax < kmin:
         return None, None
-    if not isinstance(iterations, int) or iterations < 1:
+    if type(iterations) is not int or iterations < 1:
         return None, None
 
     n, d = X.shape
