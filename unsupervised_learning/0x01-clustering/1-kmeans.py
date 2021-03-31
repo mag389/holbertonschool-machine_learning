@@ -32,8 +32,7 @@ def kmeans(X, k, iterations=1000):
     rmax = np.amax(X, axis=0)
     rmin = np.amin(X, axis=0)
     C = np.random.uniform(rmin, rmax, (k, d))
-    clss = np.zeros(n)
-    change = 0
+    # clss = np.zeros(n)
 
     # perform clustering iterations
     for i in range(iterations):
