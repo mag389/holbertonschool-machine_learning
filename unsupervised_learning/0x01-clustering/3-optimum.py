@@ -30,12 +30,11 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         return None, None
     if not isinstance(iterations, int) or iterations < 1:
         return None, None
-    n, d = X.shape
 
-    # smallest = kmeans(X, kmin, iterations)
-    # small_var = variance(X, smallest[0])
+    n, d = X.shape
     results = []
     d_vars = []
+
     for k in range(kmin, kmax + 1):
         results.append(kmeans(X, k, iterations))
         vari = variance(X, results[-1][0])
