@@ -6,7 +6,8 @@ variance = __import__('2-variance').variance
 
 
 def optimum_k(X, kmin=1, kmax=None, iterations=1000):
-    """ tests for optimum number of lcusters by varaince
+    """
+        tests for optimum number of lcusters by varaince
         X: data set. np.ndarray (n, d)
           n: number of data poitns
           d: dimensions per data point
