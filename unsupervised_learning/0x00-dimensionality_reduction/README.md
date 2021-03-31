@@ -14,3 +14,14 @@ curl -o mnist2500_X.txt 'https://intranet-projects-files.s3.amazonaws.co
 m/holbertonschool-ml/mnist2500_X.txt'
 
 i believe the first was too large for github
+
+
+additional sources:
+for 0 and 1 this helped explain the variance thing:
+https://stats.stackexchange.com/questions/132886/how-many-components-to-use-in-pca-in-order-to-preserve-a-certain-amount-of-varia
+for 1 make sure to read the main file of 0 closely
+
+this is basic but helps with what svd returns if you don't know:
+https://www.google.com/search?q=np.linalg.svd&source=hp&ei=lYBbYKSsMYy9kgXf5oTwCg&iflsig=AINFCbYAAAAAYFuOpZpeMlGc9V3bSeAgCHZzCYc6XosQ&oq=np.linalg.svd&gs_lcp=Cgdnd3Mtd2l6EAMyAggAMgIIADICCAAyAggAMgIIADoFCAAQsQM6AgguOggIABCxAxCDAVBfWLgaYNkjaABwAHgBgAHUBYgBnyCSAQsyLTMuMS40LjEuMZgBAKABAaoBB2d3cy13aXo&sclient=gws-wiz&ved=0ahUKEwjkyre2w8nvAhWMnqQKHV8zAa4Q4dUDCAk&uact=5
+
+
