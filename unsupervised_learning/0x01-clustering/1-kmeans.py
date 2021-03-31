@@ -50,4 +50,6 @@ def kmeans(X, k, iterations=1000):
                 C[j] = np.mean(X[clss == j], axis=0)
         if np.array_equal(C_cpy, C):
             break
+    distances = np.sqrt(np.sum((X - C[:, np.newaxis])**2, axis=-1))
+    clss = np.argmin(distances, axis=0)
     return (C, clss)
