@@ -32,14 +32,13 @@ def kmeans(X, k, iterations=1000):
     rmax = np.amax(X, axis=0)
     rmin = np.amin(X, axis=0)
     C = np.random.uniform(rmin, rmax, (k, d))
-    # clss = np.zeros(n)
 
     # perform clustering iterations
     for i in range(iterations):
         C_cpy = np.copy(C)
 
         # calculate classes
-        distances = np.sqrt(((X - C[:, np.newaxis])**2).sum(axis=-1))
+        distances = np.sqrt(np.sum((X - C[:, np.newaxis])**2, axis=-1))
         # distances = np.linalg.norm(X - C_cpy)
         clss = np.argmin(distances, axis=0)
         for j in range(k):
