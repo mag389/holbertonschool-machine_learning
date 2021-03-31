@@ -18,7 +18,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         at most 2 loops
         Returns: results, d_vars or None, None on failure
           results: list of outputs of K-means for each cluster size
-          d_vars: list of difference in var from smallest cluster size for each
+          d_vars: list of difference in var from smallest cluster size for eac
     """
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None
