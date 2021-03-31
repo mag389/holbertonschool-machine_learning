@@ -10,16 +10,6 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         tests for optimum number of lcusters by varaince
         X: data set. np.ndarray (n, d)
           n: number of data poitns
-          d: dimensions per data point
-        kmin: positive int containing min number of clusters to check
-        kmax: positive int containing max number of clusters to check
-        iterations: positive integer containing max number of iters for kmeans
-        should analyze at least 2 cluster sizes
-        can use imports above
-        at most 2 loops
-        Returns: results, d_vars or None, None on failure
-          results: list of outputs of K-means for each cluster size
-          d_vars: list of difference in var from smallest cluster size for eac
     """
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None
