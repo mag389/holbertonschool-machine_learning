@@ -41,5 +41,5 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         vari = variance(X, C)
         if k == kmin:
             small_var = vari
-        d_vars.append(float(small_var - vari))
+        d_vars.append(small_var - vari)
     return results, d_vars
