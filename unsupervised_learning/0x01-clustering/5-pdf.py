@@ -19,8 +19,8 @@ def pdf(X, m, S):
     if type(m) is not np.ndarray or len(m.shape) != 1 or m.shape[0] != d:
         print("first check")
         return None
-    # if m.shape[0] != X.shape[1]:
-    #     return None
+    if S.shape[0] != S.shape[1]:
+        return None
     if type(S) is not np.ndarray or len(S.shape) != 2 or S.shape[0] != d:
         print("second check")
         return None
@@ -28,8 +28,6 @@ def pdf(X, m, S):
         det = np.linalg.det(S)
         inv = np.linalg.inv(S)
     except Exception:
-        return None
-    if det == 0:
         return None
 
     norm_const = np.sqrt(((2 * np.pi) ** d) * det)
