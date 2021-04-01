@@ -52,5 +52,5 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         l_old = ll
     if verbose:
         llr = round(ll, 5)
-        print("Log Likelihood after {} iterations: {}".format(i + 1, llr))
+        print("Log Likelihood after {} iterations: {}".format(i, llr))
     return pi, m, S, g, ll
