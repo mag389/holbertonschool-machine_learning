@@ -28,7 +28,7 @@ def BIC(X, kmin, kmax, iterations=1000, tol=1e-5, verbose=False):
     """
     fail = (None, None, None, None)
     if type(X) is not np.ndarray or len(X.shape) != 2:
-        return fail
+        return None, None, None, None
     if type(kmin) is not int or kmin < 1:
         return fail
     if type(kmax) is not int or kmax < 1 or kmax < kmin:
