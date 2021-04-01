@@ -24,6 +24,8 @@ def maximization(X, g):
     k = g.shape[0]
     if n != g.shape[1]:
         return None, None, None
+    if not np.isclose(np.sum(g, axis=0), np.ones(n)).all():
+        return None, None, None
 
     pi = np.ones((k,))
     m = np.ones((k, d))
