@@ -4,7 +4,7 @@ import numpy as np
 expectation_maximization = __import__('8-EM').expectation_maximization
 
 
-def BIC(X, kmin, kmax, iterations=1000, tol=1e-5, verbose=False):
+def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
     """ finds ideal clusters
         X: np arr (n, d) data set
           n: number of data pts, d: dim's per data pt
@@ -30,6 +30,8 @@ def BIC(X, kmin, kmax, iterations=1000, tol=1e-5, verbose=False):
         return None, None, None, None
     if type(kmin) is not int or kmin < 1:
         return None, None, None, None
+    if kmax is None:
+        kmax = kmin + 3
     if type(kmax) is not int or kmax < 1 or kmax < kmin:
         return None, None, None, None
     if type(iterations) is not int or iterations < 1:
