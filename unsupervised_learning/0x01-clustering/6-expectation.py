@@ -32,8 +32,6 @@ def expectation(X, pi, m, S):
         return None, None
     if S.shape[0] != k or S.shape[1] != d or S.shape[2] != d:
         return None, None
-    if k > n:
-        return None, None
 
     g_old = np.ones((k, n))
     for i in range(k):
