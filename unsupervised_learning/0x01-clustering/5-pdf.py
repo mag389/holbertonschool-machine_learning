@@ -13,7 +13,6 @@ def pdf(X, m, S):
           P: np array (n,) pdf values for each data point
         values in P are min 1e-300
     """
-    return None
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return None
     n, d = X.shape
