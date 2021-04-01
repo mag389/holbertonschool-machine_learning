@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-""" finds best number of clusters for GMM
-    uses bayesian informaion criterion
-"""
+""" finds best number of clusters for GMM bayes info criterion """
 import numpy as np
 expectation_maximization = __import__('8-EM').expectation_maximization
 
@@ -26,6 +24,7 @@ def BIC(X, kmin, kmax, iterations=1000, tol=1e-5, verbose=False):
               n: number of data pts
               l: log likelihood of model
     """
+    return None, None, None, None
     # fail = (None, None, None, None)
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None, None, None
