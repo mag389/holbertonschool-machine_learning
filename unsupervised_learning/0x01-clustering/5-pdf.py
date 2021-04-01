@@ -6,13 +6,14 @@ import numpy as np
 def pdf(X, m, S):
     """ calulates probability density of given gaussian dist
         X: np array (n, d) of data points to evaluate pdf of
-        m: npy array (d,) of mean of distribution
+        m: np array (d,) of mean of distribution
         S: np array (d, d) of covariance of distribution
         no loops or diag stuff
         Returns: P or None
           P: np array (n,) pdf values for each data point
         values in P are min 1e-300
     """
+    return None
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return None
     n, d = X.shape
@@ -24,10 +25,7 @@ def pdf(X, m, S):
         return None
 
     det = np.linalg.det(S)
-    try:
-        inv = np.linalg.inv(S)
-    except Exception:
-        return None
+    inv = np.linalg.inv(S)
     # if det == 0:
     #     return None
 
