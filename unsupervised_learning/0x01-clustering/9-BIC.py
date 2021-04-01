@@ -30,22 +30,21 @@ def BIC(X, kmin, kmax, iterations=1000, tol=1e-5, verbose=False):
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None, None, None
     if type(kmin) is not int or kmin < 1:
-        return fail
+        return None, None, None, None
     if type(kmax) is not int or kmax < 1 or kmax < kmin:
-        return fail
+        return None, None, None, None
     if type(iterations) is not int or iterations < 1:
-        return fail
+        return None, None, None, None
     if type(tol) is not float or tol < 0:
-        return fail
+        return None, None, None, None
     if type(verbose) is not bool:
-        return fail
+        return None, None, None, None
+
     ite = iterations
     n, d = X.shape
     ems = []
     logs = np.ones(kmax - kmin + 1)
     bics = np.ones(kmax - kmin + 1)
-    # logs = np.array([])
-    # bics = np.array([])
 
     for k in range(kmin, kmax + 1):
         pi, m, S, g, ll = expectation_maximization(X, k, ite, tol, verbose)
