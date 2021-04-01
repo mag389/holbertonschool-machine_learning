@@ -38,8 +38,20 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     n, d = X.shape
     pi, m, S = initialize(X, k)
     l_old = 0
+    g, ll = expectation(X, pi, m, S)
 
     for i in range(iterations):
+        # new way
+        l_old = ll
+        if verbose and i % 10 == 0:
+            llr = round(ll, 5)                                            
+            print("Log Likelihood after {} iterations: {}".format(i, llr))
+        pi, m, S = maximization(X, g)
+        g, ll = expectation(X, pi, m, S)
+        if abs(ll - l_old) <= tol:
+            break
+        # done
+        """
         g, ll = expectation(X, pi, m, S)
         pi, m, S = maximization(X, g)
         if abs(ll - l_old) <= tol:
@@ -50,7 +62,8 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         if abs(ll - l_old) <= tol:
             break
         l_old = ll
+        """
     if verbose:
         llr = round(ll, 5)
-        print("Log Likelihood after {} iterations: {}".format(i, llr))
+        print("Log Likelihood after {} iterations: {}".format(i + 1, llr))
     return pi, m, S, g, ll
