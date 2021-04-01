@@ -24,11 +24,9 @@ def pdf(X, m, S):
     if type(S) is not np.ndarray or len(S.shape) != 2 or S.shape[0] != d:
         print("second check")
         return None
-    # try:
+
     det = np.linalg.det(S)
     inv = np.linalg.inv(S)
-    # except Exception:
-    #     return None
 
     norm_const = np.sqrt(((2 * np.pi) ** d) * det)
     """
@@ -38,7 +36,8 @@ def pdf(X, m, S):
     """
     x_mu = X.T - m[:, np.newaxis]
 
-    part2 = np.multiply(np.matmul(inv, x_mu), x_mu)
+    # part2 = np.multiply(np.matmul(inv, x_mu), x_mu)
+    part2 = np.matmul(inv, (x_mu)) * (x_mu)
 
     part2 = (-0.5) * np.sum(part2, axis=0)
     result = np.exp(part2) / norm_const
