@@ -24,11 +24,16 @@ def pdf(X, m, S):
         return None
 
     det = np.linalg.det(S)
-    inv = np.linalg.inv(S)
-    if det == 0:
+    try:
+        inv = np.linalg.inv(S)
+    except Exception:
         return None
+    # if det == 0:
+    #     return None
+
     norm_const = np.sqrt(((2 * np.pi) ** d) * det)
     """
+    apparently a better way but ran into memory error
     x_mu = X.T - m[:, np.newaxis]
     solve = np.linalg.solve(S, x_mu).T.dot(x_mu)
     return 1 / norm_const * np.exp(-(solve / 2))
