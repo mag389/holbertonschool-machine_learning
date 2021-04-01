@@ -22,24 +22,21 @@ def pdf(X, m, S):
         return None
     if type(S) is not np.ndarray or len(S.shape) != 2 or S.shape[0] != d:
         return None
+    # again
+    cov_det = np.linalg.det(S)
+    cov_inv = np.linalg.inv(S)
 
-    # additional error check tests
-    if type(X) is not np.ndarray or len(X.shape) != 2:
-        return None
+    # denominator
+    den = np.sqrt(((2 * np.pi) ** d) * cov_det)
 
-    if type(m) is not np.ndarray or len(m.shape) != 1:
-        return None
+    # exponential term
+    expo = (-0.5 * np.sum(np.matmul(cov_inv,
+            (X.T - m[:, np.newaxis])) *
+            (X.T - m[:, np.newaxis]), axis=0))
 
-    if type(S) is not np.ndarray or len(S.shape) != 2:
-        return None
-
-    d = X.shape[1]
-
-    if d != m.shape[0] or d != S.shape[0]:
-        return None
-
-    if S.shape[0] != S.shape[1] or d != S.shape[1]:
-        return None
+    P = np.exp(expo) / den
+    P = np.where(P < 1e-300, 1e-300, P)
+    return P
     # end
     det = np.linalg.det(S)
     inv = np.linalg.inv(S)
