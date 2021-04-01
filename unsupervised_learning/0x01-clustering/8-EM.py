@@ -32,7 +32,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         return fail
     if type(tol) is not float or tol < 0:
         return fail
-    if type(verbose) is not bool:
+    if type(verbose) != bool:
         return fail
     n, d = X.shape
     pi, m, S = initialize(X, k)
