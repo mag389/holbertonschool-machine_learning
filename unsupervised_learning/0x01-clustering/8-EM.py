@@ -34,19 +34,23 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         return fail
     if type(verbose) != bool:
         return fail
+
     n, d = X.shape
     pi, m, S = initialize(X, k)
     l_old = 0
+
     for i in range(iterations):
         g, ll = expectation(X, pi, m, S)
         pi, m, S = maximization(X, g)
-        if abs(ll - l_old) <= tol:
-            break
+        # if abs(ll - l_old) <= tol:
+        #     break
         if verbose and i % 10 == 0:
             llr = round(ll, 5)
             print("Log Likelihood after {} iterations: {}".format(i, llr))
+        if abs(ll - l_old) <= tol:
+            break
         l_old = ll
     if verbose:
         llr = round(ll, 5)
-        print("Log Likelihood after {} iterations: {}".format(i, llr))
+        print("Log Likelihood after {} iterations: {}".format(iterations, llr))
     return pi, m, S, g, ll
