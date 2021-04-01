@@ -23,6 +23,24 @@ def pdf(X, m, S):
     if type(S) is not np.ndarray or len(S.shape) != 2 or S.shape[0] != d:
         return None
 
+    # additional error check tests
+    if type(X) is not np.ndarray or len(X.shape) != 2:
+        return None
+
+    if type(m) is not np.ndarray or len(m.shape) != 1:
+        return None
+
+    if type(S) is not np.ndarray or len(S.shape) != 2:
+        return None
+
+    d = X.shape[1]
+
+    if d != m.shape[0] or d != S.shape[0]:
+        return None
+
+    if S.shape[0] != S.shape[1] or d != S.shape[1]:
+        return None
+    # end
     det = np.linalg.det(S)
     inv = np.linalg.inv(S)
 
