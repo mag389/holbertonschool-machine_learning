@@ -44,7 +44,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
         # new way
         l_old = ll
         if verbose and i % 10 == 0:
-            llr = round(ll, 5)                                            
+            llr = round(ll, 5)
             print("Log Likelihood after {} iterations: {}".format(i, llr))
         pi, m, S = maximization(X, g)
         g, ll = expectation(X, pi, m, S)
@@ -52,6 +52,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
             break
         # done
         """
+        this way makes ssense but performs wrong number of iterations
         g, ll = expectation(X, pi, m, S)
         pi, m, S = maximization(X, g)
         if abs(ll - l_old) <= tol:
