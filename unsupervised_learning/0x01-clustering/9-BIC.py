@@ -24,7 +24,6 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
               n: number of data pts
               l: log likelihood of model
     """
-    return None, None, None, None
     # fail = (None, None, None, None)
     if type(X) is not np.ndarray or len(X.shape) != 2:
         return None, None, None, None
