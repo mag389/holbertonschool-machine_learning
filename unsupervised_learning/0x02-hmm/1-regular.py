@@ -14,12 +14,23 @@ def regular(P):
         return None
     if P.shape[0] != P.shape[1]:
         return None
+    if np.linalg.det(P) == 0:
+        return None
+    if not (P > 0).all():
+        return None
     n = P.shape[0]
+    q = (P - np.eye(n))
+    ones = np.ones(n)
+    q = np.c_[q, ones]
+    QTQ = np.dot(q, q.T)
+    bqt = np.ones(n)
+    return np.expand_dims(np.linalg.solve(QTQ, bqt), axis=0)
+
     a, b = np.linalg.eig(P.T)
-    l = []
+    li = []
     for i in range(len(a)):
         if np.allclose(a[i], 1):
-            l.append(i)
+            li.append(i)
     if len(l) == 1:
         return np.abs(b[:, l[0]].T)/np.sum(np.abs(b[:, l[0]].T))
     else:
