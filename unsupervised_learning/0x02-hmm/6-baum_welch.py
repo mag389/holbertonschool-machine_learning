@@ -37,7 +37,7 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
     Ob = Observations
     B = Emission
     pi = Initial
-    # start test method
+    # final working method
     for n in range(iterations):
         forw, alpha = forward(Ob, B, A, pi)
         back, beta = backward(Ob, B, A, pi)
@@ -60,7 +60,7 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
             B[:, l] = np.sum(gamma[:, Ob == l], axis=1)
         B = np.divide(B, denominator.reshape((-1, 1)))
     return A, B
-    # end test
+    # deprecated method i tried with no success
     A = Transition
     Ob = Observations
     B = Emission
