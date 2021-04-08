@@ -34,42 +34,42 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
     if type(iterations) is not int or iterations < 0:
         return None, None
     A = Transition
-    O = Observations
+    Ob = Observations
     B = Emission
     pi = Initial
     # start test method
     for n in range(iterations):
-        forw, alpha = forward(O, B, A, pi)
-        back, beta = backward(O, B, A, pi)
+        forw, alpha = forward(Ob, B, A, pi)
+        back, beta = backward(Ob, B, A, pi)
         # print(alpha.shape)
         alpha, beta = alpha.T, beta.T
         xi = np.zeros((N, N, T - 1))
         for t in range(T - 1):
             np.dot(alpha[t, :].T, A)
-            np.dot(alpha[t, :].T, A) * B[:, O[t + 1]].T
-            denom = np.dot(np.dot(alpha[t, :].T, A) * B[:, O[t + 1]].T, beta[t + 1, :])
+            np.dot(alpha[t, :].T, A) * B[:, Ob[t + 1]].T
+            denom = np.dot(np.dot(alpha[t, :].T, A) * B[:, Ob[t + 1]].T, beta[t + 1, :])  # noqa
             for i in range(N):
-                num = alpha[t, i] * A[i, :] * B[:, O[t + 1]].T * beta[t + 1, :].T
+                num = alpha[t, i] * A[i, :] * B[:, Ob[t + 1]].T * beta[t + 1, :].T  # noqa
                 xi[i, :, t] = num / denom
         gamma = np.sum(xi, axis=1)
         A = np.sum(xi, 2) / np.sum(gamma, axis=1).reshape((-1, 1))
-        gamma = np.hstack((gamma, np.sum(xi[:, :, T - 2], axis=0).reshape((-1, 1))))
+        gamma = np.hstack((gamma, np.sum(xi[:, :, T - 2], axis=0).reshape((-1, 1))))  # noqa
         K = B.shape[1]
         denominator = np.sum(gamma, axis=1)
         for l in range(K):
-            B[:, l] = np.sum(gamma[:, O == l], axis=1)
+            B[:, l] = np.sum(gamma[:, Ob == l], axis=1)
         B = np.divide(B, denominator.reshape((-1, 1)))
     return A, B
     # end test
     A = Transition
-    O = Observations
+    Ob = Observations
     B = Emission
     pi = Initial
     gamma = np.ones((N, T))
     theta = np.zeros((N, N, T))
     for i in range(iterations):
-        forw, alpha = forward(O, B, A, pi)
-        back, beta = backward(O, B, A, pi)
+        forw, alpha = forward(Ob, B, A, pi)
+        back, beta = backward(Ob, B, A, pi)
         F, B = alpha, beta
         P = alpha * beta
         P = P / np.sum(P, 0)
@@ -85,33 +85,32 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
             for b_ind in range(N):
                 for t_ind in range(T - 1):
                     theta[a_ind, b_ind, t_ind] = \
-                    F[a_ind, t_ind] * \
-                    B[b_ind, t_ind + 1] * \
-                    old_A[a_ind, b_ind] * \
-                    old_O[b_ind, O[t_ind]]
+                     F[a_ind, t_ind] * \
+                     B[b_ind, t_ind + 1] * \
+                     old_A[a_ind, b_ind] * \
+                     old_O[b_ind, Ob[t_ind]]
         # for new A mat and O mat
         for a_ind in range(N):
             for b_ind in range(N):
-                A[a_ind, b_ind] = np.sum(theta[a_ind, b_ind, :])/ \
-                                  np.sum(P[a_ind,:])
+                A[a_ind, b_ind] = np.sum(theta[a_ind, b_ind, :]) / \
+                                  np.sum(P[a_ind, :])
         A = A / np.sum(A, 1)
         for a_ind in range(N):
             for o_ind in range(T):
-                right_obs_ind = np.array(np.where(O == o_ind)) + 1
-                O[a_ind, o_ind] = np.sum(P[a_ind, right_obs_ind])/ \
-                                  np.sum(P[a_ind, 1:])
-        O = O / np.sum(O, 1)
+                right_obs_ind = np.array(np.where(Ob == o_ind)) + 1
+                Ob[a_ind, o_ind] = (np.sum(P[a_ind, right_obs_ind]) /
+                                    np.sum(P[a_ind, 1:]))
+        Ob = Ob / np.sum(O, 1)
         if np.linalg.norm(old_A - A) < .00001:
-            if  np.linalg.norm(old_O - O) < .00001:
+            if np.linalg.norm(old_O - O) < .00001:
                 break
-    return A, O
+    return A, Ob
     print(gamma)
     gamma1 = alpha * beta / np.sum(alpha * beta, 0)
     print(gamma1)
     print(gamma == gamma1)
     return gamma
 
-    
 
 def forward(Observation, Emission, Transition, Initial):
     """ performs forward algo for HMM
