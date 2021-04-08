@@ -32,31 +32,7 @@ def viterbi(Observation, Emission, Transition, Initial):
         return None, None
     if Initial.shape[0] != N:
         return None, None
-    """
-    F  np.zeros((N, T))
-    prev = np.zeros((N, T))
-    F[:, 0] = Initial.T * Emission[:, Observation[0]]
-    E = Emission
-    a = Transition
-    b = Observation
-    for t in range(1, T):
-        last = F[:, t - 1] * Transition.T
-        # F[:, t] = np.max((F[:, t - 1] * (Transition[:, :].T)) *
-        #                  Emission[np.newaxis, :, Observation[t]].T, 1)
-        F[:, t] = np.max((F[:, t - 1] * a.T) * E[np.newaxis, :, b[t]].T, 1)
-        prev[:, t] = np.argmax(last, axis=1)
-        # prev[:, t] = np.argmax(F[:, t - 1] * Transition[:, :].T, 1)
 
-    # Path Array, creating the path array of size T
-    path = [0] * T
-    # Find the most probable last hidden state
-    path[-1] = np.argmax(F[:, T - 1])
-    for i in range(T - 1, 0, -1):
-        backtrack_index = prev[path[i], i]
-        path[i - 1] = int(backtrack_index)
-
-    return (path, np.max(F[:, -1]))
-    """
     F = np.zeros((N, T))
     bt = np.zeros((N, T))
     F[:, 0] = Initial.T * Emission[:, Observation[0]]
@@ -74,9 +50,9 @@ def viterbi(Observation, Emission, Transition, Initial):
     path[-1] = np.argmax(F[:, T - 1])
     # for i in reversed(range(1, T)):
     for i in range(T - 1, 0, -1):
-        bi = bt[path[i], i]
-        path[i - 1] = int(bi)
+        # bi = bt[path[i], i]
+        # path[i - 1] = int(bi)
         # print(path[i], i)
-        # path[i - 1] = int(bt[path[i], i])
+        path[i - 1] = int(bt[path[i], i])
         # path[i - 1] = np.argmax(F[:, i])
     return path, np.max(F[:, -1])
