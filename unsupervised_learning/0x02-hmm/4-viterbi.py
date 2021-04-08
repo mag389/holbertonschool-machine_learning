@@ -48,8 +48,8 @@ def viterbi(Observation, Emission, Transition, Initial):
 
     path = [0] * T
     path[-1] = np.argmax(F[:, T - 1])
-    # for i in reversed(range(1, T)):
-    for i in range(T - 1, 0, -1):
+    for i in reversed(range(1, T)):
+    # for i in range(T - 1, 0, -1):
         # bi = bt[path[i], i]
         # path[i - 1] = int(bi)
         # print(path[i], i)
