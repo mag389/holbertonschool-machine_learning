@@ -26,10 +26,6 @@ class GaussianProcess():
             uses radial basis fucntion (RBF)
             Returns: covariance kernel matrix np arr (m, n)
         """
-        sigma_f = self.sigma_f
-        l = self.l
-        m = X1.shape[0]
-        n = X2.shape[0]
         sqdist = np.sum(X1**2, 1).reshape(-1, 1)\
-            + np.sum(X2**2, 1) - 2 * np.dot(X1, X2.T)
+            + np.sum(X2**2, 1) - 2 * np.matmul(X1, X2.T)
         return self.sigma_f**2 * np.exp(-0.5 / self.l**2 * sqdist)
