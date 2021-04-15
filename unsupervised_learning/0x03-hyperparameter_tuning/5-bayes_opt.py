@@ -48,7 +48,7 @@ class BayesianOptimization():
             imp = (X_next - mu - self.xsi)
         with np.errstate(divide='ignore'):
             Z = imp / sigma
-            EI = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
+           EI = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
             EI[sigma == 0.0] = 0.0
         return self.X_s[np.argmax(EI)], EI
         """
@@ -103,9 +103,9 @@ class BayesianOptimization():
 
         for i in range(iterations):
             X_next, ei = self.acquisition()
+            Y_next = self.f(X_next)
             if X_next in visited:
                 break
-            Y_next = self.f(X_next)
             self.gp.update(X_next, Y_next)
             visited.append(X_next)
 
