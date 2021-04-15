@@ -38,22 +38,18 @@ class BayesianOptimization():
                 potential sample
         """
         # comparison test for zero division
-        ml_sp, sg_spl = self.gp.predict(self.X_s)
-        if self.minimize is True:
-            value = np.min(self.gp.Y)
-            retour = value - ml_sp - self.xsi
-        else:
-            value = np.max(self.gp.Y)
-            retour = ml_sp - value - self.xsi
-        with np.errstate(divide='warn'):
-            if sg_spl.any() == 0:
-                sg_spl += 1e-9
-            Z = retour / sg_spl
-            EI = retour * norm.cdf(Z) + sg_spl * norm.pdf(Z)
-
-        X_next = self.X_s[np.argmax(EI)]
-
-        return X_next, EI
+        mu, sigma = self.gp.predict(self.X_s)
+        if not self.minimize:
+            X_next = np.amax(self.gp.Y)
+            imp = (mu - X_next - self.xsi)
+        if self.minimize:
+            X_next = np.amin(self.gp.Y)
+            imp = (X_next - mu - self.xsi)
+        with np.errstate(divide='ignore'):
+            Z = imp / sigma
+            EI = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
+            EI[sigma == 0.0] = 0.0
+        return self.X_s[np.argmax(EI)], EI
         # end
         mu, sigma = self.gp.predict(self.X_s)
         s = len(mu)
@@ -86,26 +82,20 @@ class BayesianOptimization():
               Y_opt: np arr (1,) the optimal function value
         """
         # comparison testing
-        tab = []
-
         for i in range(iterations):
-            suiv = self.acquisition()[0]
-            if suiv in tab:
+            X_next, _ = self.acquisition()
+            Y_next = self.f(X_next)
+            if (X_next == self.gp.X).any():
+                self.gp.X = self.gp.X[:-1]
                 break
-            suiv_Y = self.f(suiv)
-            print(suiv)
-            self.gp.update(suiv, suiv_Y)
-            tab.append(suiv)
-
-        if self.minimize is False:
-            idx = np.argmax(self.gp.Y)
+            self.gp.update(X_next, Y_next)
+        if self.minimize:
+            index = np.argmin(self.gp.Y)
         else:
-            idx = np.argmin(self.gp.Y)
-
-        X_opt = self.gp.X[idx]
-        Y_opt = self.gp.Y[idx]
-
-        return X_opt, Y_opt
+            index = np.argmax(self.gp.Y)
+        Y_opt = self.gp.Y[index]
+        X_opt = self.gp.X[index]
+        return (X_opt, Y_opt)
         # end
         visited = []
 
@@ -114,7 +104,6 @@ class BayesianOptimization():
             if X_next in visited:
                 break
             Y_next = self.f(X_next)
-            print(X_next)
             self.gp.update(X_next, Y_next)
             visited.append(X_next)
 
