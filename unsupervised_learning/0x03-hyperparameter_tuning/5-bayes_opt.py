@@ -38,6 +38,7 @@ class BayesianOptimization():
                 potential sample
         """
         # comparison test for zero division
+        """
         mu, sigma = self.gp.predict(self.X_s)
         if not self.minimize:
             X_next = np.amax(self.gp.Y)
@@ -50,6 +51,7 @@ class BayesianOptimization():
             EI = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
             EI[sigma == 0.0] = 0.0
         return self.X_s[np.argmax(EI)], EI
+        """
         # end
         mu, sigma = self.gp.predict(self.X_s)
         s = len(mu)
@@ -82,7 +84,6 @@ class BayesianOptimization():
               Y_opt: np arr (1,) the optimal function value
         """
         # comparison testing
-        """
         for i in range(iterations):
             X_next, _ = self.acquisition()
             Y_next = self.f(X_next)
@@ -97,7 +98,6 @@ class BayesianOptimization():
         Y_opt = self.gp.Y[index]
         X_opt = self.gp.X[index]
         return (X_opt, Y_opt)
-        """
         # end
         visited = []
 
