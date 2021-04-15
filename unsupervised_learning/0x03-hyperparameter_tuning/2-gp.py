@@ -39,19 +39,6 @@ class GaussianProcess():
               sigma: np arr (s,) of variance for each pt in X_s
         """
         # making sure this is correct
-        """
-        Krnl_ss = self.kernel(X_s, X_s)
-        Krnl_inv = np.linalg.inv(self.K)
-        Krnl_s = self.kernel(self.X, X_s)
-        # this line in mine was the error
-        conv_s = Krnl_ss - Krnl_s.T.dot(Krnl_inv).dot(Krnl_s)
-        sigma = np.diagonal(conv_s)
-
-        multi = Krnl_s.T.dot(Krnl_inv).dot(self.Y)
-        multi = np.reshape(multi, -1)
-
-        return multi, sigma
-        """
         # end
         s = X_s.shape[0]
         K_s = self.kernel(self.X, X_s)
@@ -69,13 +56,6 @@ class GaussianProcess():
             updates X, Y, K
         """
         # update error perhaps?
-        """
-        self.X = np.concatenate((self.X, X_new[:, np.newaxis]), axis=0)
-        self.Y = np.append(self.Y, Y_new)
-        self.Y = np.reshape(self.Y, (-1, 1))
-        self.K = self.kernel(self.X, self.X)
-        return
-        """
         # end
         self.X = np.append(self.X, X_new.reshape((1, 1)), 0)
         self.Y = np.append(self.Y, Y_new.reshape((1, 1)), 0)
