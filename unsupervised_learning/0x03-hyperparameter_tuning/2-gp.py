@@ -26,14 +26,6 @@ class GaussianProcess():
             uses radial basis fucntion (RBF)
             Returns: covariance kernel matrix np arr (m, n)
         """
-        # kernel error
-        """
-        somme = np.sum(X1 ** 2, 1).reshape(-1, 1) + np.sum(X2 ** 2, 1)
-        retrait = somme + (-2 * np.dot(X1, X2.T))
-        final = self.sigma_f ** 2 * np.exp(-0.5 / self.l ** 2 * retrait)
-        return final
-        """
-        # end
         sqdist = np.sum(X1**2, 1).reshape(-1, 1)\
             + np.sum(X2**2, 1) - 2 * np.matmul(X1, X2.T)
         return self.sigma_f**2 * np.exp(-0.5 / self.l**2 * sqdist)
@@ -47,6 +39,7 @@ class GaussianProcess():
               sigma: np arr (s,) of variance for each pt in X_s
         """
         # making sure this is correct
+        """
         Krnl_ss = self.kernel(X_s, X_s)
         Krnl_inv = np.linalg.inv(self.K)
         Krnl_s = self.kernel(self.X, X_s)
@@ -58,6 +51,7 @@ class GaussianProcess():
         multi = np.reshape(multi, -1)
 
         return multi, sigma
+        """
         # end
         s = X_s.shape[0]
         K_s = self.kernel(self.X, X_s)
