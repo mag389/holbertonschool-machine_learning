@@ -69,11 +69,13 @@ class GaussianProcess():
             updates X, Y, K
         """
         # update error perhaps?
+        """
         self.X = np.concatenate((self.X, X_new[:, np.newaxis]), axis=0)
         self.Y = np.append(self.Y, Y_new)
         self.Y = np.reshape(self.Y, (-1, 1))
         self.K = self.kernel(self.X, self.X)
         return
+        """
         # end
         self.X = np.append(self.X, X_new.reshape((1, 1)), 0)
         self.Y = np.append(self.Y, Y_new.reshape((1, 1)), 0)
