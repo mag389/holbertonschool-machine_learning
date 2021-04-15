@@ -43,7 +43,7 @@ class BayesianOptimization():
         if self.minimize is True:
             mu_sample_opt = np.min(self.gp.Y)
             mu_sample_opt = 2 * mu - mu_sample_opt
-        with np.errstate(divide='warn'):
+        with np.errstate(divide='ignore'):
             imp = mu - mu_sample_opt - self.xsi
             Z = imp / sigma
             EI = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
@@ -68,6 +68,7 @@ class BayesianOptimization():
               Y_opt: np arr (1,) the optimal function value
         """
         visited = []
+
         for i in range(iterations):
             X_next, ei = self.acquisition()
             if X_next in visited:
@@ -75,6 +76,7 @@ class BayesianOptimization():
             Y_next = self.f(X_next)
             self.gp.update(X_next, Y_next)
             visited.append(X_next)
+
         if self.minimize is True:
             opt = np.argmin(self.gp.Y)
         else:
