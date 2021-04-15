@@ -82,6 +82,7 @@ class BayesianOptimization():
               Y_opt: np arr (1,) the optimal function value
         """
         # comparison testing
+        """
         for i in range(iterations):
             X_next, _ = self.acquisition()
             Y_next = self.f(X_next)
@@ -96,6 +97,7 @@ class BayesianOptimization():
         Y_opt = self.gp.Y[index]
         X_opt = self.gp.X[index]
         return (X_opt, Y_opt)
+        """
         # end
         visited = []
 
