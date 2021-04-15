@@ -27,10 +27,12 @@ class GaussianProcess():
             Returns: covariance kernel matrix np arr (m, n)
         """
         # kernel error
+        """
         somme = np.sum(X1 ** 2, 1).reshape(-1, 1) + np.sum(X2 ** 2, 1)
         retrait = somme + (-2 * np.dot(X1, X2.T))
         final = self.sigma_f ** 2 * np.exp(-0.5 / self.l ** 2 * retrait)
         return final
+        """
         # end
         sqdist = np.sum(X1**2, 1).reshape(-1, 1)\
             + np.sum(X2**2, 1) - 2 * np.matmul(X1, X2.T)
