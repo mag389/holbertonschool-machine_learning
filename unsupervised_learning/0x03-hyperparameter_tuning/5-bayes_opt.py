@@ -37,13 +37,29 @@ class BayesianOptimization():
               EI: np arr (ac_samples,) of expected improvement of each
                 potential sample
         """
+        # comparison test for zero division
+        ml_sp, sg_spl = self.gp.predict(self.X_s)
+        if self.minimize is True:
+            value = np.min(self.gp.Y)
+            retour = value - ml_sp - self.xsi
+        else:
+            value = np.max(self.gp.Y)
+            retour = ml_sp - value - self.xsi
+        with np.errstate(divide='warn'):
+            Z = retour / sg_spl
+            EI = retour * norm.cdf(Z) + sg_spl * norm.pdf(Z)
+
+        X_next = self.X_s[np.argmax(EI)]
+
+        return X_next, EI
+        # end
         mu, sigma = self.gp.predict(self.X_s)
         s = len(mu)
         mu_sample_opt = np.max(self.gp.Y)
         if self.minimize is True:
             mu_sample_opt = np.min(self.gp.Y)
             mu_sample_opt = 2 * mu - mu_sample_opt
-        with np.errstate(divide='ignore'):
+        with np.errstate(divide='warn'):
             imp = mu - mu_sample_opt - self.xsi
             Z = imp / sigma
             EI = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
@@ -67,6 +83,8 @@ class BayesianOptimization():
               X_opt: np arr (1,) the optimal point
               Y_opt: np arr (1,) the optimal function value
         """
+        # comparison testing
+        # end
         visited = []
 
         for i in range(iterations):
