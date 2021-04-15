@@ -38,6 +38,7 @@ class BayesianOptimization():
                 potential sample
         """
         # trying slight variation
+        """
         ml_sp, sg_spl = self.gp.predict(self.X_s)
         if self.minimize is True:
             value = np.min(self.gp.Y)
@@ -52,6 +53,7 @@ class BayesianOptimization():
         X_next = self.X_s[np.argmax(EI)]
 
         return X_next, EI
+        """
         # end test
         mu, sigma = self.gp.predict(self.X_s)
         s = len(mu)
