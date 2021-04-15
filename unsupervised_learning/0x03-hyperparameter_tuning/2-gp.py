@@ -53,7 +53,7 @@ class GaussianProcess():
         # end
         s = X_s.shape[0]
         K_s = self.kernel(self.X, X_s)
-        K_ss = self.kernel(X_s, X_s) # + 1e-8 * np.eye(len(X_s))
+        K_ss = self.kernel(X_s, X_s)  # + 1e-8 * np.eye(len(X_s))
         K_inv = np.linalg.inv(self.K)
 
         mu = K_s.T.dot(K_inv).dot(self.Y).reshape((s,))
