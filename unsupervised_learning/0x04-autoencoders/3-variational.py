@@ -44,12 +44,12 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     decode = keras.layers.Dense(input_dims, activation='sigmoid')(dh)
 
     decoder = keras.Model(dinput, decode)
-    decoded = decoder(encoder(inputs)[-1])
-    auto = keras.Model(inputs, decoded)
+    outputs = decoder(encoder(inputs)[-1])
+    auto = keras.Model(inputs, outputs)
 
     def vae_loss(true, pred):
         """ a separate custom loss fucntion """
-        rloss = keras.losses.binary_crossentropy(inputs, decoded)
+        rloss = keras.losses.binary_crossentropy(inputs, outputs)
         rloss *= input_dims
         kl_loss = 1 + z_log_sigma - keras.backend.square(z_mean) \
             - keras.backend.exp(z_log_sigma)
