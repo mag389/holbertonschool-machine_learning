@@ -36,7 +36,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
 
     z = keras.layers.Lambda(sampling)([z_mean, z_log_sigma])
     encoder = keras.Model(inputs, [z_mean, z_log_sigma, z])
-    encoder.summary()
+    # encoder.summary()
 
     dinput = keras.Input(shape=(latent_dims,))
     dh = keras.layers.Dense(hidden_layers[-1], activation='relu')(dinput)
@@ -46,8 +46,8 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     decode = keras.layers.Dense(input_dims, activation='sigmoid')(dh)
 
     decoder = keras.Model(dinput, decode)
-    decoder.summary()
-    decoded = decoder(encoder(inputs))
+    # decoder.summary()
+    decoded = decoder(encoder(inputs)[2])
     auto = keras.Model(inputs, decoded)
     """
     def kl_reconstruction_loss(true, pred):
@@ -75,7 +75,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         kl_loss *= -0.5
         return keras.backend.mean(rloss + kl_loss)
     # auto = keras.Model(inputs, decoded)
-    auto.summary()
+    # auto.summary()
     # auto.add_loss(vae_loss)
     auto.compile(optimizer='adam', loss=loss_f)
     return encoder, decoder, auto
