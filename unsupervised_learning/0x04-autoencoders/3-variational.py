@@ -17,7 +17,8 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     """
     inputs = keras.Input(shape=(input_dims,))
     h = keras.layers.Dense(hidden_layers[0], activation='relu')(inputs)
-    for dims in hidden_layers[1:]:
+    for i in range(1, len(hidden_layers)):
+        dims = hidden_layers[i]
         h = keras.layers.Dense(dims, activation='relu')(h)
     z_mean = keras.layers.Dense(latent_dims)(h)
     z_log_sigma = keras.layers.Dense(latent_dims)(h)
