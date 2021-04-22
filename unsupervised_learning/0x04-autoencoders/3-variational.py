@@ -34,10 +34,10 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     encoder = keras.Model(inputs, [z_mean, z_log_sigma, z])
 
     dinputs = keras.Input(shape=(latent_dims,))
-    x = keras.layers.Dense(hidden_layers[-1], activation='relu')(dinputs)
+    dh = keras.layers.Dense(hidden_layers[-1], activation='relu')(dinputs)
     for dims in hidden_layers[-2::-1]:
-        x = keras.layers.Dense(dims, activation='relu')(x)
-    decode = keras.layers.Dense(input_dims, activation='sigmoid')(x)
+        dh = keras.layers.Dense(dims, activation='relu')(dh)
+    decode = keras.layers.Dense(input_dims, activation='sigmoid')(dh)
 
     decoder = keras.Model(dinputs, decode)
     outputs = decoder(encoder(inputs)[-1])
