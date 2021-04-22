@@ -40,7 +40,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     decode = keras.layers.Dense(input_dims, activation='sigmoid')(x)
 
     decoder = keras.Model(dinputs, decode)
-    outputs = decoder(encoder(inputs)[2])
+    outputs = decoder(encoder(inputs)[-1])
     auto = keras.Model(inputs, outputs)
 
     def vae_loss(inputs, outputs):
