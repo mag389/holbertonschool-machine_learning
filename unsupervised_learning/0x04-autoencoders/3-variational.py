@@ -47,7 +47,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     decoded = decoder(encoder(inputs)[-1])
     auto = keras.Model(inputs, decoded)
 
-    def loss_f(true, pred):
+    def vae_loss(true, pred):
         """ a separate custom loss fucntion """
         rloss = keras.losses.binary_crossentropy(inputs, decoded)
         rloss *= input_dims
@@ -57,6 +57,6 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         kl_loss *= -0.5
         return keras.backend.mean(rloss + kl_loss)
 
-    auto.compile(optimizer='adam', loss=loss_f)
+    auto.compile(optimizer='adam', loss=vae_loss)
 
     return encoder, decoder, auto
