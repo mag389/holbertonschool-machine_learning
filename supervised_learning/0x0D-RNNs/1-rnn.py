@@ -22,13 +22,8 @@ def rnn(rnn_cell, X, h_0):
     H = np.zeros((t + 1, m, h))
     Y = np.zeros((t, m, rnn_cell.by.shape[1]))
     H[0] = h_0
-    h = h_0
     for j in range(t):
         hi, y = rnn_cell.forward(H[j], X[j])
-        # print("hi and y")
-        # print(hi.shape)
-        # print(y.shape)
         H[j + 1] = hi
         Y[j][:] = y
-    # print(h_0)
     return H, Y
