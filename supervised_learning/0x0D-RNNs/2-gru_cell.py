@@ -43,7 +43,7 @@ class GRUCell():
         h = np.concatenate((h_prev, x_t), axis=1)
         # calculate update gate
         in1 = h @ self.Wz + self.bz
-        z = 1/(1 + np.exp(-1 *  in1))
+        z = 1 / (1 + np.exp(-1 * in1))
         # and reset gate
         in2 = h @ self.Wr + self.br
         r = 1 / (1 + np.exp(-1 * in2))
