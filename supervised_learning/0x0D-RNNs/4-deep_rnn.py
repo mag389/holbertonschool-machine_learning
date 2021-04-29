@@ -22,7 +22,7 @@ def deep_rnn(rnn_cells, X, h_0):
     _, _, h = h_0.shape
 
     # initialize H and Y
-    H = np.zeros((t + 1, l, m, h))
+    H = np.zeros((t + 1, la, m, h))
     last_cell = rnn_cells[-1]
     lc_o = last_cell.by.shape[1]
     Y = np.zeros((t, m, lc_o))  # 6, 8, 5 = time, batch, output shape
