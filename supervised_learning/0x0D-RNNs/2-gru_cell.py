@@ -51,7 +51,7 @@ class GRUCell():
         coef = np.concatenate((r * h_prev, x_t), axis=1)
         h_temp = np.tanh((coef) @ self.Wh + self.bh)
         # finally new output
-        print(z.shape, (1-z).shape)
+        # print(z.shape, (1-z).shape)
         h_next = (1 - z) * h_prev + z * h_temp
         output = h_next @ self.Wy + self.by
         # softmax of the output
