@@ -18,9 +18,9 @@ def word2vec_model(sentences, size=100, min_count=5, window=5,
         Returns: the trained model
     """
     wv = gs.models.word2vec
-    sg = 1 * cbow
+    sg = 1 - 1 * cbow
     # this is for gensim 3.8, not 4.x
     model = wv.Word2Vec(sentences, size=size, min_count=min_count,
-                        window=window, negative=5, sg=1 * cbow,
+                        window=window, negative=5, sg=sg,
                         iter=iterations, seed=seed, workers=workers)
     return model
