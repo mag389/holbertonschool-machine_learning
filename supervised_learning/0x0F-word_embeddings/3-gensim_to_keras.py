@@ -10,5 +10,6 @@ def gensim_to_keras(model):
         model: trained gensim word2vec models
         Returns: the trainable keras Embedding
     """
+    # https://radimrehurek.com/gensim_3.8.3/models/keyedvectors.html
     kmodel = model.wv.get_keras_embedding(train_embeddings=False)
     return kmodel
