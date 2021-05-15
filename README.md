@@ -10,4 +10,6 @@ https://github.com/Machinelearninguru/Image-Processing-Computer-Vision/blob/mast
 
 https://github.com/Machinelearninguru/Image-Processing-Computer-Vision/blob/master/Convolutional%20Neural%20Network/Convolutional%20Layers/README.md
 
+https://www.deeplearningbook.org/
 
+https://d2l.ai/chapter_recurrent-modern/bi-rnn.html
