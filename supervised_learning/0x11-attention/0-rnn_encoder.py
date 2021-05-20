@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" first class file for attention/transformers """
 import tensorflow as tf
 
 
