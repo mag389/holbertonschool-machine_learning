@@ -1,50 +1,55 @@
 #!/usr/bin/env python3
-"""
-Class Transformer
-"""
-
+""" multihead attention class implementation """
 import tensorflow as tf
 sdp_attention = __import__('5-sdp_attention').sdp_attention
 
 
 class MultiHeadAttention(tf.keras.layers.Layer):
-    """ class"""
+    """ class used to perform multihead attention """
 
     def __init__(self, dm, h):
-        """
-        class constructor
+        """ initializer for MHA class
+            dm: int: dimensionality of the model(aka model depth)
+            h: integer representing number of heads
+              dm is divisible by h
         """
         super(MultiHeadAttention, self).__init__()
         self.h = h
         self.dm = dm
-        self.depth = int(self.dm // self.h)
+        self.depth = dm // h
         self.Wq = tf.keras.layers.Dense(dm)
         self.Wk = tf.keras.layers.Dense(dm)
         self.Wv = tf.keras.layers.Dense(dm)
         self.linear = tf.keras.layers.Dense(dm)
 
-    def splitHeads(self, m, batch):
+    def split_heads(self, x, batch_size):
+        """ split last dimensions to be able to pass into sdp
+            x: what to split, batch_size: shape to keep
         """
-        split last dim shape(self.h, self.depth)
-        transpose result shape(batch, -1, self.h, self.depth)
-        """
-        m = tf.reshape(m, (batch, -1, self.h, self.depth))
-        return tf.transpose(m, perm=[0, 2, 1, 3])
+        x = tf.reshape(x, (batch_size, -1, self.h, self.depth))
+        return tf.transpose(x, perm=[0, 2, 1, 3])
 
     def call(self, Q, K, V, mask):
+        """ calling the multihead attention block
+            Q: tensor(batch, seq_len_q, dk) input to generate query matrix
+            K: tensor(batch, seq_len_v, dk) to generate key matrix
+            V: tensor(batch, seq_len_v, dv) to generate value matrix
+            mask: always None
+            Returns: output, weights
+              output: tensor(..., seq_len_q, dm) sdp attention
+              weights: tensor(..., h, seq_len_q, seq_len_v) of attention weight
         """
-        Public Instance Method
-        """
-        batch = tf.shape(K)[0]
-        Q = self.Wq(Q)
-        K = self.Wk(K)
-        V = self.Wv(V)
-        Q = self.splitHeads(Q, batch)
-        K = self.splitHeads(K, batch)
-        V = self.splitHeads(V, batch)
-        output, weights = sdp_attention(Q, K, V, mask)
-        output = tf.transpose(output, perm=[0, 2, 1, 3])
-        output = tf.reshape(output, (batch, -1, self.dm))
-        output = self.linear(output)
+        batch_size = tf.shape(Q)[0]
+        q = self.Wq(Q)
+        k = self.Wk(K)
+        v = self.Wv(V)
 
+        q = self.split_heads(q, batch_size)
+        k = self.split_heads(k, batch_size)
+        v = self.split_heads(v, batch_size)
+
+        attention, weights = sdp_attention(q, k, v, mask)
+        attention = tf.transpose(attention, perm=[0, 2, 1, 3])
+        c_attn = tf.reshape(attention, (batch_size, -1, self.dm))
+        output = self.linear(c_attn)
         return output, weights
