@@ -16,33 +16,26 @@ class SelfAttention(tf.keras.layers.Layer):
             W and U
             class inherits so call to super as well
         """
-        super(SelfAttention, self).__init__()
-        self.units = units
         if type(units) is not int:
             raise TypeError()
+        super(SelfAttention, self).__init__()
         self.W = tf.layers.Dense(units)
         self.U = tf.layers.Dense(units)
         self.V = tf.layers.Dense(1)
 
     def call(self, s_prev, hidden_states):
+        """ call funciton for self attention class
+            s_prev: tensor(batch, units) previous decoder hidden state
+            hidden_states: tensor(batch, input_seq_len, 1) of encoder outputs
+            Returns: context, weights
+              context:tensor(batch, units) of context vector of decoder
+              weights: tensor(batch, input_seq_len, 1) of attention weights
         """
-        Takes in previous decoder hidden state and outputs
-            the context vector for decoder and attention weights
-        parameters:
-            s_prev [tensor of shape (batch, units)]:
-                contains the previous decoder hidden state
-            hidden_states [tensor of shape (batch, input_seq_len, units)]:
-                contains the outputs of the encoder
-        returns:
-            context, weights:
-                context [tensor of shape (batch, units)]:
-                    contains the context vector for the decoder
-                weights [tensor of shape (batch, input_seq_len, 1)]:
-                    contains the attention weights
-        """
-        W = self.W(tf.expand_dims(s_prev, 1))
-        U = self.U(hidden_states)
-        V = self.V(tf.nn.tanh(W + U))
-        weights = tf.nn.softmax(V, axis=1)
-        context = tf.reduce_sum(weights * hidden_states, axis=1)
-        return context, weights
+        query_with_time_axis = tf.expand_dims(s_prev, 1)
+        score = self.V(tf.nn.tanh(
+            self.W(query_with_time_axis) +
+            self.U(hidden_states)))
+        attention_weights = tf.nn.softmax(score, axis=1)
+        context = attention_weights * hidden_states
+        context = tf.reduce_sum(context, axis=1)
+        return context, attention_weights
