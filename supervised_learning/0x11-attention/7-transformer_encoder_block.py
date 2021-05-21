@@ -21,8 +21,8 @@ class EncoderBlock(tf.keras.layers.Layer):
         self.layernorm1 = tf.keras.layers.LayerNormalization(epsilon=1e-6)
         self.layernorm2 = tf.keras.layers.LayerNormalization(epsilon=1e-6)
 
-        self.dropout1 = tf.keras.layers.Dropout(rate)
-        self.dropout2 = tf.keras.layers.Dropout(rate)
+        self.dropout1 = tf.keras.layers.Dropout(drop_rate)
+        self.dropout2 = tf.keras.layers.Dropout(drop_rate)
 
     def call(self, x, training, mask=None):
         """ call method for the transformer encoder block
@@ -31,11 +31,11 @@ class EncoderBlock(tf.keras.layers.Layer):
             mask: mask to be applied for mha
             Returns: Tensor(batch, input_seq_len, dm) of block's output
         """
-        attn_outputi, _ = self.mha(x, x, x, mask)
+        attn_output, _ = self.mha(x, x, x, mask)
         attn_output = self.dropout1(attn_output, training=training)
         out1 = self.layernorm1(x + attn_output)
         out2 = self.dense_hidden(out1)
         out3 = self.dense_output(out2)
         out4 = self.dropout2(out3, training=training)
-        output = self.layernorm2(ou1 + out4)
+        output = self.layernorm2(out1 + out4)
         return output
