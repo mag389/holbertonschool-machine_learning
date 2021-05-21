@@ -14,7 +14,7 @@ class SelfAttention(tf.keras.layers.Layer):
           U: dense layer with units (apply to encoder hidden states)
           V: Dense layer with 1 unit applied to tanh of the sum of outputs of
             W and U
-        class inherits so call to super as well
+            class inherits so call to super as well
         """
         super(SelfAttention, self).__init__()
         self.units = units
@@ -33,8 +33,7 @@ class SelfAttention(tf.keras.layers.Layer):
         query_with_time_axis = tf.expand_dims(s_prev, 1)
         score = self.V(tf.nn.tanh(
             self.W(query_with_time_axis) +
-            self.U(hidden_states)
-        ))
+            self.U(hidden_states)))
         attention_weights = tf.nn.softmax(score, axis=1)
         context = attention_weights * hidden_states
         context = tf.reduce_sum(context, axis=1)
