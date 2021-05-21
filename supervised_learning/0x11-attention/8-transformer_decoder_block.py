@@ -39,7 +39,7 @@ class DecoderBlock(tf.keras.layers.Layer):
         out1 = self.layernorm1(attn1 + x)
 
         attn2, attn_weights_block2 = self.mha2(
-            encoder_output, encoder_output, out1, padding_mask)
+            out1, encoder_output, encoder_output, padding_mask)
         attn2 = self.dropout2(attn2, training=training)
         out2 = self.layernorm2(attn2 + out1)
 
@@ -49,4 +49,4 @@ class DecoderBlock(tf.keras.layers.Layer):
         out5 = self.dropout3(out4, training=training)
         out6 = self.layernorm3(out5 + out2)
 
-        return output3
+        return out6
