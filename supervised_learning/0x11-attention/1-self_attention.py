@@ -7,21 +7,26 @@ class SelfAttention(tf.keras.layers.Layer):
     """ class to calculate attention for machine translation """
 
     def __init__(self, units):
-        """ self attention initializer
-            units: int number of hidden units in alignment model
-            sets several public attributes:
-          W: dense layer with units units (applt to prev decoder hidden state)
-          U: dense layer with units (apply to encoder hidden states)
-          V: Dense layer with 1 unit applied to tanh of the sum of outputs of
-            W and U
-            class inherits so call to super as well
+        """
+        Class constructor
+        parameters:
+            units [int]:
+                represents the number of hidden units in the alignment model
+        sets the public instance attributes:
+            W: a Dense layer with units number of units,
+                to be applied to the previous decoder hidden state
+            U: a Dense layer with units number of units,
+                to be applied to the encoder hidden state
+            V: a Dense layer with 1 units,
+                to be applied to the tanh of the sum of the outputs of W and U
         """
         if type(units) is not int:
-            raise TypeError()
+            raise TypeError(
+                "units must be int representing the number of hidden units")
         super(SelfAttention, self).__init__()
-        self.W = tf.layers.Dense(units)
-        self.U = tf.layers.Dense(units)
-        self.V = tf.layers.Dense(1)
+        self.W = tf.keras.layers.Dense(units=units)
+        self.U = tf.keras.layers.Dense(units=units)
+        self.V = tf.keras.layers.Dense(units=1)
 
     def call(self, s_prev, hidden_states):
         """ call funciton for self attention class
