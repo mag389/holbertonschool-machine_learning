@@ -4,17 +4,18 @@ import tensorflow as tf
 MultiHeadAttention = __import__('6-multihead_attention').MultiHeadAttention
 
 
-def DecoderBlock(tf.keras.layers.Layer):
+class DecoderBlock(tf.keras.layers.Layer):
     """ the Transformer decoder block class """
-    def __init__(self, dm, h, hiddem, drop_rate=0.1):
+    def __init__(self, dm, h, hidden, drop_rate=0.1):
         """ Decoder block initializer
             dm: in dimensionality of model
             h: number of heads
             hidden: number of hidden units in FC layer
             drop_rate: dropout rate
         """
+        super(DecoderBlock, self).__init__()
         self.mha1 = MultiHeadAttention(dm, h)
-        self.mha2 = MultiHeadAttentino(dm, h)
+        self.mha2 = MultiHeadAttention(dm, h)
         self.dense_hidden = tf.keras.layers.Dense(hidden, activation='relu')
         self.dense_output = tf.keras.layers.Dense(dm)
         self.layernorm1 = tf.keras.layers.LayerNormalization(epsilon=1e-6)
@@ -34,7 +35,7 @@ def DecoderBlock(tf.keras.layers.Layer):
             Returns: Tensor(batch, target_seq_len, dm) of block output
         """
         attn1, attm_weights_block1 = self.mha1(x, x, x, look_ahead_mask)
-        attn1 = self.dropout1(attn1, trainint=training)
+        attn1 = self.dropout1(attn1, training=training)
         out1 = self.layernorm1(attn1 + x)
 
         attn2, attn_weights_block2 = self.mha2(
