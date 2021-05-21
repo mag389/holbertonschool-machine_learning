@@ -34,9 +34,7 @@ class SelfAttention(tf.keras.layers.Layer):
             self.W(query_with_time_axis) +
             self.U(hidden_states)
         ))
-
         attention_weights = tf.nn.softmax(score, axis=1)
         context = attention_weights * hidden_states
         context = tf.reduce_sum(context, axis=1)
-
         return context, attention_weights
