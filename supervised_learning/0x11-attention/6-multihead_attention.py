@@ -27,7 +27,7 @@ class MultiHeadAttention(tf.keras.layers.Layer):
             x: what to split, batch_size: shape to keep
         """
         x = tf.reshape(x, (batch_size, -1, self.h, self.depth))
-        return tf.transpose(x, perm[0, 2, 1, 3])
+        return tf.transpose(x, perm=[0, 2, 1, 3])
 
     def call(self, Q, K, V, mask):
         """ calling the multihead attention block
@@ -43,11 +43,13 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         q = self.Wq(Q)
         k = self.Wk(K)
         v = self.Wv(V)
+
         q = self.split_heads(q, batch_size)
         k = self.split_heads(k, batch_size)
         v = self.split_heads(v, batch_size)
+
         attention, weights = sdp_attention(q, k, v, mask)
         attention = tf.transpose(attention, perm=[0, 2, 1, 3])
         c_attn = tf.reshape(attention, (batch_size, -1, self.dm))
         output = self.linear(c_attn)
-        return output, weghts
+        return output, weights
