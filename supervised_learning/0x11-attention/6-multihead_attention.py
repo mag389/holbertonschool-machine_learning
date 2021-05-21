@@ -1,55 +1,62 @@
 #!/usr/bin/env python3
-""" multihead attention class implementation """
+"""Attention module"""
 import tensorflow as tf
 sdp_attention = __import__('5-sdp_attention').sdp_attention
 
 
 class MultiHeadAttention(tf.keras.layers.Layer):
-    """ class used to perform multihead attention """
-
-    def __init__(self, dm, h):
-        """ initializer for MHA class
-            dm: int: dimensionality of the model(aka model depth)
-            h: integer representing number of heads
-              dm is divisible by h
+    """MultiHeadAttention class perform multi-head attention
+    """
+    def __init__(self, dm, h) -> None:
+        """Initializer
+        Arguments:
+            dm {int} -- Is representing the dimensionality of the model
+            h {int} -- Is representing the number of heads
         """
         super(MultiHeadAttention, self).__init__()
         self.h = h
         self.dm = dm
-        self.depth = dm // h
-        self.Wq = tf.keras.layers.Dense(dm)
-        self.Wk = tf.keras.layers.Dense(dm)
-        self.Wv = tf.keras.layers.Dense(dm)
-        self.linear = tf.keras.layers.Dense(dm)
-
-    def split_heads(self, x, batch_size):
-        """ split last dimensions to be able to pass into sdp
-            x: what to split, batch_size: shape to keep
-        """
-        x = tf.reshape(x, (batch_size, -1, self.h, self.depth))
-        return tf.transpose(x, perm=[0, 2, 1, 3])
+        self.depth = self.dm // self.h
+        self.Wq = tf.keras.layers.Dense(self.dm)
+        self.Wk = tf.keras.layers.Dense(self.dm)
+        self.Wv = tf.keras.layers.Dense(self.dm)
+        self.linear = tf.keras.layers.Dense(self.dm)
 
     def call(self, Q, K, V, mask):
-        """ calling the multihead attention block
-            Q: tensor(batch, seq_len_q, dk) input to generate query matrix
-            K: tensor(batch, seq_len_v, dk) to generate key matrix
-            V: tensor(batch, seq_len_v, dv) to generate value matrix
-            mask: always None
-            Returns: output, weights
-              output: tensor(..., seq_len_q, dm) sdp attention
-              weights: tensor(..., h, seq_len_q, seq_len_v) of attention weight
+        """Instance call
+        Arguments:
+            Q {tf.Tensor} -- Is a tensor of shape (batch, seq_len, dk) contains
+            input to generate query matrix
+            K {tf.Tensor} -- Is a tensor of shape (batch, seq_len, dk) contains
+            input to generate the key matrix
+            V {tf.Tensor} -- is a tensor of shape (batch, seq_len, dv) contains
+            input to genereate the value matrix
+            mask {[type]} -- None
+        Returns:
+            tuple -- Contains tf.Tensor of scaled dot product attention, and
+            tf.Tensor of the attention weights
         """
         batch_size = tf.shape(Q)[0]
         q = self.Wq(Q)
         k = self.Wk(K)
         v = self.Wv(V)
 
-        q = self.split_heads(q, batch_size)
-        k = self.split_heads(k, batch_size)
-        v = self.split_heads(v, batch_size)
+        def split_heads(x):
+            """Splits inputs into heads
+            Arguments:
+                x {tf.Tensor} -- An input tensor
+            Returns:
+                tf.Tensor -- Splited tensor
+            """
+            x = tf.reshape(x, (batch_size, -1, self.h, self.depth))
+            return tf.transpose(x, perm=[0, 2, 1, 3])
 
-        attention, weights = sdp_attention(q, k, v, mask)
-        attention = tf.transpose(attention, perm=[0, 2, 1, 3])
-        c_attn = tf.reshape(attention, (batch_size, -1, self.dm))
-        output = self.linear(c_attn)
+        q = split_heads(q)
+        k = split_heads(k)
+        v = split_heads(v)
+
+        output, weights = sdp_attention(q, k, v, mask)
+        output = tf.transpose(output, perm=[0, 2, 1, 3])
+        output = tf.reshape(output, (batch_size, -1, self.dm))
+        output = self.linear(output)
         return output, weights
