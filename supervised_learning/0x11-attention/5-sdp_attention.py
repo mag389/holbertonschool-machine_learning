@@ -17,7 +17,7 @@ def sdp_attention(Q, K, V, mask=None):
     matmul_qk = tf.matmul(Q, K, transpose_b=True)
     # then scale
     dk = tf.cast(tf.shape(K)[-1], tf.float32)
-    scaled_attn_logits = matmul_qk / (dk ** .5)
+    scaled_attn_logits = matmul_qk / (tf.math.sqrt(dk))
     # optional mask
     if mask is not None:
         scaled_attn_logits += (mask * -1e9)
