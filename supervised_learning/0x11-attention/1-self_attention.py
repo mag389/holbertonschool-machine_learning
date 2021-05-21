@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" self attention class file """
+""" self attention class file(bhadanau) """
 import tensorflow as tf
 
 
@@ -17,6 +17,7 @@ class SelfAttention(tf.keras.layers.Layer):
         class inherits so call to super as well
         """
         super(SelfAttention, self).__init__()
+        self.units = units
         self.W = tf.layers.Dense(units)
         self.U = tf.layers.Dense(units)
         self.V = tf.layers.Dense(1)
