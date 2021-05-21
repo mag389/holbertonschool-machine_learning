@@ -20,9 +20,6 @@ class SelfAttention(tf.keras.layers.Layer):
             V: a Dense layer with 1 units,
                 to be applied to the tanh of the sum of the outputs of W and U
         """
-        if type(units) is not int:
-            raise TypeError(
-                "units must be int representing the number of hidden units")
         super(SelfAttention, self).__init__()
         self.W = tf.keras.layers.Dense(units=units)
         self.U = tf.keras.layers.Dense(units=units)
