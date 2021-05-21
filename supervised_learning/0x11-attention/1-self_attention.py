@@ -23,18 +23,24 @@ class SelfAttention(tf.keras.layers.Layer):
         self.V = tf.layers.Dense(1)
 
     def call(self, s_prev, hidden_states):
-        """ call funciton for self attention class
-            s_prev: tensor(batch, units) previous decoder hidden state
-            hidden_states: tensor(batch, input_seq_len, 1) of encoder outputs
-            Returns: context, weights
-              context:tensor(batch, units) of context vector of decoder
-              weights: tensor(batch, input_seq_len, 1) of attention weights
+        """Instance Call
+        Arguments:
+            s_prev {tf.Tensor} -- Is containing the previous decoder hidden
+            state of shape (batch, units).
+            hidden_states {tf.Tensor} -- Is Contatining the outputs of the
+            of shape (batch, input_seq_len, units)
+        Returns:
+            tuple -- Contains a tf.Tensor contains context vector for the
+            decoder of shape (batch, units), and tf.Tensor contains the
+            attention weights of shape (batch, input_seq_len, 1).
         """
-        query_with_time_axis = tf.expand_dims(s_prev, 1)
-        score = self.V(tf.nn.tanh(
-            self.W(query_with_time_axis) +
-            self.U(hidden_states)))
-        attention_weights = tf.nn.softmax(score, axis=1)
-        context = attention_weights * hidden_states
+        s_prev_time = tf.expand_dims(s_prev, 1)
+        score = self.V(
+            tf.nn.tanh(
+                self.W(s_prev_time) + self.U(hidden_states)
+            )
+        )
+        weights = tf.nn.softmax(score, axis=1)
+        context = weights * hidden_states
         context = tf.reduce_sum(context, axis=1)
-        return context, attention_weights
+        return context, 
