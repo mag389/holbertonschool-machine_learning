@@ -41,7 +41,7 @@ class Transformer(tf.keras.Model):
         """
         # call transformer encoder
         en_output = self.encoder(inputs, training, encoder_mask)
-        de_output = self.decoder(target, en_output, training,look_ahead_mask,
+        de_output = self.decoder(target, en_output, training, look_ahead_mask,
                                  decoder_mask)
         output = self.linear(de_output)
         return output
