@@ -1,0 +1,18 @@
+# run in google colab
+e quando melhoramos a procura , tiramos a única vantagem da impressão , que é a serendipidade .
+and when you improve searchability , you actually take away the one advantage of print , which is serendipity .
+tinham comido peixe com batatas fritas ?
+did they eat fish and chips ?
+<class 'tensorflow_datasets.core.deprecated.text.subword_text_encoder.SubwordTextEncoder'>
+<class 'tensorflow_datasets.core.deprecated.text.subword_text_encoder.SubwordTextEncoder'>
+
+versus expected:
+
+e quando melhoramos a procura , tiramos a única vantagem da impressão , que é a serendipidade .
+and when you improve searchability , you actually take away the one advantage of print , which is serendipity .
+tinham comido peixe com batatas fritas ?
+did they eat fish and chips ?
+<class 'tensorflow_datasets.core.deprecated.text.subword_text_encoder.SubwordTextEncoder'>
+<class 'tensorflow_datasets.core.deprecated.text.subword_text_encoder.SubwordTextEncoder'>
+
+Same
