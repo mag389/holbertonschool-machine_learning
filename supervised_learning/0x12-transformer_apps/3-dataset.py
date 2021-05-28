@@ -51,7 +51,8 @@ class Dataset():
             """
             return (
                 ds
-                .filter(lambda x: tf.size(x) <= max_len)
+                .filter(lambda x, y: tf.size(x) <= max_len and
+                        tf.size(y) <= max_len)
                 .padded_batch(batch_size))
         self.data_valid = make_valid_batches(self.data_valid)
 
