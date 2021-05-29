@@ -40,6 +40,7 @@ def train_transformer(N, dm, h, hidden, max_len, batch_size, epochs):
         ]
     loss_object = tf.keras.losses.SparseCategoricalCrossentropy(
         from_logits=True, reduction='none')
+
     def loss_function(real, pred):
         """ custom loss function for transformer """
         mask = tf.math.logical_not(tf.math.equal(real, 0))
@@ -51,8 +52,10 @@ def train_transformer(N, dm, h, hidden, max_len, batch_size, epochs):
 
     train_loss = tf.keras.metrics.Mean(name='train_loss')
     learning_rate = CustomSchedule(dm)
-    optimizer = tf.keras.optimizers.Adam(learning_rate, beta_1=0.9, beta_2=0.98,
-                                     epsilon=1e-9)
+    optimizer = tf.keras.optimizers.Adam(learning_rate, beta_1=0.9,
+                                         beta_2=0.98,
+                                         epsilon=1e-9)
+
     @tf.function(input_signature=train_step_signature)
     def train_step(inp, tar):
         """ single train step """
@@ -79,7 +82,7 @@ def train_transformer(N, dm, h, hidden, max_len, batch_size, epochs):
                       ' Accuracy {train_accuracy.result():.4f}')
         print(f'Epoch {epoch + 1} Loss {train_loss.result():.4f}' +
               ' Accuracy {train_accuracy.result():.4f}')
-    
+ 
 
 class CustomSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
     """ for decaying the lrate """
