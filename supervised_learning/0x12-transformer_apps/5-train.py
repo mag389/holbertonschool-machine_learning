@@ -24,13 +24,14 @@ def train_transformer(N, dm, h, hidden, max_len, batch_size, epochs):
         Returns: the trained model
     """
     ds = Dataset(batch_size, max_len)
+
     transformer = Transformer(
         N=N,
         dm=dm,
         h=h,
         hidden=hidden,
-        input_vocab=ds.tokenizer_pt,
-        target_vocab=ds.tokenizer_en,
+        input_vocab=ds.tokenizer_pt.vocab_size,
+        target_vocab=ds.tokenizer_en.vocab_size,
         max_seq_input=max_len,
         max_seq_target=max_len
         )
@@ -62,16 +63,17 @@ def train_transformer(N, dm, h, hidden, max_len, batch_size, epochs):
         tar_inp = tar[:, :-1]
         tar_real = tar[:, 1:]
         enc_p_mask, comb_mask, dec_p_mask = create_masks(inp, tar_inp)
-        with tf.GradientTape as tape:
-            predictions, _ = transformer(inp, tar_inp, True,
-                                         enc_p_mask,
-                                         comb_mask,
-                                         dec_p_mask)
+        with tf.GradientTape() as tape:
+            predictions = transformer(inp, tar_inp, True,
+                                      enc_p_mask,
+                                      comb_mask,
+                                      dec_p_mask)
             loss = loss_function(tar_real, predictions)
         gradients = tape.gradient(loss, transformer.trainable_variables)
         optimizer.apply_gradients(
             zip(gradients, transformer.trainable_variables))
         train_loss(loss)
+
     for epoch in range(epochs):
         train_loss.reset_states()
         for (batch, (inp, tar)) in enumerate(ds.data_train):
@@ -82,7 +84,8 @@ def train_transformer(N, dm, h, hidden, max_len, batch_size, epochs):
                       ' Accuracy {train_accuracy.result():.4f}')
         print(f'Epoch {epoch + 1} Loss {train_loss.result():.4f}' +
               ' Accuracy {train_accuracy.result():.4f}')
- 
+    return transformer
+
 
 class CustomSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
     """ for decaying the lrate """
