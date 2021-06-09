@@ -1,0 +1,78 @@
+# qa bot transformers info session
+
+tensorflow hub and transformers library
+
+transformers library has pretrained tokenizer and models.
+can perform classification, info extract etc.
+
+also provide tokenizers API's (splitting words into subwords)
+
+3 tokenizers: byte pair encoding, WordPiece, SentencePiece
+those are the main 3 used in transformers.
+
+Wrodpiece is subword tokenization (used for BERT, DistilBERT, and Electr
+
+tensorflow hub: repo like dockerhub of trained ML models ready for fine tuning and deoployment.
+lets you reuse odels like bert faster and easier.
+
+This project: questions answering and semantic search.
+sem search: data search for not just keyword but also intent/contextual meaning.
+
+we will be using pretrained from BERT.
+BERT is bidirectional attention for transformer models. no decoder layers in bert.
+
+GPT uses only decoders. Bert only encoders.
+(only encoder is "encoder stack")
+two bert models: bert base (12 encoder layers)
+and bert large: 24 encoder layers. (1024 dimension model
+
+bertbase 100m params. bert karge 340m params.(transformer base is 6 layers.
+
+Bert used for: translation, Question answering, sentiment analysis,
+text summarization.
+how to solve: pretrain bert (understand language and context)
+then fine tune to learn specifiic task
+
+pretraining (pass1): what is language, what is context. does two tasks
+1: masked language modeling: bidirectioanl analysis of sentecnce
+	uses random masking of sentence (i.e. masks 10% of sentences)
+	replaces words with random word as mask.
+2: next sentecne prediction:
+	uses cls and sep: cls: binary classifier to predict if second 
+	sequence follows first sequence. will send binary classification.
+	sep token separates sentences.
+
+bert has three phases of embedding (token, then segment, then position)
+	bert uses wordpiece token embedding. we can use those pretrined
+	embeddings. segment embedding uses tokens to determine which
+	segment the token is a part of.  
+
+2 step framework:
+	1: pretrain: mask load load mask etc.
+	2: fine tune: are we classifying labelling etc, how do we fit
+	our task
+
+pretraining: adding mask, defining model architcture, training on masks
+fine tuning: downstream tasks: recognize downstream stuff, further
+	training
+
+We're using pretrained models so we don't need as much GPU power,
+	but it will still be useful for quicker results.
+	thankfully that will speed up deve time substantially.
+	This si not as hard as some other project -Myriam
+
+hardest parts: how to deal with tokens like sep etc.
+
+hint: for sem search: how do we measure if two senteces are related?
+	proximity, similar words, (given we know sentence embedding)
+	bleu? no thats for translation (someone else suggested this)
+	can use inner/dot product to see how closely words are related
+	we can know relationship between the words. the higher the result
+	the more the words ar erelated
+	this is for task 3 and 4
+
+This project is "easy" enough for us to try different models.
+
+hugginface for tokenizaiton and why we use each model.
+I oculdn't hear what she said here, didn't sy hugginface
+actually she may have said huggingface.
