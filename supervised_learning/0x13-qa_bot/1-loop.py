@@ -10,5 +10,7 @@ if __name__ == "__main__":
         inp = input()
         if inp.lower() in words:
             print("A: Goodbye")
+            exited = 1
             exit()
-        print("A: ")
+        else:
+            print("A: ")
