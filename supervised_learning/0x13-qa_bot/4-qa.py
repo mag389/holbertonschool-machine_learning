@@ -24,7 +24,7 @@ def question_answer(coprus_path):
         if inp.lower() in words:
             print("A: Goodbye")
             exited = 1
-            exit()
+            return
         else:
             refer = semantic_search(coprus_path, inp)
             answer = question_answer1(inp, refer)
