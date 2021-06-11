@@ -16,7 +16,7 @@ def answer_loop(reference):
         if inp.lower() in words:
             print("A: Goodbye")
             exited = 1
-            exit()
+            return
         else:
             answer = question_answer(inp, reference)
             print("A: ", end="")
