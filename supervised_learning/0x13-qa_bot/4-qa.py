@@ -8,6 +8,7 @@ import transformers
 from transformers import BertTokenizer, AutoModelForQuestionAnswering
 
 
+# uncomment and remove from iside functions if allowable for faster execution
 # use = "https://tfhub.dev/google/universal-sentence-encoder-large/5"
 # embed = hub.load(use)
 # model = hub.load("https://tfhub.dev/see--/bert-uncased-tf2-qa/1")
