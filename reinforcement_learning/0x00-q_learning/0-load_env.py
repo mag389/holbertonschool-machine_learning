@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ loads premade frozen lake environment """
 import gym
+from gym.envs.toy_text.frozen_lake import FrozenLakeEnv
 
 
 def load_frozen_lake(desc=None, map_name=None, is_slippery=False):
@@ -12,6 +13,5 @@ def load_frozen_lake(desc=None, map_name=None, is_slippery=False):
         returns: the env
     """
     
-    FL = gym.envs.toy_text.frozen_lake
-    env = FL.FozenLakeEnv(desc, map_name, is_slippery)
+    env = FrozenLakeEnv(desc, map_name, is_slippery)
     return env
