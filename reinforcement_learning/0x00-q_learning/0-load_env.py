@@ -12,6 +12,5 @@ def load_frozen_lake(desc=None, map_name=None, is_slippery=False):
         is_slippery: bool for if ice is slippery
         returns: the env
     """
-    
     env = FrozenLakeEnv(desc, map_name, is_slippery)
     return env

@@ -39,8 +39,8 @@ def train(env, Q, episodes=5000, max_steps=100, alpha=0.1, gamma=0.99,
             """
             # this is the one from live code session
             Q[state, action] += (alpha * (reward + gamma
-                                            * np.max(Q[new_state])
-                                            - Q[state, action]))
+                                          * np.max(Q[new_state])
+                                          - Q[state, action]))
             # """
             state = new_state
             rewards_current_episode += reward
