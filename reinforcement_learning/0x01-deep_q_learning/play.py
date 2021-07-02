@@ -7,7 +7,7 @@ import tensorflow.keras.layers as layers
 
 from rl.agents import DQNAgent
 from rl.memory import SequentialMemory
-from rl.policy import EpsGreedyQPolicy, LinearAnnealedPolicy
+from rl.policy import GreedyQPolicy, LinearAnnealedPolicy
 from rl.callbacks import FileLogger
 
 
@@ -31,13 +31,16 @@ def build_model(state_size, num_actions):
 
 model = build_model(state_size, num_actions)
 model.summary()
-
+"""
 policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1.,
                               value_min=.1, value_test=0.1, nb_steps=1000000)
+"""
 memory = SequentialMemory(limit=1000000, window_length=4)
-agent = DQNAgent(model=model, policy=policy, nb_actions=num_actions,
+agent = DQNAgent(model=model, policy=GreedyQPolicy(), nb_actions=num_actions,
                  memory=memory, nb_steps_warmup=50000)
 agent.compile(k.optimizers.Adam(learning_rate=.00025), metrics=['mae'])
-
+"""
 agent.fit(env, nb_steps=10000, log_interval=1000, visualize=False, verbose=2)
-agent.save_weights('policy.h5', overwrite=True)
+"""
+agent.load_weights('policy.h5')
+agent.test(env, nb_episodes=10, visualize=False)
