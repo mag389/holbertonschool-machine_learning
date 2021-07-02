@@ -39,5 +39,5 @@ agent = DQNAgent(model=model, policy=policy, nb_actions=num_actions,
                  memory=memory, nb_steps_warmup=50000)
 agent.compile(k.optimizers.Adam(learning_rate=.00025), metrics=['mae'])
 
-agent.fit(env, nb_steps=10000, log_interval=1000, visualize=False, verbose=2)
+agent.fit(env, nb_steps=100000, log_interval=1000, visualize=False, verbose=2)
 agent.save_weights('policy.h5', overwrite=True)
