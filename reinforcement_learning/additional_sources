@@ -1,0 +1,32 @@
+some additinoal RL sources:
+
+keras rl error: https://stackoverflow.com/questions/59894720/keras-and-tensorboard-attributeerror-sequential-object-has-no-attribute-g
+
+openai gym in colab: https://stackoverflow.com/questions/50107530/how-to-render-openai-gym-in-google-colab
+
+RL agent in keras tutorial: https://hub.packtpub.com/build-reinforcement-learning-agent-in-keras-tutorial/
+
+keras rl deep-q example: https://keras.io/examples/rl/deep_q_network_breakout/
+
+atari deep q n info: https://becominghuman.ai/lets-build-an-atari-ai-part-1-dqn-df57e8ff3b26
+
+reinforcement learning w/ keras/dqn's: https://towardsdatascience.com/reinforcement-learning-w-keras-openai-dqns-1eed3a5338c
+
+the original play atari paper: (ok but not too useful for implementation) https://arxiv.org/pdf/1312.5602.pdf
+
+deeplizard deep q series: https://www.youtube.com/watch?v=FU-sNVew9ZA&list=PLZbbT5o_s2xoWNVdDudn51XM8lOuZ_Njv&index=16
+
+(these sources unrealted to RL, but related to ML in general and good enough to save)
+unrelated: nlp book https://compstat-lmu.github.io/seminar_nlp_ss20/recurrent-neural-networks-and-their-applications-in-nlp.html
+
+vae's: https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf
+
+bayesian optimization (lots og grat links inside too): https://arxiv.org/pdf/1807.02811.pdf
+
+simpler primer for bayesian opt: https://www.cse.wustl.edu/~garnett/cse515t/spring_2015/files/lecture_notes/12.pdf
+
+bayes opt video: https://www.youtube.com/watch?v=vz3D36VXefI
+
+supervised learning gaussian processes: http://krasserm.github.io/2018/03/19/gaussian-processes/
+
+guassian processes video: http://krasserm.github.io/2018/03/19/gaussian-processes/
