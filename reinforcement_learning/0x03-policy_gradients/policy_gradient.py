@@ -23,15 +23,15 @@ def policy_gradient(state, weight):
         return: action and gradient ( in that order)
     """
     pol = policy(state, weight)
-    print("created policy")
+    # print("created policy")
     action = np.random.choice(pol[0].shape[0], p=pol[0])
-    print("selected action")
+    # print("selected action")
     s = pol.reshape(-1, 1)
-    print("made s")
+    # print("made s")
     dsoftmax = (np.diagflat(s) - np.dot(s, s.T))[action, :]
-    print("made dsoftmax")
+    # print("made dsoftmax")
     dlog = dsoftmax / pol[0, action]
-    print("made dlog")
+    # print("made dlog")
     grad = state.T.dot(dlog[None, :])
-    print("made grad")
+    # print("made grad")
     return action, grad
