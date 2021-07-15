@@ -14,6 +14,6 @@ https://www.davidsilver.uk/teaching/
 
 #### For understanding how to calculate policy gradient:
 * https://medium.com/samkirkiles/reinforce-policy-gradients-from-scratch-in-numpy-6a09ae0dfe12
-
-and
+  * for the more code based approach
 * https://math.stackexchange.com/questions/2013050/log-of-softmax-function-derivative/2340848#2340848
+  * for the mathematical derivation
