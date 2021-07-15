@@ -3,7 +3,7 @@
 An alternative to temporal learning is using policy gradients.  There are
 many advantages to a policy gradient approach. here we view and implemeent them.
 
-Resources:
+## Resources:
 
 - David silvers Lectures (particularyly 6 and 7 for this topic)
 https://www.davidsilver.uk/teaching/
@@ -12,7 +12,7 @@ https://www.davidsilver.uk/teaching/
 
 - https://lilianweng.github.io/lil-log/2018/04/08/policy-gradient-algorithms.html
 
-For understanding how to calculate policy gradient:
+#### For understanding how to calculate policy gradient:
 * https://medium.com/samkirkiles/reinforce-policy-gradients-from-scratch-in-numpy-6a09ae0dfe12
 
 and
