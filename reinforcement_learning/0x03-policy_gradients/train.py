@@ -28,6 +28,8 @@ def train(env, nb_episodes, alpha=0.000045, gamma=0.98, show_result=False):
         counter = 0
         # run episode
         while not done:
+            if show_result and ep % 1000 == 0:
+                env.render()
             # if using colab be ware of import changes
             action, grad = pg.policy_gradient(state, weights)
             state, reward, done, info = env.step(action)
