@@ -15,6 +15,8 @@ https://www.davidsilver.uk/teaching/
 
 - https://lilianweng.github.io/lil-log/2018/04/08/policy-gradient-algorithms.html
 
+- https://aerinykim.medium.com/how-to-implement-the-softmax-derivative-independently-from-any-loss-function-ae6d44363a9d
+
 - monte carlo methods for learning: https://towardsdatascience.com/my-journey-into-reinforcement-learning-part-4-monte-carlo-methods-2b14657b7032
   - (not policy adjustment. previous work, action/value adjustment)
 
