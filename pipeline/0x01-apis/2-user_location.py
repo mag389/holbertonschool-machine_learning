@@ -14,10 +14,11 @@ if __name__ == "__main__":
         minutes = reset_time - now
         minutes = round(minutes / 60)
         print("Reset in {} min".format(minutes))
-        exit()
-    acc = r.json()
-    loc = acc.get('location')
-    if loc:
-        print(loc)
+        # exit()
     else:
-        print("Not found")
+        acc = r.json()
+        loc = acc.get('location')
+        if loc:
+            print(loc)
+        else:
+            print("Not found")
