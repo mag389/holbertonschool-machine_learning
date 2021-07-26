@@ -17,8 +17,8 @@ def sentientPlanets():
                 hw = species['homeworld']
             if hw is not None:
                 planet = requests.get(hw).json()
-                if planet is None or planet['name'] == "unknown":
-                    continue
+                # if planet is None or planet['name'] == "unknown":
+                #     continue
                 planets.append(planet['name'])
         url = res['next']
     return planets
