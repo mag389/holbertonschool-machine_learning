@@ -13,6 +13,6 @@ if __name__ == '__main__':
     elif res.status_code == 403:
         rate_lim = res.headers['X-Ratelimit-Reset']
         res_time = int(reset) - int(time.time())
-        print("reset in {} min".format(res_time))
+        print("Reset in {} min".format(res_time))
     else:
         print("Not found")
