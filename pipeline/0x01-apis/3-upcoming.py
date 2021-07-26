@@ -21,7 +21,7 @@ if __name__ == '__main__':
             soonest_date = launch['date_unix']
     """ launch name, date, rocket_name, launchpad_name, launchpad_locality """
     print(soonest['name'], end='')
-    print(" ({})".format(soonest['date_utc']), end='')
+    print(" ({})".format(soonest['date_local']), end='')
 
     url_rocket = 'https://api.spacexdata.com/v4/rockets/'
     rocket_name = requests.get(url_rocket + soonest['rocket']).json()['name']
