@@ -12,7 +12,7 @@ if __name__ == '__main__':
         rate_lim = res.headers['X-Ratelimit-Reset']
         res_time = int(reset) - int(time.time())
         print("Reset in {} min".format(res_time))
-    elif res.status_code != 403:
+    elif res.status_code == 200:
         loc = res.json()['location']
         if loc is not None:
             print(loc)
