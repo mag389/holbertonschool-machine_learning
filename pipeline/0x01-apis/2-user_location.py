@@ -17,7 +17,7 @@ if __name__ == "__main__":
         exit()
     acc = r.json()
     loc = acc.get('location')
-    if location:
+    if loc:
         print(loc)
     else:
         print("Not found")
