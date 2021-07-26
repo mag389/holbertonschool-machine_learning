@@ -13,7 +13,8 @@ if __name__ == '__main__':
         res_time = int(reset) - int(time.time())
         print("Reset in {} min".format(res_time))
         exit()
-    loc = res.json()['location']
+    acc = res.json()
+    loc = acc.get('location')
     if loc is not None:
         print(loc)
     else:
