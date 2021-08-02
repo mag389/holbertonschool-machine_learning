@@ -1,0 +1,2 @@
+// find all docs in school
+db.school.find();
