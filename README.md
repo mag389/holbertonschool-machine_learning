@@ -1,4 +1,4 @@
- Holberton Machine learning 
+# Holberton Machine learning 
 ![Neural Nets in action](./neural_net.png)
 
 Projects and concepts for Machine learning use and mastery
