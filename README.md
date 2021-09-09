@@ -8,6 +8,11 @@ Michael George - [linkedin](https://www.linkedin.com/in/mageorge/) [github](http
 
 I am a Cornell Grad and Current Holberton student studying Machine Learning. Particularly interested in predictive analytics and data science.
 
+There are three main folders for machine learning project: Reinforcement learning, supervised learning, and unsupervised learning.
+Additionally there are two supplementary folders for necessary topics: math, which covers
+needed math topics such as linear algebra, and pipeline, which covers the ML pipeline such as 
+collection and use of data.
+
 ## Extra Sources:
 These sources cover big topics and dpeendencies that are used in all sub folders
 
