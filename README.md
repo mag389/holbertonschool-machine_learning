@@ -1,7 +1,12 @@
 # Holberton Machine learning 
+![Neural Nets in action](./neural_net.png)
 Projects and concepts for Machine learning use and mastery
 
-Extra Sources:
+## Author
+Michael George - [linkedin](https://www.linkedin.com/in/mageorge/) [github](https://github.com/mag389)
+I am a Cornell Grad and Current Holberton student studying Machine Learning.
+
+## Extra Sources:
 These sources cover big topics and dpeendencies that are used in all sub folders
 
 https://medium.com/analytics-vidhya/2d-convolution-using-python-numpy-43442ff5f381
