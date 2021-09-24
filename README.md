@@ -14,7 +14,7 @@ needed math topics such as linear algebra, and pipeline, which covers the ML pip
 collection and use of data.
 
 ## Extra Sources:
-These sources cover big topics and dpeendencies that are used in all sub folders
+These sources cover big topics and/or dependencies that are used in all sub folders
 
 https://medium.com/analytics-vidhya/2d-convolution-using-python-numpy-43442ff5f381
 
@@ -25,3 +25,8 @@ https://github.com/Machinelearninguru/Image-Processing-Computer-Vision/blob/mast
 https://www.deeplearningbook.org/
 
 https://d2l.ai/chapter_recurrent-modern/bi-rnn.html
+
+http://incompleteideas.net/book/RLbook2018.pdf
+(and updated version: http://incompleteideas.net/book/RLbook2020.pdf )
+
+
