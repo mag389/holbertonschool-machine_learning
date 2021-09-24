@@ -17,6 +17,9 @@ i believe the first was too large for github
 
 
 additional sources:
+
+[SVD](https://towardsdatascience.com/svd-8c2f72e264f)
+
 for 0 and 1 this helped explain the variance thing:
 https://stats.stackexchange.com/questions/132886/how-many-components-to-use-in-pca-in-order-to-preserve-a-certain-amount-of-varia
 for 1 make sure to read the main file of 0 closely
