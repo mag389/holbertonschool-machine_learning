@@ -24,4 +24,4 @@ for 1 make sure to read the main file of 0 closely
 this is basic but helps with what svd returns if you don't know:
 https://www.google.com/search?q=np.linalg.svd&source=hp&ei=lYBbYKSsMYy9kgXf5oTwCg&iflsig=AINFCbYAAAAAYFuOpZpeMlGc9V3bSeAgCHZzCYc6XosQ&oq=np.linalg.svd&gs_lcp=Cgdnd3Mtd2l6EAMyAggAMgIIADICCAAyAggAMgIIADoFCAAQsQM6AgguOggIABCxAxCDAVBfWLgaYNkjaABwAHgBgAHUBYgBnyCSAQsyLTMuMS40LjEuMZgBAKABAaoBB2d3cy13aXo&sclient=gws-wiz&ved=0ahUKEwjkyre2w8nvAhWMnqQKHV8zAa4Q4dUDCAk&uact=5
 
-
+[PCA example](https://scikit-learn.org/stable/auto_examples/decomposition/plot_pca_iris.html)
