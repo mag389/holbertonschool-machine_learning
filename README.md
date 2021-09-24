@@ -26,9 +26,9 @@ https://github.com/Machinelearninguru/Image-Processing-Computer-Vision/blob/mast
 
 https://www.deeplearningbook.org/
 
-https://d2l.ai/chapter_recurrent-modern/bi-rnn.html
+[Great ML book(links to RNN section](https://d2l.ai/chapter_recurrent-modern/bi-rnn.html)
 
-http://incompleteideas.net/book/RLbook2018.pdf
+[Reinforcement learning book](http://incompleteideas.net/book/RLbook2018.pdf)
 (and updated version: http://incompleteideas.net/book/RLbook2020.pdf )
 
-
+[L42 project: recommended as great resource, unfortunately it's mostly in french](https://github.com/L42Project)
