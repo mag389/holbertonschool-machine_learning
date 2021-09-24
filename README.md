@@ -16,9 +16,11 @@ collection and use of data.
 ## Extra Sources:
 These sources cover big topics and/or dependencies that are used in all sub folders
 
-https://medium.com/analytics-vidhya/2d-convolution-using-python-numpy-43442ff5f381
+[AI All in One youtube channel](https://www.youtube.com/channel/UC5zx8Owijmv-bbhAK6Z9apg/playlists)
 
-https://github.com/Machinelearninguru/Image-Processing-Computer-Vision/blob/master/Convolutional%20Neural%20Network/Convolutional%20Layers/README.md
+[convolution](https://medium.com/analytics-vidhya/2d-convolution-using-python-numpy-43442ff5f381)
+
+[image processing](https://github.com/Machinelearninguru/Image-Processing-Computer-Vision/blob/master/Convolutional%20Neural%20Network/Convolutional%20Layers/README.md)
 
 https://github.com/Machinelearninguru/Image-Processing-Computer-Vision/blob/master/Convolutional%20Neural%20Network/Convolutional%20Layers/README.md
 
